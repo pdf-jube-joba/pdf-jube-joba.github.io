@@ -1,13 +1,12 @@
 body {
-  background-color: #263238;
+  background-color: #000000;
 }
 table {
-  margin: 0 auto; /* 中央寄せ */
-  width: 400px;
-  height: 800px;
+  margin: 0 auto;
 }
 td {
-  background-color: #642323;
-  width: 10%; /* 横10マス */
-  height: 5%; /* 縦20マス */
+  background-color: #9ba7a0;
+  text-align: center;
+  width: 50pt;
+  height: 50pt;
 }
