@@ -13,24 +13,32 @@ for (i = 0; i < height; i++) {
 }
 
 function make_click(x,y){
-  return (function (){
-    if (reverse(x,y)){
-      update()
-    } else {
+  return function (){
+    chain(x,y)
+    update()
+    if (isLose()){
       alert("負け")
     }
-  })
+    else if (isWin()){
+      alert("勝ち")
+    }
+  }
 }
 
 function update(){
-  for (i = 0; i < height; i++){
-    for (j = 0; j < width; j ++){
+  for (i=0; i<height; i++){
+    for (j=0; j<width; j++){
       if (T2[i][j] == 1){
-        table.rows[i].cells[j].innerHTML = count(i,j).toString()
+        if (T1[i][j] == 0){
+          table.rows[i].cells[j].innerHTML = String(count(i,j))
+        } else {
+          table.rows[i].cells[j].innerHTML = String("*")
+        }
       } else {
         table.rows[i].cells[j].innerHTML = " "
       }
     }
   }
 }
+
 }
