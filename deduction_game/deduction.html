@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<head>
+    
+<script type="module" nonce="KqlMKCs5Pb6Fmg0nZ2s3Ng==">
+import init, * as bindings from './web.js';
+const wasm = await init({ module_or_path: './web_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+</head>
+
+<body>
+    <div id="main"></div>
+</body>
