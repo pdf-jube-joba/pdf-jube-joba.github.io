@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>破棄について - rust by push triangle</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="../../memo.html"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/02場所から場所へ値を移す.html"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/03破棄について.html" class="active"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/02reference/01参照という値.html"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/05ライフタイムの変換.html"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/03if文分岐.html"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="../../examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="../../references.html"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>値が破棄されるのはどんなときかをみる。</p>
+<p>dropが呼ばれると、中を見せつつびっくりする構造体を次のように定義する。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+
+impl Drop for A {
+  fn drop(&amp;mut self) {
+    print!(&quot;{}!&quot;, self.0)
+  }
+}
+
+fn main() {
+  let a: A = A(1);
+}</code></pre></pre>
+<p><code>A(n)</code>という値が破棄されると <code>n!</code>という文字列が出力される。
+これで値が破棄されたときがわかるようになる。</p>
+<h1 id="場所の終了の基本"><a class="header" href="#場所の終了の基本">場所の終了の基本</a></h1>
+<h4 id="場所が終了すると値が破棄される"><a class="header" href="#場所が終了すると値が破棄される">場所が終了すると値が破棄される</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring"> fn drop(&amp;mut self) {
+</span><span class="boring">   print!(&quot;{}!&quot;, self.0)
+</span><span class="boring"> }
+</span><span class="boring">}
+</span>fn main() {
+  let a: A = A(1);
+}</code></pre></pre>
+<p><code>a</code> という変数（場所）が <code>main</code> 関数の終わりに終了し、 <code>a</code> の持っていた値が<strong>破棄</strong>された、つまり <code>Drop</code> の実装が呼ばれる。</p>
+<h4 id="スコープ終わりに場所が終了する"><a class="header" href="#スコープ終わりに場所が終了する">スコープ終わりに場所が終了する</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring"> fn drop(&amp;mut self) {
+</span><span class="boring">   print!(&quot;{}!&quot;, self.0)
+</span><span class="boring"> }
+</span><span class="boring">}
+</span>fn main() {
+  let a: A = A(1);
+  {
+    let a2: A = A(2);
+  }
+}</code></pre></pre>
+<blockquote>
+<p>2!1!</p>
+</blockquote>
+<p>ざっくりいうと、 <code>{</code> と <code>}</code> で囲まれた部分について、その中で宣言された変数は <code>}</code> のところで終了する。
+詳しくは次でやる。</p>
+<h1 id="値の転送元と破棄"><a class="header" href="#値の転送元と破棄">値の転送元と破棄</a></h1>
+<h4 id="moveで元の場所にある値の破棄は起こらない例"><a class="header" href="#moveで元の場所にある値の破棄は起こらない例">moveで元の場所にある値の破棄は起こらない例</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let x = A(1);
+  let y = x;
+}</code></pre></pre>
+<blockquote>
+<p>1!</p>
+</blockquote>
+<p><code>y</code>が有効でなくなった分しか、printがされてない。
+<code>x</code>という場所は3行目で値を<code>y</code>に移した...もっていた値がなくなったので、<code>x</code> は破棄するべき値がないまま終了する。</p>
+<h4 id="copyの場合には"><a class="header" href="#copyの場合には">copyの場合には？</a></h4>
+<p>copy の場合には、値は元の場所にも残っている（として扱われる）ので、破棄する必要があるはず。
+<strong>ただし、値の破棄に際して特別な処理を行うこと（= Drop）を行うことができない。</strong>
+コードの意味や処理上では、<strong>値の破棄</strong>は行われる（なにかしら drop関数が呼ばれる）が、
+それは何もせずただ <em>値が使えなくなる</em> ものとして処理される。
+<a href="../../references.html#drop%E9%96%A2%E6%95%B0%E3%81%AE%E5%AE%9F%E8%A3%85">drop関数の実装</a>などを参照すること。</p>
+<h1 id="値の転送先と破棄"><a class="header" href="#値の転送先と破棄">値の転送先と破棄</a></h1>
+<p>代入先に値がすでに存在した場合、その値は破棄される。</p>
+<h4 id="再代入で転送先の値が破棄される例"><a class="header" href="#再代入で転送先の値が破棄される例">再代入で転送先の値が破棄される例</a></h4>
+<p>mutable な変数 <code>x</code> への再代入（ちゃんとした言葉だっけ？）をやってみる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let mut x = A(1);
+  x = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>1!2!</p>
+</blockquote>
+<p><code>x</code>がもともと持っていた値 <code>A(1)</code>が破棄されて<code>A(2)</code>が入った。
+その後に <code>x</code>が有効でなくなったので <code>A(2)</code>も破棄された。</p>
+<h4 id="shadowing-の場合"><a class="header" href="#shadowing-の場合">shadowing の場合</a></h4>
+<p>いわゆる shadowing の場合は、新たに変数を作るため、上とは異なる結果になる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let mut x = A(1);
+  let x = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>2!1!</p>
+</blockquote>
+<h1 id="場所の終了--値の破棄"><a class="header" href="#場所の終了--値の破棄">場所の終了 =&gt; 値の破棄</a></h1>
+<p>変数のスコープの終了時には、中にあった値は破棄される。
+値がないときは当然値の破棄が起こらない。</p>
+<h4 id="変数の終了時の例"><a class="header" href="#変数の終了時の例">変数の終了時の例</a></h4>
+<p>例えば、プログラムの終了時（mainが最後に到達したとき）</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let x = A(1);
+  print!(&quot;hello&quot;);
+}</code></pre></pre>
+<blockquote>
+<p>hello1!</p>
+</blockquote>
+<p>他には、スコープを定義すると、そのスコープの終わりには破棄される。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  {
+    let x = A(1);
+  }
+  print!(&quot;hello&quot;);
+}</code></pre></pre>
+<blockquote>
+<p>1!hello</p>
+</blockquote>
+<h2 id="ややこしい一時変数とか-placeholder-とか"><a class="header" href="#ややこしい一時変数とか-placeholder-とか">ややこしい一時変数とか placeholder とか。</a></h2>
+<h4 id="一時変数の場合の例"><a class="header" href="#一時変数の場合の例">一時変数の場合の例</a></h4>
+<p>次のプログラムに書かれた <code>A(1)</code> も所有者（場所）はいるはずだが、すぐに終了する。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  A(1);
+  print!(&quot;hello&quot;);
+}</code></pre></pre>
+<blockquote>
+<p>1!hello</p>
+</blockquote>
+<p><code>hello1!</code>ではないことに注意</p>
+<h4 id="値を持っていなかった場合"><a class="header" href="#値を持っていなかった場合">値を持っていなかった場合</a></h4>
+<p>値のない場所の終了時には何も起きない。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let x: A;
+}</code></pre></pre>
+<p>なんの出力もされない。</p>
+<h1 id="copy-と-drop-は共存不可"><a class="header" href="#copy-と-drop-は共存不可">Copy と Drop は共存不可</a></h1>
+<p>copy な値は、 drop 時に特殊な処理を行うことができない。
+次はコンパイル不可。</p>
+<h4 id="コンパイル通らない例"><a class="header" href="#コンパイル通らない例">コンパイル通らない例</a></h4>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+impl Drop for A {
+  fn drop(&amp;mut self) {
+      print!(&quot;{}!&quot;, self.0)
+  }
+}
+
+impl Clone for A {
+  fn clone(&amp;self) -&gt; Self {
+    A(self.0)
+  }
+}
+
+impl Copy for A {}
+
+fn main() {
+  let x = A(1);
+  let y = x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0184]: the trait <code>Copy</code> cannot be implemented for this type; the type has a destructor</p>
+</blockquote>
+<p>destructor は Drop トレイトの <code>drop</code>関数のこと</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../examples/01ownership/02場所から場所へ値を移す.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../examples/01ownership/04場所の有効性.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../examples/01ownership/02場所から場所へ値を移す.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../examples/01ownership/04場所の有効性.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

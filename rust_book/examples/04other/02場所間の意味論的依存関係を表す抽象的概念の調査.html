@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>場所間の意味論的依存関係を表す抽象的概念の調査 - rust by push triangle</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="../../memo.html"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/02場所から場所へ値を移す.html"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/03破棄について.html"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/02reference/01参照という値.html"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/05ライフタイムの変換.html"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/03if文分岐.html"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="../../examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html" class="active"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="../../references.html"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>chatGPT の deep research に投げて、面白そうに思えた話をここ以下に（そのまま）貼る。
+参考文献の引用部分は、大体引用のミスがあるのと、コピーで情報が落ちてしまうので、手動で貼れる分だけにした。</p>
+<ul>
+<li>struct の field と <code>Box</code> のようなスマートポインターが似ているみたいな話は時々あるみたい。（ちゃんと調べてないけれど。）</li>
+<li>ただ、「場所と値」みたいなテーマの中で所有権を考えて、場所の間の関係としてとらえているみたいなのはあるのかなと思って、調べてもらった。</li>
+<li>なさそう。（これ以上を自分で調べるのもだるい。）</li>
+<li>結論としては、 owning pointer と ownership という話が一番近いけれど、「ヒープと malloc のためのポインタの管理」みたいなことが主流（というかそれしか問題にはならない）みたい。</li>
+<li>なので、 struct の field や、 stack frame にある array まで含めた、&quot;抽象的な場所&quot;の話はあまりなかった。</li>
+</ul>
+<hr />
+<h1 id="メモリ領域間の意味論的依存関係を記述する理論と概念"><a class="header" href="#メモリ領域間の意味論的依存関係を記述する理論と概念">メモリ領域間の意味論的依存関係を記述する理論と概念</a></h1>
+<h2 id="背景-メモリ領域間の責任関係とは"><a class="header" href="#背景-メモリ領域間の責任関係とは">背景: メモリ領域間の「責任」関係とは</a></h2>
+<p>プログラミングにおいて、あるメモリ領域（例えばオブジェクトやデータ構造）が別のメモリ領域に対して<strong>意味論的な責任や依存関係</strong>を持つ場合、それは一方が他方の寿命や管理に対して責任を負っている関係を指します。簡潔に言えば、「あるリソース（メモリ）の<strong>所有者</strong>が誰か」という問題です。この「所有者」は、そのリソースを適切に解放する責務を持つ主体を意味します。例えばC++における <code>std::unique_ptr&lt;int&gt;</code> は動的確保した<code>int</code>の唯一の所有者であり、自身が破棄されるときにその<code>int</code>を解放するよう設計されています。一方で生のポインタ（<code>int*</code>など）はそうした責任を負わないため、メモリリークや二重解放が起こり得ます。このように、特定のメモリ領域Aが別のメモリ領域Bの寿命管理を担う関係は、ガベージコレクションの有無やヒープ/スタックといった物理的配置に関わらず、プログラムの意味論上重要な概念となっています。</p>
+<h2 id="所有権モデルと所有権型システム"><a class="header" href="#所有権モデルと所有権型システム">所有権モデルと所有権型システム</a></h2>
+<p>この種の依存関係を抽象的に記述する中心的な概念が<strong>所有権</strong>(ownership)です。所有権とは、一言で言えば「あるリソースに対する操作（例えばメモリの読み書きや解放）を行うための権利を、どの主体が持っているか」という取り決めです。学術的にも近年、所有権はプログラミング言語設計における統一的な概念として注目されており、型システムや論理を用いてこの関係を表現・保証しようとする数多くの提案がなされています。</p>
+<p>所有権型システム(ownership type system)は、オブジェクト指向言語におけるエイリアス制御のために提案された枠組みです。Clarkeらの<strong>所有者-被所有者の階層</strong>（<em>Owners-as-dominators</em>）モデルでは、ヒープ上のオブジェクトに階層的な所有関係を課し、あるオブジェクトの内部への外部からの直接アクセスを禁止することで不変条件を保護します。例えばオブジェクト<code>a</code>が<code>b</code>を所有している場合、<code>b</code>への参照は常に<code>a</code>を通じてのみ行われ、<code>b</code>は<code>a</code>の管理下にあります。この厳格な所有権規律はカプセル化を強固にし、データ不変条件の維持などに有用です（ただし外部イテレータが使えない等の制約が生じるため、後続研究では緩和策も検討されています）。</p>
+<p>所有権に関する研究は多数あり、<strong>所有権の階層やドメイン</strong>を柔軟に扱うモデル（所有権ドメイン、owners-as-modifiers等）、所有権の推論、自動管理など様々な発展があります。いずれも根底には「あるオブジェクト（メモリ領域）のライフサイクルは特定の別の主体に紐付けて管理する」という思想があります。</p>
+<h2 id="線形型アフィン型によるリソース管理"><a class="header" href="#線形型アフィン型によるリソース管理">線形型・アフィン型によるリソース管理</a></h2>
+<p>型理論の分野では、<strong>線形型</strong>や<strong>アフィン型</strong>といった<em>サブストラクチャ型システム</em>がリソース管理に活用されています。線形型では「値はちょうど一度だけ使用される」ことを強制し、アフィン型では「高々一度使用される（未使用も許容）」制約を与えます。これによりプログラム中でリソースの別名（エイリアス）を制限し、同じリソースへの複数の参照による競合を防ぎます。Rust言語は線形型を明示的には導入していませんが、<strong>所有権と借用</strong>という仕組みによって「各値は同時に唯一の所有者しか持たず、スコープ終了時に自動解放される」という線形型的な制約を実現しています。このおかげでRustでは、コンパイル時検査によりuse-after-freeや二重解放、データ競合を防止できます。また、CleanやMercuryといった関数型言語では<strong>ユニークネスタイプ</strong>（一意性型）という形で、あるデータ構造への唯一参照のみを許すタイプシステムが導入されており、破壊的更新やI/O操作の安全な実現に応用されています（Cleanの一意性型ではデフォルトでデータは非一意だが、特定の値に対し一意性を指定することで破壊的操作を許容します）。</p>
+<p>このような線形/一意型の考え方では、「リソースへのアクセス権」は線形論理における資源とみなされ、プログラム中でその資源を複製したり捨てたりしないことが保証されます。結果として、あるポインタがそのメモリの唯一の所有権を持つ（他に別名が存在しない）状況を型レベルで表現でき、所有者がスコープを外れれば自動的にメモリを解放する、といった振る舞いを安全に行えるのです。</p>
+<h2 id="リージョンベース管理とライフタイム"><a class="header" href="#リージョンベース管理とライフタイム">リージョンベース管理とライフタイム</a></h2>
+<p>メモリ領域間の依存関係を記述する別のアプローチに、<strong>リージョンベースのメモリ管理</strong>があります。これはプログラム中のメモリ割当を<strong>リージョン（領域）<strong>と呼ばれる論理的な区分に紐付ける手法で、各領域にはライフタイム（生存期間）が設定されています。リージョン内に割り当てられたオブジェクトはそのリージョンごと一括して解放されるため、あるオブジェクトの寿命は対応するリージョンの所有者（あるいはスコープ）に依存します。この考え方はRustのライフタイム(<code>'a</code>など)や所有権と密接に関連しており、<strong>Cyclone</strong>や</strong>Vault</strong>といった安全な低レベル言語の研究でもリージョン/ライフタイム・型状態(typestate)システムとして実装されました。</p>
+<p>例えばCyclone言語では、ポインタ型にリージョン注釈を付与し、「このポインタが指すヒープオブジェクトは特定のスタックフレーム（リージョン）に属する」と宣言します。リージョン終了時にその中のオブジェクト群をまとめて解放することで、メモリリークを防ぎつつ手動メモリ管理の負担を軽減しました。Rustの借用検査も、コンパイル時に各参照がどのスコープまで有効か（=どのオブジェクトより長生きしてはいけないか）を検証する点で、リージョンベース管理の一種と言えます。このモデルでは、<strong>あるリソースはあるスコープ（又は所有者オブジェクト）に属する</strong>という依存関係が明示され、そのスコープを出ると無効になるため、所有関係を静的に追跡・保証できます。</p>
+<h2 id="スマートポインタとraiiにおける所有関係"><a class="header" href="#スマートポインタとraiiにおける所有関係">スマートポインタとRAIIにおける所有関係</a></h2>
+<p>C++やRustなど実用言語では、所有権の概念は<strong>スマートポインタ</strong>やRAIIイディオムとして現れています。C++11以降の<code>std::unique_ptr</code>や<code>std::shared_ptr</code>、およびRustの<code>Box&lt;T&gt;</code>や参照カウント型（<code>Rc</code>/<code>Arc</code>）は、言語の型システムやコンパイル時チェックによってメモリ所有関係の誤用を防ぐ試みです。特に<code>unique_ptr</code>や<code>Box</code>は「唯一の所有者」を表す典型例で、コピーが禁止されることで常に一つのポインタだけが対象オブジェクトの解放責任を持ちます。これに対し<code>shared_ptr</code>やRustの<code>Rc</code>は参照カウント方式で<strong>共有所有</strong>(shared ownership)を実現しますが、共有の場合は不変な読み取りのみ許可されるなど（可変な共有を行う場合は別途排他制御や<code>RefCell</code>等が必要）、安全性を保つための制限があります。実際、Boylandの**fractional permissions（分数パーミッション）**の研究では「リソースへの書き込み権限は分割不可能な1つの完全所有権として扱い、読み取り権限はそれを分割した複数の部分権限（例えば1/2ずつなど）として共有可能にする」といったモデルが提案されています。これにより「共有は読み取り専用に限る」という制約を論理的に表現できます。</p>
+<p>C++のRAII（Resource Acquisition Is Initialization）も所有権の一形態です。オブジェクトのコンストラクタで資源を取得し、デストラクタで解放することで、「オブジェクトの寿命＝資源の寿命」となり、資源管理の責任をオブジェクトに持たせます。RAIIではスコープから外れたとき自動でデストラクタが呼ばれるため、所有者であるオブジェクトが確実にリソースを開放します。この考え方はスマートポインタの実装にも通じており、所有権関係を活用したメモリ安全のテクニックと言えます。</p>
+<h2 id="分離論理における所有権と依存関係"><a class="header" href="#分離論理における所有権と依存関係">分離論理における所有権と依存関係</a></h2>
+<p>プログラムの正当性検証の分野では、<strong>分離論理 (Separation Logic)</strong> が可変な共有メモリの扱いに対して「所有権にもとづく論証」を可能にしました。分離論理ではアサーション中に「あるポインタが指すヒープ領域を<strong>所有</strong>している」という述語を組み込むことで、異なる並行スレッド/モジュールが同一のメモリ領域を同時に操作しないことを保証します。言い換えれば、アサーションがメモリの一部を占有(own)していれば、その部分は他と<strong>分離</strong>して扱えるため、干渉のない局所的推論が可能になるのです。</p>
+<p>さらに、Boylandによる**Fractional Permission（分割権限）**の手法では、所有権を0～1の実数値で表し、1を持つ者だけが書き込み可能（完全所有権）、権限を分割して0.5などの値を持つ複数者は読み取り専用、といった共有の意味論を与えました。このように論理的にも「一つのメモリ領域に対するアクセス権は誰がどの程度持っているか」をモデル化することで、並行プログラムの正当性を証明しやすくしています。</p>
+<p>また、Spec#などのプログラム検証用言語では、オブジェクト不変条件を維持するために<strong>オブジェクト不変量と所有関係</strong>を明示的に記述する仕組みが導入されました。あるオブジェクトが他のオブジェクトを所有する場合、所有者がその被所有オブジェクトの不変条件も管理・保証する、といった考え方です。Romain Bardouらの研究では、オブジェクト間の所有関係を「入れ子の箱」の階層（ある箱の中に別の箱が入っていれば所有関係があるとみなす）として定義し、Spec#スタイルの所有権と不変条件チェックをCやJavaプログラムの検証に取り入れています。このような手法も、メモリ領域間の意味論的依存関係を形式的に扱う一例と言えるでしょう。</p>
+<h2 id="関連する主な研究例と用語のまとめ"><a class="header" href="#関連する主な研究例と用語のまとめ">関連する主な研究例と用語のまとめ</a></h2>
+<p>以上のように、「一つのメモリ場所が他の場所に対して責任や依存関係を持つ」状況を表現・分析するため、さまざまな理論や用語が提案されています。その主なものを分野横断的にまとめると次の通りです。</p>
+<ul>
+<li><strong>所有権 (Ownership)</strong> – 資源（オブジェクトやメモリ）の唯一または明示された所有者が存在し、所有者がその資源のライフサイクル管理責任を負うという概念。所有権はRustやC++の設計原則に組み込まれているほか、学術的にも所有権型システムとして formalized されてきました。</li>
+<li><strong>所有権規律 (Ownership Discipline)</strong> – 所有権概念を用いたプログラミング上の規則体系のことです。例として「オーナーは必ず被所有物より長生きする」や「被所有オブジェクトへのアクセスはそのオーナーを経由してのみ可能」といった規則があり、所有権の階層構造（Owners-as-dominatorsなど）で表現されます。</li>
+<li><strong>線形型／アフィン型 (Linear/Affine Types)</strong> – 資源を表す値の重複利用を禁止または制限する型システム。これによりあるリソースへのエイリアスを静的に一本化でき、結果として唯一の所有者しか存在しないことを保証します。Rustの所有権システムは線形/アフィン型の思想を応用したものです。</li>
+<li><strong>リージョンとライフタイム (Regions &amp; Lifetimes)</strong> – メモリ割当を論理的な領域に紐付け、その領域の終了とともにまとめて解放する手法。CycloneやRustのライフタイム検査に見られるように、あるデータの生存期間を別のスコープやオブジェクトに従属させるモデルです。</li>
+<li><strong>スマートポインタとRAII</strong> – 言語機能やライブラリを用いて所有権関係を実装したもの。unique_ptrや<code>Box&lt;T&gt;</code>は唯一所有、shared_ptrや<code>Rc</code>は共有所有を表し、デストラクタや参照カウントで自動的に資源解放を行います。これらは所有権の実践的応用例です。</li>
+<li><strong>分離論理とパーミッション (Separation Logic &amp; Permissions)</strong> – 論理的手法で所有権を扱う概念。ヒープ上の各セルの所有権を論理述語で管理し、並行スレッド間の競合を防ぐ。Fractional permissionのように権限を数値で細分化することで、読み取り専用の共有や一時的な借用を表現することもできます。</li>
+<li><strong>研究プロジェクト例</strong> – Rustの安全性保証を形式証明した<strong>RustBelt</strong>、C言語に所有権概念を持ち込んだ<strong>Cyclone</strong>や資源の使用状態を追跡する<strong>Vault</strong>、エイリアス制御を強化した型システムを持つ<strong>Mezzo</strong>や<strong>Alms</strong>、オブジェクト所有関係による不変条件検証を行う<strong>Spec#</strong>、そしてコンパイラ拡張によってポインタごとに責任属性を与える**Pointer Ownership Model (POM)**など、多数の研究が本テーマに取り組んでいます。これらはそれぞれ異なるアプローチ（型システム、静的解析、プログラム論理など）で「メモリ領域間の意味的依存関係」をモデル化し、メモリ安全性やリソース管理の正当性を保証しようとする試みです。</li>
+</ul>
+<p>以上のように、ヒープかスタックかといった物理的配置や特定言語の機能に依存せず抽象的にメモリ依存を論じる際には、「所有権」や「エイリアス制御」といった概念が核となります。これらの理論やモデルを活用することで、プログラム中のメモリ資源の寿命と責任の関係を厳密に記述・分析することが可能となっています。</p>
+<p><strong>参考文献:</strong> 本回答ではOwnership Typesに関するサーベイやRustBelt論文、ならびにC++/Rustの公式情報など、関連分野の文献を幅広く参照しました。これらはメモリ所有関係のモデル化と検証に関する理解を深める助けとなるでしょう。</p>
+<hr />
+<p>1 2 18 19
+c++ - What is ownership of resources or pointers? - Stack Overflow
+https://stackoverflow.com/questions/49024982/what-is-ownership-of-resources-or-pointers
+3 4 14 15 16 17 24 26 27
+RustBelt: securing the foundations of the rust programming language
+https://people.mpi-sws.org/~dreyer/papers/rustbelt/paper.pdf
+5 6 7 8 9
+LNCS 7850 - Ownership Types: A Survey
+https://lirias.kuleuven.be/retrieve/232428
+10 11 12 13
+Rust and Linear types: a short guide | by Martín Triay ⚡ | Medium
+https://medium.com/@martriay/rust-and-linear-types-a-short-guide-4845e9f1bb8f
+20
+Separation Logic - Communications of the ACM
+https://cacm.acm.org/research/separation-logic/
+21 25
+pl.programming languages - Ownership types and Separation Logic
+https://cstheory.stackexchange.com/questions/12426/ownership-types-and-separation-logic
+22 23
+romain.bardou.fr
+https://romain.bardou.fr/papers/jcownlong.pdf
+28
+Pointer Ownership Model
+https://resources.sei.cmu.edu/asset_files/whitepaper/2013_019_001_55008.pdf</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../examples/04other/01cve_rs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../references.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../examples/04other/01cve_rs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../references.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

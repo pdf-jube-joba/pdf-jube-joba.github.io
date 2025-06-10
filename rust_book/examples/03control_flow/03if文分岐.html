@@ -1,0 +1,418 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>if分岐 - rust by push triangle</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="../../memo.html"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/02場所から場所へ値を移す.html"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/03破棄について.html"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/02reference/01参照という値.html"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/05ライフタイムの変換.html"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/03if文分岐.html" class="active"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="../../examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="../../references.html"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="スコープとライフタイムについて制御フローを見つつ"><a class="header" href="#スコープとライフタイムについて制御フローを見つつ">スコープとライフタイムについて、制御フローを見つつ</a></h2>
+<p>所有権と同じように、 if 文での分岐をもとにちょっと議論する。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn rand() -&gt; bool {
+  // もしかしたら system::rand とかが来ているかもしれない想定。
+  true
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring"> // もしかしたら system::rand とかが来ているかもしれない想定。
+</span><span class="boring"> true
+</span><span class="boring">}
+</span>fn main() {
+  if rand() {
+    let x = 1;
+  } else {
+    let x = 1;
+  }
+  print!(&quot;{x}&quot;);
+}</code></pre></pre>
+<p>いずれの分岐にしても <code>x</code> は宣言されているけれど、 <code>x</code> はその分岐の中で終了している。
+これはある意味で、 if 文は <code>{</code> <code>}</code> で区切られているからとも思える。</p>
+<p>ちょっと面白かった例とか。</p>
+<h1 id="どんな代入ができるの"><a class="header" href="#どんな代入ができるの">どんな代入ができるの？</a></h1>
+<p>いわゆる制御の分岐が起こる場合の、場所と値を見てみる。
+次の関数を使う。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn rand() -&gt; bool {
+  // もしかしたら system::rand とかが来ているかもしれない想定。
+  true
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="if-文で変数への代入が分岐する場合"><a class="header" href="#if-文で変数への代入が分岐する場合">if 文で変数への代入が分岐する場合</a></h2>
+<h4 id="条件分岐で同じ変数に代入する"><a class="header" href="#条件分岐で同じ変数に代入する">条件分岐で同じ変数に代入する。</a></h4>
+<p>if 文が混じってくると、変数が初期化されているかの検査は多少複雑になりそうだけど、 rust はそこをやってくれる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x: A;
+
+  if rand() {
+    x = A(1);
+  } else {
+    x = A(2);
+  }
+
+  println!(&quot;{}&quot;, x.0);
+}</code></pre></pre>
+<h4 id="条件分岐で変数の代入先を変える"><a class="header" href="#条件分岐で変数の代入先を変える">条件分岐で変数の代入先を変える</a></h4>
+<p>if 文で初期化先が変わっても大丈夫なのか？</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x: A;
+  let y: A;
+
+  if rand() {
+    x = A(1);
+  } else {
+    y = A(2);
+  }
+}</code></pre></pre>
+<blockquote>
+<p><em>No output</em></p>
+</blockquote>
+<p>エラーは出なかった。 <code>x</code> も <code>y</code> も、 if 文の後に使われないから構わないのかもしれない。
+逆に言えば、使う場合にはエラーが出そうな気がする。</p>
+<h4 id="代入した結果を使ってみる"><a class="header" href="#代入した結果を使ってみる">代入した結果を使ってみる</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x: A;
+  let y: A;
+
+  if rand() {
+    x = A(1);
+  } else {
+    y = A(2);
+  }
+
+  let z = x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0381]: used binding <code>x</code> is possibly-uninitialized</p>
+</blockquote>
+<p>たしかに、<em>もしかしたら</em> 初期化されていないかもしれない。
+ので、エラーになるのは妥当だ。</p>
+<h4 id="頑張ったら制御フロー解析でどうにかなる"><a class="header" href="#頑張ったら制御フロー解析でどうにかなる">頑張ったら制御フロー解析でどうにかなる？</a></h4>
+<p>結果を <code>b</code> に入れておいて、後から使うならどうだろう。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x: A;
+  let y: A;
+  let z: A;
+
+  let b = rand();
+
+  if b {
+    x = A(1);
+  } else {
+    y = A(2);
+  }
+
+  if b {
+    z = x;
+  }
+}</code></pre></pre>
+<blockquote>
+<p>error[E0381]: used binding <code>x</code> is possibly-uninitialized</p>
+</blockquote>
+<p>まあこれも解析は難しいし、こういうことができるプログラムはバグを生みやすいから、
+別に改善してほしいとは思わないかな。</p>
+<p>直観的には、制御フロー図を書くと、</p>
+<ul>
+<li>1 つめの if 文で、それぞれの分岐で uninitialized なケースがある。</li>
+<li>1 つめの if 文が終わった後で制御は合流し、その段階で <code>x</code> と <code>y</code> の有効性の検査も合流してしまう。</li>
+<li>つまり、 <code>x</code> も <code>y</code> も possibly-uninitialized としてマークされる。</li>
+<li>2 つめの if 文はその条件については 「 1 つめの if 文と同じだ！」みたいな解析をしないので、内部に入るときに、 <code>x</code> は possibly-uninitialized としてマークされる。</li>
+</ul>
+<p>ただ、 <code>b</code> は rust プログラムが完全に所有している（所有権とは別の意味で、他のプログラムが触ることを想定していない）ので、
+最適化の際にはまとめてしまったりしても問題ないはず。
+（ unsafe を使うときに Tree borrows に似たような例があって、コンパイルは通らないけれど正しいプログラムの例だった気がする。）</p>
+<h4 id="似たようなケースの場合"><a class="header" href="#似たようなケースの場合">似たようなケースの場合</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x = A(1);
+  let y = A(2);
+  let z = if rand() {x} else {y};
+  print!(&quot;{}&quot;, x.0);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: borrow of moved value: <code>x</code></p>
+</blockquote>
+<p>possibly じゃないんだ。 <code>y.0</code> でも同じ結果だった。
+これは多分、右辺は値式なので、 <strong>意味的には</strong> <code>x</code> と <code>y</code> それぞれから値を取り出して式にしているからと解釈できそう。
+ただ、短絡評価との両立は難しそう。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x = A(1);
+  let y = A(2);
+  let z = if rand() {
+    let k = x;
+    k
+  } else {
+    let k = y;
+    k
+  };
+  print!(&quot;{}&quot;, x.0);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: borrow of moved value: <code>x</code></p>
+</blockquote>
+<p>これも possibly じゃなかった。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x = A(1);
+  let y = A(2);
+
+  let z;
+  if rand() {
+    z = x;
+  } else {
+    z = y;
+  };
+  print!(&quot;{}&quot;, x.0);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: borrow of moved value: <code>x</code></p>
+</blockquote>
+<p>これも possibly じゃない。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../examples/03control_flow/02NLLとブロック.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../examples/03control_flow/04ラベルと制御構造.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../examples/03control_flow/02NLLとブロック.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../examples/03control_flow/04ラベルと制御構造.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

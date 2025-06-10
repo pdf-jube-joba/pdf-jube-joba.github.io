@@ -1,0 +1,3551 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>rust by push triangle</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="memo.html"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="examples/01ownership/02場所から場所へ値を移す.html"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="examples/01ownership/03破棄について.html"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/02reference/01参照という値.html"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="examples/02reference/05ライフタイムの変換.html"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/03if文分岐.html"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="目的"><a class="header" href="#目的">目的</a></h1>
+<p>注意：個人メモです。</p>
+<ul>
+<li>playground の機能を使って具体例をたくさんおいておく。</li>
+<li>参考になるリンクを集める。</li>
+<li>rust プログラムについての直感を言葉にする。</li>
+</ul>
+<p>ルールの集まりを書くので、順番とかを考えるのが難しい。
+むしろ順序を考えずに、さまざまなルールの集まりとしてとらえたほうが良い？
+（辞書をはじめから読む人はいないみたいな...）</p>
+<h1 id="todo"><a class="header" href="#todo">TODO</a></h1>
+<p>きりがないのでいったん中止する。</p>
+<ul>
+<li>next generation trait solver が安定になったらそこを書く</li>
+<li>メモリモデルとかもいつか</li>
+<li>unsafe の話も tree borrows は読みたい、 polonius も</li>
+<li><code>Pin</code> 周りもちゃんと読みたい</li>
+</ul>
+<h1 id="テスト部分"><a class="header" href="#テスト部分">テスト部分</a></h1>
+<p>playground直結できるらしい。
+（コード領域にマウスを載せると三角のボタンが出るので、
+これをクリックすると playground で実行した結果を表示してくれる。）</p>
+<pre><pre class="playground"><code class="language-rust">fn main(){
+    println!(&quot;hello world!&quot;);
+}</code></pre></pre>
+<p>たしかに三角ボタン出た。
+ありがたい。</p>
+<p>コードの一部を隠すこともできる。
+（コード領域にマウスを載せると目のアイコンが出るので、
+これをクリックすると隠された部分を表示できる。）</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>    println!(&quot;hello world!&quot;);
+<span class="boring">}</span></code></pre></pre>
+<p>ちょっと冗長な部分は隠すことにする。</p>
+<p><strong>注意</strong>： playground はその時点での stable rust を使うはず。
+ということは、rustc のバージョンは時間がたつにつれ変わるので、コンパイル結果は一貫してないだろう。
+一方で、コンパイル結果をもとに議論することになるので、そこは注意すること。
+コンパイルしない例</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    f();
+}</code></pre></pre>
+<blockquote>
+<p>error[E0425]: cannot find function <code>f</code> in this scope</p>
+</blockquote>
+<p>クイズっぽく、内容を隠すこともできる。
+空行を入れるのを忘れないこと。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    f();
+}</code></pre></pre>
+<details>
+<summary>Result</summary>
+<blockquote>
+<p>error[E0425]: cannot find function <code>f</code> in this scope</p>
+</blockquote>
+<p>コンパイルができなかった...敗因は <code>f</code> を定義しなかったからかな...
+ちゃんと空行を開ければここで markdown を書ける。</p>
+<ul>
+<li>vscode での補完</li>
+<li>mdbook のコンパイル</li>
+</ul>
+<p>の両方が適切に処理される。</p>
+</details>
+<p>ヘッダーに対してはリンクも張れる。
+<a href="READ.html#%E4%BD%BF%E3%81%84%E6%96%B9">READへのリンク</a>
+コードブロックには張れないので、コードを参照するときは注意する。
+（なるべく細かくわけるようにする。）</p>
+<h1 id="その他メモ"><a class="header" href="#その他メモ">その他メモ</a></h1>
+<ul>
+<li>なんかこういう言語仕様と妥当性みたいな話をする人を、language lawyer というらしい。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="今のイメージ"><a class="header" href="#今のイメージ">今のイメージ</a></h1>
+<p>なるべく公式に合わせた根拠のある言葉を使うけど、それ以外の言葉も出てくる。
+基本的に、 safe rust の範囲内での考察。
+あと、いろいろな例外もあるので、例外を見れるような具体例へのリンクも貼りたい。</p>
+<ul>
+<li>プログラムについて
+<ul>
+<li>プログラムが変なことにならないように、<strong>有効</strong>みたいな概念を使う。</li>
+<li>プログラマが<strong>宣言</strong>を行うことで、コンパイラに何かを伝えたり許したりすることがある。</li>
+<li>コンパイラは、その宣言をもとに、<em>意味が変わらない</em> 範囲でプログラムを変形することが許されている</li>
+</ul>
+</li>
+<li><strong>場所</strong>と<strong>値</strong>の2つの用語を使う。
+<ul>
+<li><strong>場所</strong>が<strong>値</strong>を所有する、のが所有権の概念。
+<ul>
+<li>値はすべて、どこかの場所に所有される。</li>
+<li>値はただ1つの場所にのみ所有される。</li>
+<li>場所は値を所有しているとは限らない。</li>
+</ul>
+</li>
+<li>場所が値を持っているとき、場所が<strong>有効</strong>という。
+<ul>
+<li>なんらかの意味で場所を使用する場合、その場所は有効でなければいけない。</li>
+</ul>
+</li>
+<li>場所に値を入れることを<strong>代入</strong>（ assignment ）という</li>
+<li>初めて場所に値を代入するときを<strong>初期化</strong>という。
+<ul>
+<li>ある値が初期化済みかどうかは間違えないようにチェックされる。</li>
+</ul>
+</li>
+<li>ある<strong>場所が mutable</strong> であるなら、初期化以降も代入を行うことができる。
+<ul>
+<li>mutability は値ではなく場所に対する概念である。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ある場所から他の場所へ値を<strong>転送する</strong>（対応する語がないので、<strong>！適当に作った言葉</strong>）ことができる（条件付き）
+<ul>
+<li>転送するときは常に、メモリ的な意味で完全な複製を行う。</li>
+<li>値を移した後も、もとの場所が有効（＝<strong>値を所有している</strong>）なら <strong>copy</strong> といい、そうでないなら <strong>move</strong> という。</li>
+<li>ある型が move であるか copy であるかは、その値の型に Copy トレイトが宣言されているかどうか（のみ）による。</li>
+<li>もし転送する先の場所が値を持っていた場合、その値は<strong>破棄</strong>される。</li>
+<li>Copy と Drop は共存できない。
+<ul>
+<li>Copy トレイトを書くことは、ある種の値について、値を転送するときは<strong>どんな時でも copy を用いる</strong>ことを<strong>宣言</strong>すること。</li>
+<li>Drop は<strong>値を破棄する手順</strong>を定義することである。</li>
+<li>Drop は何も書かない限り、その値を単に忘れることで行う。</li>
+<li>Copy の宣言と Drop の手順の指定は共存しない：特殊なDropを行う必要があるなら、Copy を宣言することはできない。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>全ての場所（変数に限らない）はコード上でどこからどこまで存在しているかを指定される...<strong>スコープ</strong>
+<ul>
+<li>全ての変数は <code>{</code> の始まりに確保され、 <code>}</code> のときに終了する。その間は存在し続ける。</li>
+<li>従って、変数が存在する期間には <em>穴がない</em></li>
+<li>もし終了する場所が値を持っていたら、その値は<strong>破棄</strong>される。</li>
+</ul>
+</li>
+<li><strong>参照</strong>は、<em>場所を指し示す値</em> である。
+<ul>
+<li>参照（という値）が有効なら、指し示している場所も有効でなければいけない。</li>
+<li>参照には不変参照（ shared reference ）と可変参照（ mutable reference ）がある
+<ul>
+<li>不変参照はその場所の読み込み権を単に得ることができる</li>
+<li>可変参照はその場所へのアクセス権を<strong>排他的に</strong>得ることができる。</li>
+<li>不変参照が存在しているとき（実行時じゃなくてコード上の&quot;とき&quot;）には、値を書き換えるような利用ができない。</li>
+<li>可変参照を貸し出しているときには、貸出主（場所）でさえ（！）持っている値を利用することはできない。</li>
+</ul>
+</li>
+<li>参照は読み込み及び書き込みの代行権であり、場所の有効性を損なう操作はできない。
+<ul>
+<li>参照を経由して場所に入っている値の move を起こすことはできない（基本的には）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ライフタイムはある場所がコード上でどの領域で有効であるかを表す。
+<ul>
+<li>ある場所に値が入っているとき、その場所は有効であり、場所が有効である期間を<strong>その場所のライフタイム</strong>という
+<ul>
+<li>ライフタイムは実行時の概念ではなく、コード上の領域を静的に解析するための概念である。</li>
+<li>ライフタイムには、コード領域や制御フローの中で穴が存在しうる（場所が一時的に無効になることがありうる）。</li>
+<li>場所が存在する期間とは異なることに注意。</li>
+</ul>
+</li>
+<li>場所に対する参照値が有効である期間は、その場所が有効である期間よりも短くなければいけない
+<ul>
+<li><strong><em>場所への参照値</em> のライフタイム</strong> とは、その参照値が有効であるべき期間を指す</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="場所について補足"><a class="header" href="#場所について補足">場所について補足</a></h1>
+<p>以下で書いている部分はうまく物事を説明できていないので、保留してこっちに移した。</p>
+<ul>
+<li>場所の間には、従属関係がある。
+<ul>
+<li>ある場所の存在と有効性が、別の場所の存在と有効性によって保証されていることを従属という。</li>
+<li>ある場所 <code>A</code> が別の場所 <code>B</code> に従属しているなら、 <code>A</code> への排他的な参照が存在する間は <code>B</code> への参照はとれない。</li>
+</ul>
+</li>
+</ul>
+<p>例えば、 struct の field や array の index やスマートポインタの参照先など。
+ちゃんと説明できていないので上には載せてない。
+（関連する部分も読めていないし、rustの考え方とは違う気がしたのでこっちにおいておく。）</p>
+<h2 id="場所とか所有権でわからないところ"><a class="header" href="#場所とか所有権でわからないところ">場所とか所有権でわからないところ</a></h2>
+<ul>
+<li><code>Box</code> は参照経由で move が起こせる（！）。
+<ul>
+<li>他に参照経由で move が起こせる型があるかはまだ調べてないけど、こういうコンパイラが特別扱いする型も結構あるみたい。</li>
+</ul>
+</li>
+<li>ある場所へ従属している他の場所が全て有効なら、もとの場所は有効か？
+<ul>
+<li>struct のフィールドや array の場合はそう思ってよさそう。</li>
+<li>smart pointer のようなものはわからない。 <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> で循環参照が作れるけど、これはお互いに従属しあっている例に思える。</li>
+</ul>
+</li>
+<li>単に別の場所への参照値を抱えているということ以上の意味をもった構造体がありえて、 <code>Box</code> などはまさにそれ。
+<ul>
+<li>C だと owning pointer というらしい：そのポインタを抱えている場所が free されるときには、そのポインタもまた free をする必要のある場所を、 ownership を持つ場所という。
+<ul>
+<li>これが ownership の始まり？ </li>
+</ul>
+</li>
+<li><code>Rc</code> は owner が&quot;複数いる&quot;？ような動作をしている。
+<ul>
+<li>一応、ドキュメントでは、<code>A single-threaded reference-counting pointer.</code> ということになっているから、 <code>T</code> を共有しているのではなく <code>T</code> への参照を共有している。</li>
+<li>でも、 &quot;owning pointer&quot; から外れているから、どうして最後の一人がポインタの先を <code>Drop</code> できるのかを説明できない？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="ライフタイム周りで整理しきれていないところ"><a class="header" href="#ライフタイム周りで整理しきれていないところ">ライフタイム周りで整理しきれていないところ</a></h1>
+<ul>
+<li>場所が存在する期間（スコープ）と、場所が有効な期間は異なる。</li>
+<li>「場所が有効」と「その場所への参照値が使える」ことは同じなので、次をちゃんと理解できているなら、「<code>&amp;x</code> という参照値が使えるコード領域 = 場所 <code>x</code> が有効な期間 = <code>x</code> という場所が使えるコード領域」が成り立っている。
+<ul>
+<li><a href="https://doc.rust-lang.org/nomicon/lifetimes.html#lifetimes">nomicon</a></li>
+</ul>
+<blockquote>
+<p>Lifetimes are named regions of code that a reference must be valid for.</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="その他"><a class="header" href="#その他">その他</a></h1>
+<ul>
+<li>実行時の意味論（＝操作的意味論）の中で参照の有効性を議論するのが Tree borrows で、コンパイル時の検査に使うのが NLL と type checker ?
+<ul>
+<li>unsafe 意味論の検証には Tree borrows や MIRI</li>
+<li>NLL は MIR になったあとの検査</li>
+<li>type checker （と trait solver ）が抽象的なライフタイム境界の検査</li>
+</ul>
+</li>
+<li>言語の意味論が二重にあるのかと思った
+<ul>
+<li>&quot;axiomatic&quot; な意味論 ... safe rust の範囲を保証する、&quot;言語が規定する&quot;意味論</li>
+<li>&quot;operational&quot; な意味論 ... unsafe rust も含めた、（言語が規定する意味論を満たす）言語処理系が定義する意味論</li>
+<li>NLL とか polonius とか Tree borrows の話は、言語処理系による&quot;その言語処理系での&quot; valid の定義なのかと思ってたけど、そうではなさそう？</li>
+<li>現在は、主流なコンパイラが1つしかないから全部が統合されているけど、今後どうなっていくのかわからない（楽しみ）</li>
+<li>undefined behavior は safe rust の範囲では起こらない（ように言語が規定されている）ので、 unsafe を使う→処理系ごとに定義する undefined behavior による？</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="所有権の基本"><a class="header" href="#所有権の基本">所有権の基本</a></h1>
+<p>参照とかは考えずに、所有権回りだけ見る。
+複雑な制御フローは考えない。</p>
+<ul>
+<li>rust の式（ expression ）は大別すると<strong>場所</strong>と<strong>値</strong>に分けられる。（<a href="examples/../references.html#value-expression-%E3%81%A8-place-expression">ref</a>）</li>
+<li>場所が値を所有する（所有権）と考えて、所有が正しくなされているかを管理するのが所有権システム</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>変数を宣言することで場所を新たに宣言することができる。
+代入する際には右辺には値や場所が指定できる。</p>
+<h2 id="変数宣言の基本"><a class="header" href="#変数宣言の基本">変数宣言の基本</a></h2>
+<p><code>let</code> 文は変数を宣言することができる。</p>
+<h4 id="基本例"><a class="header" href="#基本例">基本例</a></h4>
+<p><code>let x = ...</code> のような変数の宣言文では、
+左辺は新たに作られることになる場所であり、
+右辺は値を指定するか、場所を指定する。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = 1_usize; // 右辺は 値
+  let x = true; // これも右辺は 値
+  let y = x; // これの右辺は `x` という変数...場所
+}</code></pre></pre>
+<p>基本的には代入の右側には値が来ることになっており、場所が来たときは、
+その場所から値を取り出すと解釈される。</p>
+<p>場所と値を表す式の違いが次に載ってる。</p>
+<ul>
+<li>2つのexpressionについて<a href="examples/01ownership/../../references.html#value-expression-%E3%81%A8-place-expression">The Book での説明</a></li>
+</ul>
+<h4 id="変数の宣言になってない例"><a class="header" href="#変数の宣言になってない例">変数の宣言になってない例</a></h4>
+<p>左辺に注目する。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let 1 = 1;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0005]: refutable pattern in local binding</p>
+</blockquote>
+<p>ちょっと特殊なエラーになっているけど、変数を宣言してないのでだめということと思っていい。</p>
+<h4 id="関数の返り値は値"><a class="header" href="#関数の返り値は値">関数の返り値は値</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = String::from(&quot;hello&quot;);
+}</code></pre></pre>
+<p>関数の返り値は値である。
+（ place expression の中には入ってなかったから、 value expression だろう。）</p>
+<h4 id="場所と値が入っている式例"><a class="header" href="#場所と値が入っている式例">場所と値が入っている式？例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let y = 1;
+  let x = if true {y} else {0}; // この式は値式？
+}</code></pre></pre>
+<p><code>if</code> は式であるからこういう使い方ができるが、基本的には分岐をした後に、
+各分岐で値を取り出したり取り出さなかったりして <code>x</code> に値が代入された後に合流するはず。
+よって、 <code>y</code> がどうなっているかはさておき、 <code>x</code> に値を代入する式と思っていい。</p>
+<h1 id="変数の宣言と初期化"><a class="header" href="#変数の宣言と初期化">変数の宣言と初期化</a></h1>
+<p>実は<code>let x = 1;</code>というような文は2つのことを同時に行っていて、それが宣言 <code>let x;</code>と初期化 <code>x = 1</code> である。
+これを詳しく見てみる。</p>
+<h2 id="値を持たない場所"><a class="header" href="#値を持たない場所">値を持たない場所</a></h2>
+<p>場所は必ずしも値をもつ<strong>とは限らない</strong>。
+その場所が使われるときには場所が値を持ってなければいけないが、
+常に値を持っている必要はない。</p>
+<h4 id="宣言のみの例"><a class="header" href="#宣言のみの例">宣言のみの例</a></h4>
+<p><code>x</code>が宣言されて値が入ってないのに、次はコンパイルエラーにならない。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize;
+}</code></pre></pre>
+<p><code>x</code>を使おうとすると、値が入っていないのでコンパイルエラーになる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize;
+  print!(&quot;{}&quot;, x);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0381]: used binding <code>x</code> isn't initialized </p>
+</blockquote>
+<h4 id="あとから初期化する例"><a class="header" href="#あとから初期化する例">あとから初期化する例</a></h4>
+<p>上の例で initialized という言葉が使われているように、宣言された場所に初めて値を入れるときを<strong>初期化</strong>という。 
+<code>x</code>を宣言しておいて、後から初期化（再代入ではない）をすることもできる。
+変数 <code>x</code> の宣言時に <code>mut</code> がついていないのに、3行目で代入をしていることに注意。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize;
+  x = 1;
+  print!(&quot;{}&quot;, x);
+}</code></pre></pre>
+<p>当然次は<strong>再代入</strong>に当たるので、だめ。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize;
+  x = 1;
+  x = 2;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0384]: cannot assign twice to immutable variable <code>x</code></p>
+</blockquote>
+<h1 id="値の所有者について"><a class="header" href="#値の所有者について">値の所有者について</a></h1>
+<p>場所が必ずしも値を持たないのはわかったが、値が必ず所有者として場所を持つことは明言されている。
+<a href="examples/01ownership/../../references.html#%E6%89%80%E6%9C%89%E6%A8%A9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">The Book での説明</a> を思い返すと、全ての値はなんらかの場所に所有されているらしい。
+<code>let</code> で作られる変数以外にも、値を所有しているものがいる。</p>
+<h2 id="関数の引数"><a class="header" href="#関数の引数">関数の引数</a></h2>
+<p>関数の引数も場所である。</p>
+<pre><pre class="playground"><code class="language-rust">fn f(x: String) {  // この `x` は場所
+  // この内部では、 `x` が値を所有している前提で話を進めていい
+}
+
+fn main() {
+  f(String::from(&quot;hello&quot;)); // `x` に作られた値がそのままわたっている
+
+  let a = String::from(&quot;world!&quot;);
+  f(a); // 場所 `a` から `x` へ値が移る
+}</code></pre></pre>
+<h2 id="static-な場所"><a class="header" href="#static-な場所">static な場所</a></h2>
+<p>詳しくは別の項に移すけれど、 static な場所というのがある。
+普通の変数とはちょっと違って特殊だけど、だいたい同じと思っていい。</p>
+<pre><pre class="playground"><code class="language-rust">static x: usize = 10; //
+fn main() {
+  println!(&quot;{}&quot;, x); // 使える。
+}</code></pre></pre>
+<h2 id="一時変数"><a class="header" href="#一時変数">一時変数</a></h2>
+<h4 id="作られてすぐ消える例"><a class="header" href="#作られてすぐ消える例">作られてすぐ消える例</a></h4>
+<p>次のようなプログラムでも値が生成されている以上所有者がいる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  String::from(&quot;hello&quot;); // 作られてどっかに消えてる
+}</code></pre></pre>
+<p>また、よく考えると、<code>&quot;hello&quot;</code>自体も関数の引数として与えられているが、</p>
+<ul>
+<li>関数の引数は値がくる想定</li>
+<li><code>&quot;hello&quot;</code> は expression なので、値である。（ Constant expressions らしい。）</li>
+</ul>
+<h4 id="関数の引数に式を書く例"><a class="header" href="#関数の引数に式を書く例">関数の引数に式を書く例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn f(a: usize) { }
+fn main() {
+  f(5);
+  f(1 + 2);
+}</code></pre></pre>
+<p>関数の引数に直接値を与えているが、
+これも一時変数という場所があってそこに所有されていた。
+（が、そののちに、関数 <code>f</code> の引数 <code>a</code> に値が移動した。）
+一番初めから <code>f</code> が所有していたわけではない。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>ここでは、</p>
+<pre><code>let x = ...;
+let y = ...;
+let x = y;
+</code></pre>
+<p>のようなコードについて述べる。
+3行目は、場所から場所へ値が転送される、という操作になる。
+このときの値は<strong>メモリの完全な複製</strong>である。</p>
+<h1 id="move-の場合"><a class="header" href="#move-の場合">move の場合</a></h1>
+<p>move な型に属する値は、場所から場所へ移るとき、もとの場所にある値が有効でなくなる。</p>
+<h4 id="moveと代入例"><a class="header" href="#moveと代入例">moveと代入例</a></h4>
+<p>例えば、 <code>String</code>はmoveな型の1つ。
+次の、コンパイルの通らないコードを見て考えてみる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = String::from(&quot;hello&quot;);
+  let y = x;
+  let z = x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: use of moved value: <code>x</code></p>
+</blockquote>
+<ul>
+<li>2行目は、 <code>String::from(&quot;hello&quot;)</code>という関数の生成した値を、<code>x</code>という場所に代入する文である。</li>
+<li>3行目は、<code>y</code> という場所に <code>x</code> という場所を代入しようとしているが、<code>x</code> は値ではない。</li>
+<li>なぜ右辺に場所が来ているのにこれを書いていいかというと、この場合、「<code>x</code>という場所から値を取り出して<code>y</code>に移している」と解釈するから</li>
+<li>そのため、 <code>x</code> という場所は<strong>値を取り出されたので</strong>もう値を持っていない、つまり有効でない。</li>
+<li>なのに <code>let z = x</code>という文で <code>x</code> という<strong>場所を使用</strong>しているので、エラーとなる。
+<ul>
+<li>場所を使用するにはその場所が有効、つまり値がなければいけない。</li>
+</ul>
+</li>
+</ul>
+<p><code>let z = x</code>をコメントアウトするとコンパイルが通るようになる。</p>
+<h4 id="moveと関数に渡す例"><a class="header" href="#moveと関数に渡す例">moveと関数に渡す例</a></h4>
+<p>関数の引数に場所を指定すると、それも値を移すことになる。
+以下もエラーになる。</p>
+<pre><pre class="playground"><code class="language-rust">fn f(s: String) {}
+fn main(){
+  let x = String::from(&quot;hello&quot;);
+  f(x);
+  let z = x; // =&gt; Error!
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: use of moved value: <code>x</code></p>
+</blockquote>
+<h1 id="copy-の場合"><a class="header" href="#copy-の場合">copy の場合</a></h1>
+<p>copy な型に属する値は、場所から場所へ移るときもとの場所にはそのまま値が残されている。</p>
+<h4 id="copyと代入例"><a class="header" href="#copyと代入例">copyと代入例</a></h4>
+<p>以下はエラーが出ない。
+なぜなら、 <code>usize</code>は copy な型だから。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = 1_usize;
+  let y = x;
+  let z = x;
+}</code></pre></pre>
+<h1 id="値の転送は完全な複製"><a class="header" href="#値の転送は完全な複製">値の転送は完全な複製</a></h1>
+<p><code>x = y</code>のような式では値の転送が起きる。
+値がmoveだろうとcopyだろうと、値の転送は<strong>メモリの完全な複製</strong>によって行われるので、プログラマは制御できない。</p>
+<h4 id="clone-が使われない例"><a class="header" href="#clone-が使われない例">Clone が使われない例</a></h4>
+<p>例として、Cloneを自分で実装して、Cloneが呼ばれたときは値がちょっと変わるようにしてみる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct A {
+  a: usize,
+}
+impl Clone for A {
+    fn clone(&amp;self) -&gt; Self {
+        // +1 されて clone が行われる。
+        A { a: self.a + 1}
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>A</code> の値 <code>a</code> について Cloneをすると field a の値は1増えて Clone をされる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  a: usize,
+</span><span class="boring">}
+</span><span class="boring">impl Clone for A {
+</span><span class="boring">    fn clone(&amp;self) -&gt; Self {
+</span><span class="boring">        A { a: self.a + 1}
+</span><span class="boring">    }
+</span><span class="boring">}
+</span>fn main() {
+    // 0 が入っている
+    let x = A{ a: 0 };
+    let y = x.clone();
+    print!(&quot;{}&quot;, y.a);
+}</code></pre></pre>
+<blockquote>
+<p>1</p>
+</blockquote>
+<p>なので 4 行目の print で 1 が返ってくる。</p>
+<p>この構造体を move してみる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  a: usize,
+</span><span class="boring">}
+</span><span class="boring">impl Clone for A {
+</span><span class="boring">    fn clone(&amp;self) -&gt; Self {
+</span><span class="boring">        A { a: self.a + 1}
+</span><span class="boring">    }
+</span><span class="boring">}
+</span>fn main() {
+    let x = A{ a: 0 };
+    let y = x;
+    print!(&quot;{}&quot;, y.a);
+}</code></pre></pre>
+<blockquote>
+<p>0</p>
+</blockquote>
+<p>値が <code>1</code> になっていないので、
+<strong>clone の実装が使われていない</strong> ことがわかる。</p>
+<h4 id="copy-宣言する"><a class="header" href="#copy-宣言する">Copy 宣言する</a></h4>
+<p>この構造体 <code>A</code> について、 Copy であることを宣言してみる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  a: usize,
+</span><span class="boring">}
+</span><span class="boring">impl Clone for A {
+</span><span class="boring">    fn clone(&amp;self) -&gt; Self {
+</span><span class="boring">        A { a: self.a + 1}
+</span><span class="boring">    }
+</span><span class="boring">}
+</span>impl Copy for A {}
+fn main() {
+    let x = A{ a: 0 };
+    let y = x;
+    print!(&quot;{}&quot;, y.a);
+    print!(&quot;{}&quot;, x.a);
+}</code></pre></pre>
+<blockquote>
+<p>00</p>
+</blockquote>
+<p>同じく、 Cloneは使われていない。
+Copy トレイトを宣言したので、<code>x</code>自体も使える。</p>
+<p>Copy のトレイトにプログラマがなぜ何も実装しなくてよいか？</p>
+<ul>
+<li>Copyはコンパイラに特定のふるまいを許すことを宣言する行為だから。</li>
+<li><code>let x = y</code>のような文が実行されるときに、特殊な操作をプログラマが指定することはできない。</li>
+<li>つまり、 <code>impl Copy for A { ... }</code> の中に関数を書いて、値が移った時に値を変更することができない。</li>
+<li><strong><code>x = y</code> の意味論を変えることはできない</strong></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>値が破棄されるのはどんなときかをみる。</p>
+<p>dropが呼ばれると、中を見せつつびっくりする構造体を次のように定義する。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+
+impl Drop for A {
+  fn drop(&amp;mut self) {
+    print!(&quot;{}!&quot;, self.0)
+  }
+}
+
+fn main() {
+  let a: A = A(1);
+}</code></pre></pre>
+<p><code>A(n)</code>という値が破棄されると <code>n!</code>という文字列が出力される。
+これで値が破棄されたときがわかるようになる。</p>
+<h1 id="場所の終了の基本"><a class="header" href="#場所の終了の基本">場所の終了の基本</a></h1>
+<h4 id="場所が終了すると値が破棄される"><a class="header" href="#場所が終了すると値が破棄される">場所が終了すると値が破棄される</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring"> fn drop(&amp;mut self) {
+</span><span class="boring">   print!(&quot;{}!&quot;, self.0)
+</span><span class="boring"> }
+</span><span class="boring">}
+</span>fn main() {
+  let a: A = A(1);
+}</code></pre></pre>
+<p><code>a</code> という変数（場所）が <code>main</code> 関数の終わりに終了し、 <code>a</code> の持っていた値が<strong>破棄</strong>された、つまり <code>Drop</code> の実装が呼ばれる。</p>
+<h4 id="スコープ終わりに場所が終了する"><a class="header" href="#スコープ終わりに場所が終了する">スコープ終わりに場所が終了する</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring"> fn drop(&amp;mut self) {
+</span><span class="boring">   print!(&quot;{}!&quot;, self.0)
+</span><span class="boring"> }
+</span><span class="boring">}
+</span>fn main() {
+  let a: A = A(1);
+  {
+    let a2: A = A(2);
+  }
+}</code></pre></pre>
+<blockquote>
+<p>2!1!</p>
+</blockquote>
+<p>ざっくりいうと、 <code>{</code> と <code>}</code> で囲まれた部分について、その中で宣言された変数は <code>}</code> のところで終了する。
+詳しくは次でやる。</p>
+<h1 id="値の転送元と破棄"><a class="header" href="#値の転送元と破棄">値の転送元と破棄</a></h1>
+<h4 id="moveで元の場所にある値の破棄は起こらない例"><a class="header" href="#moveで元の場所にある値の破棄は起こらない例">moveで元の場所にある値の破棄は起こらない例</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let x = A(1);
+  let y = x;
+}</code></pre></pre>
+<blockquote>
+<p>1!</p>
+</blockquote>
+<p><code>y</code>が有効でなくなった分しか、printがされてない。
+<code>x</code>という場所は3行目で値を<code>y</code>に移した...もっていた値がなくなったので、<code>x</code> は破棄するべき値がないまま終了する。</p>
+<h4 id="copyの場合には"><a class="header" href="#copyの場合には">copyの場合には？</a></h4>
+<p>copy の場合には、値は元の場所にも残っている（として扱われる）ので、破棄する必要があるはず。
+<strong>ただし、値の破棄に際して特別な処理を行うこと（= Drop）を行うことができない。</strong>
+コードの意味や処理上では、<strong>値の破棄</strong>は行われる（なにかしら drop関数が呼ばれる）が、
+それは何もせずただ <em>値が使えなくなる</em> ものとして処理される。
+<a href="examples/01ownership/../../references.html#drop%E9%96%A2%E6%95%B0%E3%81%AE%E5%AE%9F%E8%A3%85">drop関数の実装</a>などを参照すること。</p>
+<h1 id="値の転送先と破棄"><a class="header" href="#値の転送先と破棄">値の転送先と破棄</a></h1>
+<p>代入先に値がすでに存在した場合、その値は破棄される。</p>
+<h4 id="再代入で転送先の値が破棄される例"><a class="header" href="#再代入で転送先の値が破棄される例">再代入で転送先の値が破棄される例</a></h4>
+<p>mutable な変数 <code>x</code> への再代入（ちゃんとした言葉だっけ？）をやってみる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let mut x = A(1);
+  x = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>1!2!</p>
+</blockquote>
+<p><code>x</code>がもともと持っていた値 <code>A(1)</code>が破棄されて<code>A(2)</code>が入った。
+その後に <code>x</code>が有効でなくなったので <code>A(2)</code>も破棄された。</p>
+<h4 id="shadowing-の場合"><a class="header" href="#shadowing-の場合">shadowing の場合</a></h4>
+<p>いわゆる shadowing の場合は、新たに変数を作るため、上とは異なる結果になる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let mut x = A(1);
+  let x = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>2!1!</p>
+</blockquote>
+<h1 id="場所の終了--値の破棄"><a class="header" href="#場所の終了--値の破棄">場所の終了 =&gt; 値の破棄</a></h1>
+<p>変数のスコープの終了時には、中にあった値は破棄される。
+値がないときは当然値の破棄が起こらない。</p>
+<h4 id="変数の終了時の例"><a class="header" href="#変数の終了時の例">変数の終了時の例</a></h4>
+<p>例えば、プログラムの終了時（mainが最後に到達したとき）</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let x = A(1);
+  print!(&quot;hello&quot;);
+}</code></pre></pre>
+<blockquote>
+<p>hello1!</p>
+</blockquote>
+<p>他には、スコープを定義すると、そのスコープの終わりには破棄される。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  {
+    let x = A(1);
+  }
+  print!(&quot;hello&quot;);
+}</code></pre></pre>
+<blockquote>
+<p>1!hello</p>
+</blockquote>
+<h2 id="ややこしい一時変数とか-placeholder-とか"><a class="header" href="#ややこしい一時変数とか-placeholder-とか">ややこしい一時変数とか placeholder とか。</a></h2>
+<h4 id="一時変数の場合の例"><a class="header" href="#一時変数の場合の例">一時変数の場合の例</a></h4>
+<p>次のプログラムに書かれた <code>A(1)</code> も所有者（場所）はいるはずだが、すぐに終了する。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  A(1);
+  print!(&quot;hello&quot;);
+}</code></pre></pre>
+<blockquote>
+<p>1!hello</p>
+</blockquote>
+<p><code>hello1!</code>ではないことに注意</p>
+<h4 id="値を持っていなかった場合"><a class="header" href="#値を持っていなかった場合">値を持っていなかった場合</a></h4>
+<p>値のない場所の終了時には何も起きない。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let x: A;
+}</code></pre></pre>
+<p>なんの出力もされない。</p>
+<h1 id="copy-と-drop-は共存不可"><a class="header" href="#copy-と-drop-は共存不可">Copy と Drop は共存不可</a></h1>
+<p>copy な値は、 drop 時に特殊な処理を行うことができない。
+次はコンパイル不可。</p>
+<h4 id="コンパイル通らない例"><a class="header" href="#コンパイル通らない例">コンパイル通らない例</a></h4>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+impl Drop for A {
+  fn drop(&amp;mut self) {
+      print!(&quot;{}!&quot;, self.0)
+  }
+}
+
+impl Clone for A {
+  fn clone(&amp;self) -&gt; Self {
+    A(self.0)
+  }
+}
+
+impl Copy for A {}
+
+fn main() {
+  let x = A(1);
+  let y = x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0184]: the trait <code>Copy</code> cannot be implemented for this type; the type has a destructor</p>
+</blockquote>
+<p>destructor は Drop トレイトの <code>drop</code>関数のこと</p>
+<div style="break-before: page; page-break-before: always;"></div><p>場所が値を持っているとき、「場所が有効である」ということにして、
+場所が有効な期間と場所が存在する期間の差について考える。</p>
+<h1 id="move-したからといって場所が終了するわけではない"><a class="header" href="#move-したからといって場所が終了するわけではない">move したからといって場所が終了するわけではない</a></h1>
+<p>move な値について、ある場所からある場所へ値を移したとしても、もとの場所が即座に終了するわけではなく、値を失っただけ。</p>
+<h4 id="値を移した後の再代入の例"><a class="header" href="#値を移した後の再代入の例">値を移した後の再代入の例</a></h4>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+fn main() {
+    let mut x = A(1);
+    let y = x; // `x`は値を失った
+    x = A(2); // `x` は再び値を所有している。
+}</code></pre></pre>
+<p><code>x</code>という場所から値を移したがその後に<code>x</code>という場所を使っている。
+<code>x</code>という場所はいったん値を失ったものの、その時点で終了はしていない。</p>
+<h4 id="使う際にはまた値が必要になる例"><a class="header" href="#使う際にはまた値が必要になる例">使う際にはまた値が必要になる例</a></h4>
+<p><code>x</code>に再代入を行う前に<code>x</code>という場所を使うことはできない。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+fn main() {
+    let mut x = A(1);
+    let y = x;
+    print!(&quot;{}&quot;, x.0);
+    x = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: borrow of moved value: <code>x</code></p>
+</blockquote>
+<h1 id="変数のスコープとブロックについて詳しく"><a class="header" href="#変数のスコープとブロックについて詳しく">変数のスコープとブロックについて詳しく</a></h1>
+<p>変数は宣言されてから終了するまでのコード上の領域を持ち、これをスコープという。
+Dropされた（値が破棄された）タイミングがわかる構造体を使う。</p>
+<h2 id="スコープ内での順番"><a class="header" href="#スコープ内での順番">スコープ内での順番</a></h2>
+<h4 id="宣言順と終了順の例"><a class="header" href="#宣言順と終了順の例">宣言順と終了順の例</a></h4>
+<p>関数が終わるときには、スコープが終わる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+  let x = A(1);
+  let y = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>2!1!</p>
+</blockquote>
+<p>値の破棄の順序は、宣言された順番と逆
+ということは、次のようなコードと対応しているはず</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+    {
+        let x = A(1);
+        {
+          let y = A(2);
+        }
+    }
+}</code></pre></pre>
+<p>これがスコープの基本だと思う。</p>
+<h4 id="初期化を遅らせる例"><a class="header" href="#初期化を遅らせる例">初期化を遅らせる例</a></h4>
+<p>変数の宣言の順番が重要で、初期化の順番は関係ない。
+次の2つのプログラムは、 <code>y</code> という場所の終了後に <code>x</code> という場所の終了が起きる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+    let x: A;
+    let y: A;
+    y = A(1);
+    x = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>1!2!</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+    let x: A;
+    let y: A;
+    x = A(2);
+    y = A(1);
+}</code></pre></pre>
+<blockquote>
+<p>1!2!</p>
+</blockquote>
+<h2 id="スコープと場所の宣言"><a class="header" href="#スコープと場所の宣言">スコープと場所の宣言</a></h2>
+<h4 id="ブロックでスコープを区切る例"><a class="header" href="#ブロックでスコープを区切る例">ブロックでスコープを区切る例</a></h4>
+<p>適当に <code>{</code>と<code>}</code>で囲むと変数は有効な領域がそこに限定される</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+    {
+        let x = A(1);
+    }
+    {
+        let y = A(2);
+    }
+}</code></pre></pre>
+<blockquote>
+<p>1!2!</p>
+</blockquote>
+<p><code>x</code>が終了してから<code>y</code>が終了するのでこの順番で出力される。</p>
+<h4 id="-の外で宣言して中で初期化する例"><a class="header" href="#-の外で宣言して中で初期化する例"><code>{...}</code> の外で宣言して中で初期化する例</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+    let x: A;
+    {
+        let y = A(2);
+    }
+    {
+        x = A(1);
+    }
+    {
+        let z = A(3);
+    }
+}</code></pre></pre>
+<blockquote>
+<p>2!3!1!</p>
+</blockquote>
+<ol>
+<li><code>x</code> が宣言される。</li>
+<li>
+<ol>
+<li><code>y</code> が宣言される。</li>
+<li><code>y</code> が <code>A(2)</code> で初期化される。</li>
+<li><code>y</code> が終了する =&gt; <code>A(2)</code> が破棄される。</li>
+</ol>
+</li>
+<li>
+<ol>
+<li><code>x</code> が <code>A(1)</code> で初期化される</li>
+</ol>
+</li>
+<li>
+<ol>
+<li><code>z</code> が宣言される。</li>
+<li><code>z</code> が <code>A(3)</code> で初期化される。</li>
+<li><code>z</code> が終了する =&gt; <code>A(3)</code> が破棄される。</li>
+</ol>
+</li>
+<li><code>x</code> が終了する =&gt; <code>A(1)</code> が破棄される。</li>
+</ol>
+<h2 id="関数に渡すとき"><a class="header" href="#関数に渡すとき">関数に渡すとき</a></h2>
+<h4 id="関数のスコープの例"><a class="header" href="#関数のスコープの例">関数のスコープの例</a></h4>
+<p>関数に渡したらその関数が終わったタイミングで破棄される。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn f(a: A) {}
+fn main() {
+    let x = A(1);
+    let y = A(2);
+    f(x);
+    f(y);
+}</code></pre></pre>
+<blockquote>
+<p>1!2!</p>
+</blockquote>
+<p><code>f(x)</code>と呼ばれると、</p>
+<ul>
+<li>場所<code>x</code> から引数<code>a</code>へのmoveが起きる。</li>
+<li>関数<code>f</code>が始まる。</li>
+<li>関数<code>f</code>が終わる。</li>
+<li>引数<code>f</code>は場所 <code>a</code> の中に値 <code>A(1)</code> を持っているので値の破棄が起きる。</li>
+<li><code>1!</code>が出力される。</li>
+<li>その後に <code>f(y)</code>で同じことが起きる。</li>
+</ul>
+<h1 id="一時変数-1"><a class="header" href="#一時変数-1">一時変数</a></h1>
+<h4 id="束縛されない場合は即座に破棄される例"><a class="header" href="#束縛されない場合は即座に破棄される例">束縛されない場合は即座に破棄される例</a></h4>
+<p>よくわからないけど、変数への束縛がない場合には、その場で値が破棄される。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+    A(1);
+    A(2);
+}</code></pre></pre>
+<blockquote>
+<p>1!2!</p>
+</blockquote>
+<h4 id="let-_--の例"><a class="header" href="#let-_--の例"><code>let _ =</code> の例</a></h4>
+<p><code>_</code> は <code>let _ =</code>と同じ扱い。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+    let _ = A(1);
+    let _ = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>1!2!</p>
+</blockquote>
+<h4 id="unused-variable-の例"><a class="header" href="#unused-variable-の例">unused variable の例</a></h4>
+<p><em>変数に <code>_</code> をつけることで</em> 使われない変数を表し、
+コンパイラの警告を黙らせることができる。
+<em>変数が確保されている</em> ことに注意する。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn main() {
+    let _a1 = A(1);
+    let _a2 = A(2);
+}</code></pre></pre>
+<blockquote>
+<p>2!1!</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><p>これまでは場所と言えば（局所）変数だったけど、それ以外の場所を見たい。
+ちょっと参照周りで先取りして書くかも。</p>
+<h2 id="path-expression-について"><a class="header" href="#path-expression-について">path expression について</a></h2>
+<p>array indexing や field acces のことを path expression という。
+array indexing 自体は trait として実装可能で、それを踏まえて field access と同様に考えると、
+<code>x</code> という場所に対して <code>x.field</code> や <code>x[i]</code> のような式は、<code>x</code> という場所を&quot;区切っている&quot;ようなものに思える。</p>
+<pre><pre class="playground"><code class="language-rust">struct A {
+  s: String,
+  u: usize,
+}
+
+fn main() {
+  let x = A { s: String::from(&quot;hello&quot;), u: 1};
+  let sr: &amp;str = &amp;x.s; // `x.s` で `x` の中の `s` という場所を指してることになる
+
+  let a = [1_usize, 2, 3];
+  let ar = &amp;a[0]; // これも同様。
+}</code></pre></pre>
+<h4 id="struct-と-liveness"><a class="header" href="#struct-と-liveness">struct と liveness</a></h4>
+<p>もとの場所は使えなくなるけど、 move を起こすことはできる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  s: String,
+</span><span class="boring">  u: usize,
+</span><span class="boring">}
+</span>fn main() {
+  let x = A { s: String::from(&quot;hello&quot;), u: 1};
+  let s = x.s; // move
+  let u = x.u; // copy
+  // x; // エラー
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: use of partially moved value: <code>x</code></p>
+</blockquote>
+<p>あとから入れることができないみたい？</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  s: String,
+</span><span class="boring">  u: usize,
+</span><span class="boring">}
+</span>fn main() {
+  let x: A;
+  x.s = String::new();
+  x.u = 0;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0381]: partially assigned binding <code>x</code> isn't fully initialized</p>
+</blockquote>
+<p>途中で有効じゃなくなる場合はどうか。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  s: String,
+</span><span class="boring">  u: usize,
+</span><span class="boring">}
+</span>fn main() {
+  let mut x = A { s: String::from(&quot;hello&quot;), u: 1};
+  let s = x.s; // move
+  // x は無効
+  x.s = String::new(); // 再度の代入
+  x;
+}</code></pre></pre>
+<h4 id="array-indexing-と-liveness"><a class="header" href="#array-indexing-と-liveness">array indexing と liveness</a></h4>
+<p>array の場合は、 partialy move ができない。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = [String::new(), String::new(), String::new()];
+  let y = x[0];
+}</code></pre></pre>
+<blockquote>
+<p>error[E0508]: cannot move out of type <code>[String; 3]</code>, a non-copy array</p>
+</blockquote>
+<p>一応、 pattern expression を書くことで <code>x</code> を無効化してとりだすことはできる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = [String::new(), String::new(), String::new()];
+  let y;
+  [y, ..] = x; //`x[0]` から `y` へ move が起こる ... `x` の残りの部分は全部使えなくなる。
+  x[0]; // この行をコメント
+}</code></pre></pre>
+<blockquote>
+<p>error[E0508]: cannot move out of type <code>[String; 3]</code>, a non-copy array
+error[E0382]: use of partially moved value: <code>x</code></p>
+</blockquote>
+<p>エラーが2個出た... <code>x[0]</code> をコメントにするとコンパイルできる。</p>
+<h2 id="スタックとヒープ"><a class="header" href="#スタックとヒープ">スタックとヒープ</a></h2>
+<p>rust の説明だと、局所変数はスタックに確保されて <code>Box</code> とか <code>Vec</code> はヒープに確保されるというのをよくみる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = vec![0_usize, 1_usize];
+}</code></pre></pre>
+<p>この <code>x</code> という局所変数自体はスタックに確保されている。
+だから一見すると上の説明は変に見える。
+もっとしっかりした説明だと、 <code>x</code> にはある配列へのポインタと配列の長さの情報が入っているらしい。
+だから、<code>x</code> の&quot;本体&quot;はヒープに入っている。
+これについて書く。</p>
+<p>例えば、 <code>x[0]</code> は<strong>場所</strong> である。
+（ place expression のうち、 array indexing と呼ばれる path expression に含まれる。）
+<code>Vec</code> 型の場合、これはヒープの中のある場所を指している。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = vec![0_usize, 1_usize];
+  let y = &amp;x[0];
+}</code></pre></pre>
+<p><code>Vec</code> 意外だと <code>Box</code> が一番身近な気がする。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = Box::new(String::new());
+  let z = *x;
+}</code></pre></pre>
+<p>ちなみにこれは普通じゃない挙動（ move behind reference ができているので）</p>
+<p>注意点として、allocation が必ず起こるとは限らない。
+もちろん、 rust のコード上では、 <code>Allocator</code> が使われるが、最適化の前後で消えうる。
+<a href="examples/01ownership/../../references.html#global-allocator-%E3%81%AE%E8%AA%AC%E6%98%8E">ref</a>
+なので、rust の意味論の中でのヒープが、そのまま実行中のプログラムでのヒープに対応するわけじゃない。</p>
+<h4 id="nested-な場合"><a class="header" href="#nested-な場合">nested な場合</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = Box::new(Box::new(String::new()));
+  let y: &amp;Box&lt;String&gt; = x.as_ref();
+}</code></pre></pre>
+<p>なにをやりたかったか忘れた。</p>
+<h2 id="box-について"><a class="header" href="#box-について"><code>Box</code> について</a></h2>
+<p><code>Box</code> はコンパイラが特別扱いしてくれるらしい。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = Box::new(String::new());
+  let y = *x; // move behind reference!
+}</code></pre></pre>
+<p><code>*</code> のあとは参照値を表す式が来ることになっているから、 <code>x: Box</code> を参照値として解釈するはずだが、
+参照値経由で move が起こせている。</p>
+<p>ただし、つぎはだめみたい。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = Box::new(String::new());
+  let y = *(x.as_ref()); // move behind reference! =&gt; error
+}</code></pre></pre>
+<p>こう見ると、 <code>*x</code> と <code>*(x.as_ref())</code> ではちょっと違うね。
+ただ、 <code>y = *x</code> で <code>x</code> が Copy じゃないのに move が起こせるケースは、他にはぱっと思いつかない。
+つまり、次のコードの <code>T</code> になれるようなやつ。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;T&gt;(x: &amp;T) {
+  let y = *x;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>と書いて思ったけどなんかやりたかったことと違うな。
+ここらへんは、関数の境界をまたぐとできなくなることが多いので気を付けたい。
+Deref を経由する形にもできるけど、 <code>Box</code> はそれ以上の扱いを受けている。
+その点では、 struct の field access に似ている...とおもったら同じような解説があった。
+（<a href="examples/01ownership/../../references.html#box-%E3%81%AE%E7%89%B9%E5%88%A5%E6%80%A7">ref</a> の 3 つめ。）</p>
+<p>これを考えると、場所の projection としての扱いを受けているような気がする。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="static-と-const"><a class="header" href="#static-と-const">static と const</a></h1>
+<p>Drop のタイミングがわかる構造体を使う。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct A(usize);
+impl Drop for A {
+  fn drop(&amp;mut self) {
+    print!(&quot;{}!&quot;, self.0)
+  }
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="static-の使い方"><a class="header" href="#static-の使い方">static の使い方</a></h2>
+<p>staticに値を定義して値を用いる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>static S: A = A(1);
+fn main() {
+}</code></pre></pre>
+<blockquote>
+</blockquote>
+<p>何も出力されない、これは <code>S</code> という定数が Drop されないから。
+static な場所は、プログラム中で終了しない。
+ちなみに、 <code>let x = S;</code>に変えてもってこようとするとコンパイルエラーになる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>static S: A = A(1);
+fn main() {
+    let x = S;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0507]: cannot move out of static item <code>S</code></p>
+</blockquote>
+<p>それはそう。
+<code>S</code>という場所は常に値をもっていなければいけないだろう。
+でも、 <code>let _ = S;</code>にするとコンパイルエラーにならないし、何も出力されない。
+<code>let _ = ...</code>  は値を移していない。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>static S: A = A(1);
+fn main() {
+    let _ = S;
+}</code></pre></pre>
+<blockquote>
+</blockquote>
+<h2 id="const-の使い方"><a class="header" href="#const-の使い方">const の使い方</a></h2>
+<p>const の場合も似たような形で宣言できるが、効果は異なる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>const S: A = A(1);
+fn main(){
+}</code></pre></pre>
+<blockquote>
+</blockquote>
+<p>この場合は何も出力されない。
+これは定数 <code>S</code> はmain関数中に<strong>登場しなかったから</strong>
+でも <code>let _ = S;</code>にすると出力される。
+この挙動は static と異なる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>const S: A = A(1);
+fn main() {
+    let _ = S;
+}</code></pre></pre>
+<blockquote>
+<p>1!</p>
+</blockquote>
+<p><code>S</code> が Drop されている。
+しかも、 <code>let x = S;</code>に変えてもコンパイルエラーにならない、どころか <code>S</code> を move するように見える式を書いても全然大丈夫。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>const S: A = A(1);
+fn main() {
+    let x = S;
+    let y = S;
+}</code></pre></pre>
+<blockquote>
+<p>1!1!</p>
+</blockquote>
+<p>つまり、 constは場所ではなく値を作り出す式のことと思ってよい。</p>
+<h2 id="temporary-の-promotion"><a class="header" href="#temporary-の-promotion">temporary の promotion</a></h2>
+<p>temporary を <code>'static</code> として扱うことができる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: &amp;'static usize = &amp;1;
+}</code></pre></pre>
+<p>ただし、右辺が const epxression じゃないとだめ。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: &amp;'static String = &amp;String::new();
+}</code></pre></pre>
+<p><code>String::new()</code> は const だが、だめらしい。
+ちゃんと const にする。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  const S: String = String::new();
+  let x: &amp;'static String = &amp;S;
+}</code></pre></pre>
+<p>これもだめ。一応なぜだめかとかはいろいろ決まってる。
+<a href="examples/01ownership/../../references.html#const-promotion">ref</a>
+これによると、 <code>Drop</code> がついているものはだめ。
+<code>String</code> はヒープ管理文字列だから、Drop が確かに特殊なので、だめ。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+impl Drop for A {
+  fn drop(&amp;mut self) {
+    print!(&quot;{}!&quot;, self.0)
+  }
+}
+fn main() {
+  let x: &amp;'static A = &amp;A(1);
+}</code></pre></pre>
+<p>確かに <code>Drop</code> ついているとだめだ。</p>
+<h4 id="generalized-な型の場合"><a class="header" href="#generalized-な型の場合">generalized な型の場合</a></h4>
+<p>これがコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;T&gt;() -&gt; &amp;'static Option&lt;T&gt; {
+  &amp;None
+}
+<span class="boring">}</span></code></pre></pre>
+<p>呼び出す側が気を付けることになりそう。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn f&lt;T&gt;() -&gt; &amp;'static Option&lt;T&gt; {
+</span><span class="boring"> &amp;None
+</span><span class="boring">}
+</span>fn main() {
+  let x = f::&lt;usize&gt;();
+}</code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn f&lt;T&gt;() -&gt; &amp;'static Option&lt;T&gt; {
+</span><span class="boring"> &amp;None
+</span><span class="boring">}
+</span>fn main() {
+  let x = f::&lt;String&gt;();
+}</code></pre></pre>
+<blockquote>
+<p><em>No output</em></p>
+</blockquote>
+<p>なんで大丈夫なの？</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const S: Option&lt;String&gt; = Some(String::new());
+fn f() -&gt; &amp;'static Option&lt;String&gt; {
+  &amp;S
+}
+<span class="boring">}</span></code></pre></pre>
+<p>reference によると、コンパイル時に （型ではなく値の検査として）interior mutability や drop を含まないことがわかっているなら、static promotion ができる。
+つまり、 <code>Some(String::new())</code> で得られた値は drop が入るが、 <code>None</code> で得られた値は drop が入らない、ことがわかっているから、ということ。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="参照の基本"><a class="header" href="#参照の基本">参照の基本</a></h1>
+<p>参照値について考える。</p>
+<ul>
+<li>参照とは、 <strong>場所を指定する値</strong> のこと。</li>
+<li>参照が有効かどうかを、主に<strong>コード上の領域</strong>を抽象化して扱うのがライフタイム。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>場所があるとき、そこを指し示す値を参照という。
+参照には不変参照と可変参照の2種類がある。
+参照値を dereference することでもとの場所を扱うことができる。</p>
+<h1 id="基本的な使い方"><a class="header" href="#基本的な使い方">基本的な使い方</a></h1>
+<h2 id="参照を経由して値を見る書き換える"><a class="header" href="#参照を経由して値を見る書き換える">参照を経由して値を見る・書き換える。</a></h2>
+<p>場所 <code>x</code> などに対して <code>&amp;x</code> や <code>&amp;mut x</code> とすることで、その場所を指し示す値を作ることができる。
+これが参照である。
+（本当は shared reference と exclusive reference といった方が、 rust での扱いが正しい？）
+参照値 <code>p</code> に対しては <code>*p</code> でその指し示された場所を得ることができる。</p>
+<h4 id="不変参照の基本例"><a class="header" href="#不変参照の基本例">不変参照の基本例</a></h4>
+<p>次のようにして不変参照が使える。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let y: &amp;usize = &amp;x;
+  print!(&quot;{}&quot;, *y);
+}</code></pre></pre>
+<blockquote>
+<p>1</p>
+</blockquote>
+<p><code>&amp;x</code>で<code>x</code>という<strong>場所を指し示す値</strong>（＝参照値）が作れる。
+<code>e</code> が参照なら、<code>*e</code>で指し示された場所に入っている値（＝<code>x</code>の持っている値）を見ることができる。</p>
+<h4 id="可変参照の基本例"><a class="header" href="#可変参照の基本例">可変参照の基本例</a></h4>
+<p><code>mut</code>をつけることで書き換えることができる参照を作れる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let y: &amp;mut usize = &amp;mut x;
+  *y = 2; // `y` に入っている参照値経由で`x`の持っている値を書き換える。
+  print!(&quot;{}&quot;, *y);
+}</code></pre></pre>
+<p>上の例は次のようにも書ける。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  *(&amp;mut x) = 3;
+}</code></pre></pre>
+<p>ある意味では、下の使い方の方が想定されていると思ってもいい。
+<code>*</code> の後につくのは（参照）値のはずだから。
+<code>*</code> の後に場所が来た場合には、その場所に入っている参照値を dereference するものと考える。
+（<code>let z = 1</code> と <code>let x = 1; let z = x</code> の違いのとらえ方と同じ。）</p>
+<h4 id="複雑な式の例"><a class="header" href="#複雑な式の例">複雑な式の例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let mut y: usize = 1;
+  *(if true {&amp;mut x} else {&amp;mut y}) = 2;
+}</code></pre></pre>
+<p>こういうのも書けるんだ。</p>
+<h4 id="参照が付いたら場所の例"><a class="header" href="#参照が付いたら場所の例">参照が付いたら場所の例</a></h4>
+<p>qnighy さんのスライド <a href="examples/02reference/../../references.html#%E5%A0%B4%E6%89%80%E3%81%A8%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">ref</a>を見て、面白い例があったのでここに追記する。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  *(&amp;mut 1)  = 2;
+}</code></pre></pre>
+<p>これのコンパイルが通る理由は、
+<code>&amp;</code> や <code>&amp;mut</code> がついた時点で、それは場所を表していると解釈されるため、
+<code>1</code>という値を持つ場所（一時変数）への参照を表すと解釈されるので、
+上はその一時変数の書き換えの式になる。</p>
+<h1 id="mut-まわりでよくある間違い"><a class="header" href="#mut-まわりでよくある間違い">mut まわりでよくある間違い</a></h1>
+<h4 id="可変参照を作るにはもとの変数はmutでないといけない例"><a class="header" href="#可変参照を作るにはもとの変数はmutでないといけない例">可変参照を作るにはもとの変数はmutでないといけない例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = 1;
+  &amp;mut x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0596]: cannot borrow <code>x</code> as mutable, as it is not declared as mutable</p>
+</blockquote>
+<p><code>x</code>が <code>mut</code> でないと、<code>&amp;mut</code>はつくれない。
+<code>mut</code>にしたらコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x = 1;
+  &amp;mut x;
+}</code></pre></pre>
+<h4 id="可変参照から不変参照への変換例"><a class="header" href="#可変参照から不変参照への変換例">可変参照から不変参照への変換例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x = 1;
+  let y: &amp;usize = &amp;mut x;
+}</code></pre></pre>
+<p><code>y</code>は<code>&amp;mut x</code> をうけとってるのにその型は <code>&amp;</code>になっている。
+（型のcoersionの一種）
+この状態では<code>y</code>経由で書き換えができない。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut x = 1;
+    let y: &amp;usize = &amp;mut x;
+    *y = 2;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0594]: cannot assign to <code>*y</code>, which is behind a <code>&amp;</code> reference</p>
+</blockquote>
+<h4 id="可変な不変参照の例"><a class="header" href="#可変な不変参照の例">可変な不変参照の例</a></h4>
+<p><code>mut</code> をつける位置を間違えないこと。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let x: usize = 1;
+    let z: usize = 2;
+    let mut y: &amp;usize = &amp;x;
+    y = &amp;z; // y が `z`を指すように変更
+    // *y = 1 // mut のつけ方が違うからエラー！！
+}</code></pre></pre>
+<p><code>y</code> という場所に入っている値を変更するときに <code>y</code> の前に <code>mut</code> をつける。</p>
+<h1 id="参照外しについて"><a class="header" href="#参照外しについて">参照外しについて</a></h1>
+<p><code>*p</code> は場所としての扱いになるから、所有権との兼ね合いが重要である。</p>
+<h4 id="参照外しした場所から値を-move-することはできない例"><a class="header" href="#参照外しした場所から値を-move-することはできない例">参照外しした場所から値を move することはできない例</a></h4>
+<p>move するなどで値を失う（<code>x</code> に値を失わせる）ことはできない。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize); // copy でない型 `A` になった。
+fn main() {
+  let x: A = A(1);
+  let y: &amp;A = &amp;x;
+  let z = *y; // *y という値で x という場所を表すので、これは場所から場所への代入式 =&gt; x から z への move がおきることになってしまう。
+}</code></pre></pre>
+<blockquote>
+<p>error[E0507]: cannot move out of <code>*y</code> which is behind a shared reference</p>
+</blockquote>
+<p>このエラーの内容だと、 mutable なら大丈夫に思えてしまうが、そうではない。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+fn main() {
+  let mut x: A = A(1);
+  let y: &amp;mut A = &amp;mut x;
+  let z = *y;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0507]: cannot move out of <code>*y</code> which is behind a mutable reference</p>
+</blockquote>
+<p>ref を経由して move を起こすことはできない、ということ。
+move out という語が重要で、 <code>*</code> 経由で値を失うような操作はできない。
+copy なら当然大丈夫。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let y: &amp;usize = &amp;x;
+  let z = *y; // *y = x という場所から z への copy がおきる
+  // x には値が入っている！
+}</code></pre></pre>
+<h4 id="参照外し自体は大丈夫な例"><a class="header" href="#参照外し自体は大丈夫な例">参照外し自体は大丈夫な例</a></h4>
+<p><code>*y</code> と書くこと自体は大丈夫で、値は失われないことを見る。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+fn f(x: &amp;A) {}
+
+fn main() {
+  let x: A = A(1);
+  let y: &amp;A = &amp;x;
+  f(&amp;*y); // *y があってもコンパイルエラーにならない。
+}</code></pre></pre>
+<p>他にも、 <code>*x</code> を使って値を書き換えたりできる。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+
+fn main() {
+  let mut x: A = A(1);
+  let y: &amp;mut A = &amp;mut x;
+  (*y).0 = 2;
+}</code></pre></pre>
+<p>これらは move が起きるような使い方をしていないから大丈夫。</p>
+<h1 id="参照先は有効な場所でなければいけない"><a class="header" href="#参照先は有効な場所でなければいけない">参照先は有効な場所でなければいけない。</a></h1>
+<p>参照を作ることは場所を使う判定になるので、有効でない場所へは参照が作れない。</p>
+<h4 id="初期化されていないと参照が作れない例"><a class="header" href="#初期化されていないと参照が作れない例">初期化されていないと参照が作れない例</a></h4>
+<p>初期化されていなかったりで値を持っていない場所へ参照をとることはできない。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize;
+  let y: &amp;usize = &amp;x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0381]: used binding <code>x</code> isn't initialized</p>
+</blockquote>
+<p>あとから参照値を入れることはできる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let y: &amp;usize;
+    let x: usize = 1;
+    y = &amp;x;
+}</code></pre></pre>
+<p><code>y</code>という変数が有効な期間（スコープ）と<code>y</code> に入っている参照値のライフタイムは異なる、という例でもある。</p>
+<h4 id="参照されている間は場所が有効でないといけない例"><a class="header" href="#参照されている間は場所が有効でないといけない例">参照されている間は場所が有効でないといけない例</a></h4>
+<p>参照が存在するうちは、指されている場所は値を持っていないといけないだろう。
+なので、 move が起こってはいけない。
+copy が起こらないように構造体を別で作る。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+fn main() {
+    let x: A = A(1);
+    let y: &amp;A = &amp;x;
+    let z: A = x; // `y` という `x` への参照（が保持されている場所）があるのに `x` から `z` へ move がおきる =&gt; `y` が有効でなくなる。
+    *y;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0505]: cannot move out of <code>x</code> because it is borrowed</p>
+</blockquote>
+<p>なお、最後の行をなくすと、rust が気をきかせてコンパイルが通るようにコードを解釈してくれる。</p>
+<h1 id="スコープについての例外"><a class="header" href="#スコープについての例外">スコープについての例外</a></h1>
+<p>代入時には有効な場所への参照が必要だが、
+有効な場所がスコープを離れると、勝手に参照値を失ったような扱いにしてくれる。</p>
+<h4 id="rust-がよしなにしてくれる例"><a class="header" href="#rust-がよしなにしてくれる例">rust がよしなにしてくれる例</a></h4>
+<p>次のコードはコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span>fn main() {
+    let x: A = A(1);
+    let y: &amp;A = &amp;x;
+    let z: A = x; // `y` という `x` への参照があるのに `x` から `z` へ move がおきる =&gt; `y` が有効でなくなる。
+    // *y; この行のコメントを外すとコンパイルが通らなくなる。
+}</code></pre></pre>
+<p>これは <code>y</code> （という場所に入っている値）が思ったより早く消える、と解釈される。
+つまり、「<code>y</code> という場所が有効 = <code>y</code> に入っている参照が有効」な期間は<strong>勝手に</strong>3行目だけと解釈される。
+<code>*y</code> のコメントを外すと、</p>
+<ul>
+<li><code>y</code> という場所の有効期間がそれを使用している <code>*y</code> まで延長される。</li>
+<li><code>y</code> に入っている <code>&amp;x</code> が有効であるべき期間が <code>*y</code> まで延長される。</li>
+<li><code>&amp;x</code> が有効であるべき期間と <code>x</code> が有効である期間に整合性がない</li>
+<li>コンパイルエラー！</li>
+</ul>
+<h4 id="rust-がよしなにしてくれる例2"><a class="header" href="#rust-がよしなにしてくれる例2">rust がよしなにしてくれる例2</a></h4>
+<p><code>x</code>が思ったよりも早く有効でなくなったらどうか？</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span>fn main() {
+    let y: &amp;A;
+    {
+      let x: A = A(1);
+      y = &amp;x;
+    } // 場所 `x` が終了する
+    // &amp;*y; この行のコメントを外すとコンパイルが通らなくなる。
+}</code></pre></pre>
+<p>これも同じ。
+<code>y</code>という場所は値を失った扱いになる。
+当然使うことはできない。</p>
+<p><code>y</code> が mut なら再代入はできる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span>fn main() {
+    let mut y: &amp;A;
+    {
+      let x: A = A(1);
+      y = &amp;x;
+    }
+    y = &amp;A(2); // `y` という場所はまだ存在してるので代入する
+}</code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><p>ポインタはアドレス + provenance で、参照値はさらにアクセス権などの情報がついていると思ってよさそう。
+ただ、ポインタ周りは unsafe が多いし、参照は単純にポインタと同一視はできない。
+<strong>※どう配置されるかは一定じゃないので、毎回実行するごとに結果が異なるかもしれない。</strong></p>
+<h1 id="参照を見てみる"><a class="header" href="#参照を見てみる">参照を見てみる</a></h1>
+<h4 id="ポインタのfmt"><a class="header" href="#ポインタのfmt">ポインタのfmt</a></h4>
+<p>場所への参照値を print するには次のように書く。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  println!(&quot;{:p}&quot;, &amp;x);
+  let y: &amp;usize = &amp;x;
+  println!(&quot;{:p}&quot;, y);
+}</code></pre></pre>
+<p><code>:p</code> をつけない場合、参照値を経由してそこに入っている値を print していることになる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  println!(&quot;{}&quot;, &amp;x);
+  println!(&quot;{}&quot;, x); // 上と同じ（自動で dereference の扱いになる）
+  let y: &amp;usize = &amp;x;
+  println!(&quot;{}&quot;, y); // これも同じ（参照型の場所（変数）が来ているので、 dereference される。）
+}</code></pre></pre>
+<p><code>:p</code> をつけてコンパイルが通るのは、 <code>std::fmt::Pointer</code> というトレイトがあるから。
+普通に変数（場所）を入れると変換してくれるわけではない。
+あくまでも、参照値の表示？</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  println!(&quot;{:p}&quot;, x);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0277]: the trait bound <code>usize: Pointer</code> is not satisfied</p>
+</blockquote>
+<h4 id="t-は全部ポインタみたいなもの"><a class="header" href="#t-は全部ポインタみたいなもの"><code>&amp;T</code> は全部ポインタみたいなもの？</a></h4>
+<p>fat pointer という言葉を聞いたことがあるので確かめてみる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  println!(&quot;{:p}&quot;, &amp;x);
+  let ar: [usize; 3] = [1, 2, 3];
+  println!(&quot;{:p}&quot;, &amp;ar);
+  let r1: &amp;[usize] = &amp;ar;
+  println!(&quot;{:p}&quot;, r1);
+  let r2: &amp;[usize; 3] = &amp;ar;
+  println!(&quot;{:p}&quot;, r2);
+}</code></pre></pre>
+<blockquote>
+<p>0x7ffdf9c12460<br />
+0x7ffdf9c124c0<br />
+Pointer { addr: 0x7ffdf9c124c0, metadata: 3 }<br />
+0x7ffdf9c124c0</p>
+</blockquote>
+<p>つまり、 <code>T</code> に対して <code>&amp;T</code> は一様に定義されているのではなく、</p>
+<ul>
+<li><code>T</code> が <code>Sized</code> なら ... ほとんどポインタみたいなもの</li>
+<li><code>T</code> が <code>!Sized</code> なら ... fat pointer</li>
+</ul>
+<p>みたいな感じで、中身が変わる。</p>
+<p><code>&amp;dyn Trait</code> も fat pointer になっている。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: &amp;dyn std::any::Any = &amp;1_usize;
+  let y: &amp;dyn std::fmt::Debug = &amp;1_usize;
+
+  println!(&quot;{:p}&quot;, x);
+  println!(&quot;{:p}&quot;, y);
+
+  let a: usize = 1;
+  let x: &amp;dyn std::any::Any = &amp;a;
+  let y: &amp;dyn std::any::Any = &amp;a;
+
+  println!(&quot;{:p}&quot;, x);
+  println!(&quot;{:p}&quot;, y);
+}</code></pre></pre>
+<blockquote>
+<p>Pointer { addr: 0x5b0bc605c0a0, metadata: DynMetadata(0x5b0bc606ada8) }<br />
+Pointer { addr: 0x5b0bc605c0a0, metadata: DynMetadata(0x5b0bc606adc8) }<br />
+Pointer { addr: 0x7ffd972dcf10, metadata: DynMetadata(0x5b0bc606ada8) }<br />
+Pointer { addr: 0x7ffd972dcf10, metadata: DynMetadata(0x5b0bc606ada8) }</p>
+</blockquote>
+<p>他にも、 <code>T</code> に対して <code>&amp;T</code> が fat pointer になるものはいろいろある。</p>
+<h1 id="参照からポインタへの変換"><a class="header" href="#参照からポインタへの変換">参照からポインタへの変換</a></h1>
+<p>ポインタは <code>*const e</code> とか <code>*mut e</code> のように書く。
+参照からポインタへの変換は普通にできる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let p: *const usize = &amp;x; // 右辺は参照値で左辺はポインタ
+}</code></pre></pre>
+<p>もうちょっといい感じの書き方が最近できた。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let p: *const usize = &amp;raw const x;
+}</code></pre></pre>
+<p>fat pointer の場合は？</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: [usize; 3] = [1, 2, 3];
+  let p: *const [usize] = &amp;x; // 右辺は参照値で左辺はポインタ
+  print!(&quot;{:p}&quot;, p);
+}</code></pre></pre>
+<p>これもメタデータが付記されているので、 <code>*const T</code> とかは単純にアドレス値のことではない。
+=&gt; <strong>ポインタ != アドレス値</strong></p>
+<p>これは provenance 以前に、アドレス値以外の情報が（実行時でも）付与されている挙動ということ。</p>
+<h4 id="参照値の比較"><a class="header" href="#参照値の比較">参照値の比較</a></h4>
+<p><code>std::ptr::eq</code> や <code>std::ptr::addr_eq</code> を使うと、参照の比較ができるが、
+この引数は <code>*const T</code> をとることに注意。
+（なので、参照を渡すと変換される。）
+<code>eq</code> はポインタの比較で、 <code>addr_eq</code> はアドレス値の比較。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let y1 = &amp;x;
+  let y2 = &amp;x;
+  println!(&quot;{} {}&quot;, std::ptr::eq(y1, y2), std::ptr::addr_eq(y1, y2));
+}</code></pre></pre>
+<blockquote>
+<p>true true</p>
+</blockquote>
+<p>fat pointer を比較する場合は異なる結果になる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let z: [usize; 3] = [1, 2, 3];
+  let y1: &amp;[usize] = &amp;z[0..0];
+  let y2: &amp;[usize] = &amp;z[0..1];
+  println!(&quot;{} {}&quot;, std::ptr::eq(y1, y2), std::ptr::addr_eq(y1, y2));
+}</code></pre></pre>
+<blockquote>
+<p>true false</p>
+</blockquote>
+<h1 id="ポインタと-provenance"><a class="header" href="#ポインタと-provenance">ポインタと provenance</a></h1>
+<p>provenance について <strong>注意</strong>: 結果がどうなるという保証を与えてくれるものではないことに注意すること。
+局所変数がスタックフレームに格納されるので、ブロックの前後でもスコープが終わることを考えると、
+次は同じ &quot;アドレス&quot; をさしているはず。</p>
+<pre><pre class="playground"><code class="language-rust">fn p(p: &amp;usize) {
+    println!(&quot;{:p}&quot;, p);
+}
+
+fn main() {
+  {
+    let x1: usize = 1;
+    p(&amp;x1);
+  }
+  {
+    let x2: usize = 1;
+    p(&amp;x2);
+  }
+}</code></pre></pre>
+<blockquote>
+<p>0x7ffde3904f88<br />
+0x7ffde3904f90</p>
+</blockquote>
+<p>なんか違った...なんで？？
+MIR をみたら、変数が main の最初に全部確保されるような感じになっていた。
+ちょっと変える。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+impl Drop for A {
+  fn drop(&amp;mut self) {
+    println!(&quot;{}&quot;, self.0);
+  }
+}
+
+fn p(p: &amp;A) {
+    println!(&quot;{:p}&quot;, p);
+}
+
+fn main() {
+  {
+    let x1: A = A(1);
+    p(&amp;x1);
+  }
+  {
+    let x2: A = A(1);
+    p(&amp;x2);
+  }
+}</code></pre></pre>
+<blockquote>
+<p>0x7ffc42931b68<br />
+1<br />
+0x7ffc42931b70<br />
+1</p>
+</blockquote>
+<p>変数が無効化されるタイミングとスタックが無効化されて上書きされるタイミングは違うのかもしれない。</p>
+<p>なんかびっくりしたけど、とりあえず、「こういう偶然アドレス値が被ってしまった例は、比較するときに false に最適化されてしまうかもよ」みたいな例を出したかった。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>参照をつくるときには、どの時点でも次のうちの<strong>どちらか一方のみ</strong>が成り立っていないといけない。</p>
+<ul>
+<li>不変参照が複数ある。</li>
+<li>可変参照が1つある。</li>
+</ul>
+<p>また、可変参照は、書き込みを行う権限をまるごと代理で任せてしまうので、
+もとの場所は書き込みをする主体にはなれない。
+ここの時点という書き方はあいまいだが、コード上も実行時も両方の意味で。</p>
+<h2 id="不変参照の例"><a class="header" href="#不変参照の例">不変参照の例</a></h2>
+<p>不変参照をたくさん作る
+不変な参照（<code>&amp;</code>のやつ）はいくつ作ってもいい。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let y = &amp;x;
+  let z = &amp;x;
+  print!(&quot;{}&quot;, *y);
+  print!(&quot;{}&quot;, *z);
+}</code></pre></pre>
+<h2 id="不変参照を-copy-でつくる"><a class="header" href="#不変参照を-copy-でつくる">不変参照を copy でつくる。</a></h2>
+<p>ちなみに、不変な参照は Copy である。
+なので、次のように書いてもよい。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let y = &amp;x;
+  let z = y; // &amp;usize は move ではなく copy ... 場所 `y` に入っている値 `&amp;x` が場所 `z` に copy される。 
+  print!(&quot;{}&quot;, *y); // y が使える。
+  print!(&quot;{}&quot;, *z);
+}</code></pre></pre>
+<h2 id="可変参照はたくさんつくれない"><a class="header" href="#可変参照はたくさんつくれない">可変参照はたくさんつくれない。</a></h2>
+<p>たくさんつくろうとするとコンパイルできない。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let y = &amp;mut x;
+  let z = &amp;mut x;
+  print!(&quot;{}&quot;, *y);
+  print!(&quot;{}&quot;, *z);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0499]: cannot borrow <code>x</code> as mutable more than once at a time</p>
+</blockquote>
+<p>ちなみに、 <code>print!(...)</code>を両方消すとコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let y = &amp;mut x;
+  let z = &amp;mut x;
+}</code></pre></pre>
+<p>rustが最大限好意的に解釈してくれるから大丈夫だと思われる。
+下のように解釈されている？</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  {
+    let y = &amp;mut x;
+  } // `y` 終了
+  // x の不変参照は1つもない状態になった。
+  {
+    let z = &amp;mut x;
+  }
+}</code></pre></pre>
+<p>あるいは、 <code>y</code> に値が入ってない状況になったか。</p>
+<h2 id="可変参照は-copy-でない"><a class="header" href="#可変参照は-copy-でない">可変参照は copy でない</a></h2>
+<p>可変参照はcopyでないので、moveされてしまい値が失われる。
+次はコンパイルが通らない。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let y = &amp;mut x;
+  let z = y; // `y` から `z` への move がおきる
+  print!(&quot;{}&quot;, *y);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: borrow of moved value: <code>y</code></p>
+</blockquote>
+<h2 id="不変参照と可変参照は同時に作れない"><a class="header" href="#不変参照と可変参照は同時に作れない">不変参照と可変参照は同時に作れない</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let y = &amp;mut x;
+  let z = &amp;x;
+  print!(&quot;{}&quot;, *y);
+  print!(&quot;{}&quot;, *z);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0502]: cannot borrow <code>x</code> as immutable because it is also borrowed as mutable</p>
+</blockquote>
+<h2 id="参照があるときは値の変更はできない"><a class="header" href="#参照があるときは値の変更はできない">参照があるときは値の変更はできない。</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x = 1;
+  let z = &amp;x;
+  x = 2;
+  print!(&quot;{}&quot;, *z);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0506]: cannot assign to <code>x</code> because it is borrowed</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x = 1;
+  let z = &amp;mut x;
+  x = 2;
+  print!(&quot;{}&quot;, *z);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0506]: cannot assign to <code>x</code> because it is borrowed</p>
+</blockquote>
+<h2 id="参照という値が失われる例"><a class="header" href="#参照という値が失われる例">参照という値が失われる例</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let mut y: &amp;mut usize = &amp;mut x;
+  {
+    let z = y; // y の持っている`x`への可変参照は move された
+    // `y` には値が入っていない
+  } // `x`への可変参照は失われた。
+  x = 2; // `x` を変えてもよい。
+}</code></pre></pre>
+<p><code>y</code>は moved value の扱いになり、 <code>x</code> は borrow されている扱いになる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let mut y: &amp;mut usize = &amp;mut x;
+  {
+    let z = y;
+  }
+  x = 2; 
+  *y;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0506]: cannot assign to <code>x</code> because it is borrowed<br />
+error[E0382]: use of moved value: <code>y</code></p>
+</blockquote>
+<h2 id="可変参照を不変参照にしたら読み書きしていいのか"><a class="header" href="#可変参照を不変参照にしたら読み書きしていいのか">可変参照を不変参照にしたら、読み書きしていいのか</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let y: &amp;mut usize = &amp;mut x;
+  x = 2;
+}</code></pre></pre>
+<p>これぐらいなら追跡できるので、 <code>y</code> に入っていた値を適当に無効にしたと考えて、
+<code>&amp;mut x</code> という書き込み権が消えたことはわかるわけだ。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let mut y: &amp;usize;
+  {
+    y = &amp;mut x;
+  }
+  x = 2;
+}</code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><p>変数が宣言されると、その変数のスコープは宣言された時点からスコープの終わりまでになる。
+<strong>これは変数を使っていい期間とは異なっていた。</strong>
+ある参照値のライフタイムとはその参照値が有効でなければいけないコード上の領域のこと。
+これについては、 rustonomicon などで一応注意がある：<a href="examples/02reference/../../references.html#lifetime-%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6rustonomicon">ref</a></p>
+<h2 id="とりあえずの使い方と気を付ける点"><a class="header" href="#とりあえずの使い方と気を付ける点">とりあえずの使い方と気を付ける点</a></h2>
+<p>ライフタイムを引数にとるには、 <code>'hoge</code>のように <code>'</code> をつけて書く。
+ライフタイムを明示的に述べなくてもいい場合があって、
+lifetime elision と呼ばれるルールで決まっている。
+（elision は function や trait の話であって、局所変数の宣言時に <code>&amp;T</code> のように書いていいのとは違う話みたい。）</p>
+<h4 id="構造体に入れる"><a class="header" href="#構造体に入れる">構造体に入れる</a></h4>
+<p>構造体に入れるときはこんな感じで、
+構造体の定義にはライフタイムを指定し、
+つくるときには指定しなくてよい。</p>
+<pre><pre class="playground"><code class="language-rust">struct A&lt;'a&gt;(&amp;'a usize);
+fn main() {
+  let x1 = A(&amp;1);
+  let y = 1;
+  let x2: A = A(&amp;y); // ライフタイムを書かないけど型は宣言する。
+  let x3: A&lt;'static&gt; = A(&amp;2); // 指定することもできる。
+}</code></pre></pre>
+<h4 id="関数の引数にライフタイム付きの参照"><a class="header" href="#関数の引数にライフタイム付きの参照">関数の引数にライフタイム付きの参照</a></h4>
+<p>関数の引数にするときも似た感じで書く。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a usize) {}
+fn main() {
+  f(&amp;1);
+}</code></pre></pre>
+<p>lifetime elision ルールにより、上の<code>f</code>は宣言しなくてもよい場合に該当する。
+だから、<code>&lt;'a&gt;</code>はつけなくてもコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust">fn f(x: &amp;usize) {}
+fn main() {
+  f(&amp;1);
+}</code></pre></pre>
+<p>呼び出すときに lifetime を指定することもできるらしいが、
+late bound lifetime とかであまり通ることはない？
+例えば、以下はコンパイルが通らなかった。</p>
+<pre><pre class="playground"><code class="language-rust">fn f(x: &amp;usize) {}
+fn main() {
+  f::&lt;'static&gt;(&amp;1);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0794]: cannot specify lifetime arguments explicitly if late bound lifetime parameters are present</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a usize) {}
+fn main() {
+  f::&lt;'static&gt;(&amp;1);
+}</code></pre></pre>
+<p>これも同じなので通らない。</p>
+<p>なぞの解決法があって、こうするとコンパイルが通る（ 2025/06/03現在）</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a: 'a&gt;(x: &amp;'a usize) {}
+fn main() {
+  f::&lt;'static&gt;(&amp;1);
+}</code></pre></pre>
+<p>このやり方は early and late lifetime bound のところにあった。
+ちゃんと読もうにも、 next generation trait solver が導入されてからの方がいいかも。</p>
+<h2 id="labeled-block-と間違えないように"><a class="header" href="#labeled-block-と間違えないように">labeled block と間違えないように</a></h2>
+<p>ブロックに名前を付けることができるということで、次のような書き方ができる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  'a: {
+    let x = 1;
+  }
+}</code></pre></pre>
+<p>この <code>'a</code>は <strong>label であって、lifetime ではない。</strong>
+なので、lifetime としてなにかしらに渡したりすることはできない。</p>
+<p><strong>※でも便利なので、rustonomicon とかでもラベルっぽい記法でライフタイムについて書くことがある。</strong></p>
+<h2 id="ブロック内でのライフタイム注釈"><a class="header" href="#ブロック内でのライフタイム注釈">ブロック内でのライフタイム注釈</a></h2>
+<p>ライフタイムは関数の引数とおなじように、それが導入された中では使うことができる。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a usize) { // &lt;'a&gt; で 'a というライフタイムが導入された状態。
+  let new: &amp;'a usize; // 'a というライフタイムが使える。
+}
+fn main() {
+  // この中ではなんのライフタイムも宣言されていない。
+  // 'static 以外のライフタイムは書くことができない。
+  let x: &amp;'static usize = &amp;1;
+}</code></pre></pre>
+<p>まあ、実は placeholder lifetime が書ける。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: &amp;'_ usize = &amp;1;
+}</code></pre></pre>
+<p>これが普通の <code>&amp;usize</code> とどう違うのかはわからない。</p>
+<h2 id="ライフタイムをはっきり指定する"><a class="header" href="#ライフタイムをはっきり指定する">ライフタイムをはっきり指定する。</a></h2>
+<p>あるスコープの中で定義された変数については、
+その外へ持ち出すことはできないように思える。
+しかし、参照の変数のライフタイムを書いたりすることで、
+固定できる。</p>
+<h4 id="局所変数へ参照をとる"><a class="header" href="#局所変数へ参照をとる">局所変数へ参照をとる。</a></h4>
+<p>以下は当然エラーになる。
+なぜなら、 <code>x</code> という<strong>場所</strong>は関数本体で作られたので関数が終われば消えてゆくから。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  let x = 1;
+  &amp;x
+}
+<span class="boring">fn main() { }</span></code></pre></pre>
+<blockquote>
+<p>error[E0515]: cannot return reference to local variable <code>x</code></p>
+</blockquote>
+<h4 id="局所変数と思ったら違う例"><a class="header" href="#局所変数と思ったら違う例">局所変数と思ったら違う例</a></h4>
+<p>しかし、以下は通る。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  &amp;1
+}
+<span class="boring">fn main() { }</span></code></pre></pre>
+<p>理由は、rvalue static promotion というのがあるからだと思われる。
+<a href="examples/02reference/../../references.html#const-promotion">ref</a></p>
+<p>以下の場合は、 <code>x</code> という場所から、参照という値を取り出して返しているので大丈夫。
+（ひとつ前の例と同じような意味になる。）</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  let x: &amp;'a usize = &amp;1;
+  x
+}
+<span class="boring">fn main() { }</span></code></pre></pre>
+<p><code>'static</code> と宣言してもよい。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  let x: &amp;'static usize = &amp;1;
+  x
+}
+<span class="boring">fn main() { }</span></code></pre></pre>
+<p>よくわからなくなったら、<code>1</code> という値が&quot;どこ&quot;に入っているかを考えてみるとよい。
+実は <code>1</code> は定数<strong>と考えられる</strong>ので、
+自動的にいい感じに解釈されてしまう。
+<strong>lifetime extension!</strong>
+例えば、つぎのコードはコンパイルが直感的にも通る。
+（ static ではなく、 const を使っているが、 static でも通る。）</p>
+<pre><pre class="playground"><code class="language-rust">const ONE: usize = 1;
+fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  let x: &amp;'static usize = &amp;ONE;
+  x
+}
+<span class="boring">fn main() { }</span></code></pre></pre>
+<p>これと同じに解釈される。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>コード領域 <code>'a</code>と <code>'b</code> があって <code>'a</code> は少なくとも <code>'b</code> 以上に大きい（同じ大きさを含む）場合、 <code>'a</code> outlives <code>'b</code> といい、 <code>'a: 'b</code> と書く。
+つまり、 ⊃ の方向の包含である。
+<code>'a: 'b</code> なら
+<code>&amp;'a T</code> は <code>&amp;'b T</code> に変換できるし、必要に応じて変換される。
+構造体や関数だと、共変反変とかはあるけれど、参照の場合と同じように考えればいい。</p>
+<h1 id="参照の-variance"><a class="header" href="#参照の-variance">参照の variance</a></h1>
+<h4 id="参照の変換"><a class="header" href="#参照の変換">参照の変換</a></h4>
+<p>なにも仮定がない場合には、下のようなコードはコンパイルが通らない。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'a usize) {
+  let y: &amp;'b usize = x;
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>error: lifetime may not live long enough</p>
+</blockquote>
+<p>この仮定を <code>f</code> に取り付けてあげる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'a usize) where 'a: 'b {
+  let y: &amp;'b usize = x;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>変換できるので、代入ができる。
+しっかり考えておくと、</p>
+<ul>
+<li>場所 <code>x</code> の型が <code>&amp;'a usize</code> で、場所 <code>y</code> の型が <code>&amp;'b usize</code> かつ <code>'a: 'b</code></li>
+<li>よって <code>x</code> から値を取り出して <code>y</code> に代入してもよい。
+<ul>
+<li>つまり、 <code>&amp;'a usize</code> の型の付いた値を <code>&amp;'b usize</code> に代入してよい。</li>
+</ul>
+</li>
+</ul>
+<h4 id="ライフタイムが変換される"><a class="header" href="#ライフタイムが変換される">ライフタイムが変換される</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a&gt;(x: &amp;'a usize, y: &amp;'a usize) {}
+fn g&lt;'b, 'c&gt;(x: &amp;'b usize, y: &amp;'c usize) {
+  f(x, y)
+}
+<span class="boring">}</span></code></pre></pre>
+<p>すごいまずそうに思えるのにコンパイルが通る。
+これは、 <code>'b: 'x</code> と <code>'c: 'x</code> となるようなライフタイムがあれば、
+それで <code>&amp;'b</code> も <code>'c</code> も <code>'x</code> に変換できるから、 <code>f</code> をそのライフタイムで呼び出せばいいから。
+まあ、呼び出すだけなら確かにそうだ。</p>
+<p>引数だけが見えているので、返り値にいろいろやるとコンパイルが通らなくなったりする。
+このエラーは一見する価値があった。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a&gt;(x: &amp;'a usize, y: &amp;'a usize) -&gt; &amp;'a usize { x }
+fn g&lt;'b, 'c&gt;(x: &amp;'b usize, y: &amp;'c usize) -&gt; &amp;'b usize {
+  f(x, y)
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<pre><code>error: lifetime may not live long enough
+--&gt; src/main.rs:5:3
+  |
+4 | fn g&lt;'b, 'c&gt;(x: &amp;'b usize, y: &amp;'c usize) -&gt; &amp;'b usize {
+  |      --  -- lifetime `'c` defined here
+  |      |
+  |      lifetime `'b` defined here
+5 |   f(x, y)
+  |   ^^^^^^^ function was supposed to return data with lifetime `'b` but it is returning data with lifetime `'c`
+  |
+  = help: consider adding the following bound: `'c: 'b`
+</code></pre>
+</blockquote>
+<p><code>f</code> の return の lifetime が <code>'c</code> ということは、<code>'c</code> に <code>'a</code> を代入するような動きをしていることが分かった。
+（これはバージョン依存かも。）</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a&gt;(x: &amp;'a usize, y: &amp;'a usize) -&gt; &amp;'a usize { x }
+fn g&lt;'b, 'c, 'd&gt;(x: &amp;'b usize, y: &amp;'c usize) -&gt; &amp;'d usize {
+  f(x, y)
+}
+<span class="boring">}</span></code></pre></pre>
+<p>でもこっちを見ると、 <code>'d</code> を <code>a</code> に代入しているような動きに見える。</p>
+<h4 id="呼び出す側のライフタイム"><a class="header" href="#呼び出す側のライフタイム">呼び出す側のライフタイム</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a String, y: &amp;'a String) -&gt; &amp;'a String { x }
+fn main() {
+  let x1;
+  let x2;
+
+  x1 = String::from(&quot;hello&quot;);
+  x2 = String::from(&quot;world&quot;);
+  let z = f(&amp;x1, &amp;x2);
+  let _ = x1;
+}</code></pre></pre>
+<p>場所 <code>x1</code> が有効な範囲と <code>x2</code> が有効な範囲は、重なってはいるけれどどちらかの方が大きいというわけではない。</p>
+<ul>
+<li><code>x1</code> 存在 -&gt; <code>x2</code> 存在 -&gt; <code>x1</code> live -&gt; <code>x2</code> live -&gt; <code>let z = ..</code> -&gt; <code>x1</code> dead -&gt; <code>x2</code> 終了 -&gt; <code>x1</code> 終了
+だから、<code>f</code> を使うときの <code>'a</code> には両方の交差の部分が使われていそうに思える。</li>
+</ul>
+<h4 id="互いに同じであることを課したら"><a class="header" href="#互いに同じであることを課したら">互いに同じであることを課したら？</a></h4>
+<p><code>'a</code> も <code>'b</code> も互いに outlives の関係にあるなら、直観的には、両方同じ範囲でなければいけない。
+ただ、呼び出すときにそのまま <code>'a</code> や <code>'b</code> が使われるわけじゃないので注意。
+例えば次はコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a, 'b&gt;(x: &amp;'a usize, y: &amp;'b usize) where 'a: 'b, 'b: 'a {}
+
+fn main() {
+  let x: usize = 1;
+  let xr = &amp;x;
+  {
+    let y: usize = 1;
+    let yr = &amp;y;
+    f(xr, yr);
+  }
+}</code></pre></pre>
+<p><code>xr</code> と <code>yr</code> を与えて呼び出すときのライフタイムは十分に小さくとって、 <code>xr</code> と <code>yr</code> の共通部分を与えればいい。</p>
+<h4 id="関数とライフタイムについて"><a class="header" href="#関数とライフタイムについて">関数とライフタイムについて</a></h4>
+<p><code>f</code> の中で一時的に参照値を借りる場合と、 <code>f</code> によってライフタイムが結び付けられる場合を比較する。
+つまり、返り値のライフタイムを見るということ。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a usize) -&gt; usize {
+  *x
+}
+
+fn main() {
+  let mut x: usize = 1;
+  let y: usize = f(&amp;x);
+  x = 2;
+  print!(&quot;{}&quot;, y);
+}</code></pre></pre>
+<blockquote>
+<p>1</p>
+</blockquote>
+<p>これは問題ない。<code>&amp;x</code> が使われる期間は別に <code>y</code> の期間とは結びついてないから。
+（返り値にはライフタイムがないので、 <code>&amp;x</code> が使われてすぐにいらなくなることがわかる。）
+<code>f</code> を <code>&amp;x</code> を返すようにするとだめになる。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a usize) -&gt; &amp;'a usize {
+  x
+}
+
+fn main() {
+  let mut x: usize = 1;
+  let y: &amp;usize = f(&amp;x);
+  x = 2;
+  print!(&quot;{}&quot;, y);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0506]: cannot assign to <code>x</code> because it is borrowed</p>
+</blockquote>
+<p>これがはじかれる理由をちゃんと考える。</p>
+<ul>
+<li><code>let y = ..</code> のときに <code>&amp;x</code> が作られる ... &quot;この <code>&amp;x</code> &quot;が使われる期間を <code>'t</code> とする。
+<ul>
+<li>これは <code>x</code> が有効である期間 <code>'b</code> よりも小さい必要があるが、完全に一致する必要はない。</li>
+<li><code>'t</code> の範囲に <code>x</code> の読み書きが行われてはいけない制約が付く。</li>
+</ul>
+</li>
+<li><code>y</code> のライフタイムの観察を行うと、 <code>'t</code> は <code>let y =</code> から <code>print!</code> までを含む必要があるとわかる。
+<ul>
+<li><code>y</code> の drop check により、 <code>let y=</code> から <code>x=2</code> を含む <code>print!</code> までの期間が 1 つの参照値が代入されている必要がある。
+<ul>
+<li><code>y</code> は <code>print!(&quot;..&quot;)</code> のところで使われているので、逆に考えると、<code>y</code> が有効であるべき期間は <code>let</code> と <code>print!</code> は少なくとも含む</li>
+<li>その間に <code>y</code> への再代入は行われないので、 <code>y</code> が <code>print!</code> で使われるためには、 <code>x = 2</code> でも有効である必要がある。</li>
+</ul>
+</li>
+<li><code>y</code> のその期間には、 <code>f::&lt;'t&gt;</code> のようなものが使われているので、 <code>y</code> の有効期間 <code>'c</code> よりも小さい。</li>
+</ul>
+</li>
+<li><code>x = 2</code> が書かれている期間は、 <code>'t</code> と被っている ... コンパイルできない。</li>
+</ul>
+<p>この考え方はよくみると、直接的に <code>x</code> と <code>y</code> を比べているのではなく、 <code>&amp;x</code> が入っていったところの lifetime だけ比べていることがわかる。
+なので、 <code>x</code> を実際には使っていなくても、コンパイルは通らない。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  &amp;1 // 引数とは全然関係ない。
+}
+
+fn main() {
+  let mut x: usize = 1;
+  let y: &amp;usize = f(&amp;x);
+  x = 2;
+  print!(&quot;{}&quot;, y);
+}</code></pre></pre>
+<p>次はコンパイルできる。
+勝手に <code>y</code> に入っていた参照を無効化したものと解釈してもらえるから。
+（勝手に～～してもらえる？という言葉はプログラムあるある。）</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  &amp;1
+}
+
+fn main() {
+  let y: &amp;usize;
+  let mut x: usize = 1;
+  y = f(&amp;x);
+  print!(&quot;{}&quot;, y);
+  x = 2;
+}</code></pre></pre>
+<p><code>y</code> は <code>x</code> よりも長い期間存在しているが、有効な期間は勝手に短くなっていて、ほぼ2行。
+<code>print!</code> 後はいらないだろということで <code>y</code> に入っていた <code>&amp;x</code> は無効ということにしてもらえる。
+（扱いとしては drop されたようなもの。）</p>
+<h4 id="lifetime-の-specification-と-unspecification"><a class="header" href="#lifetime-の-specification-と-unspecification">lifetime の specification と unspecification</a></h4>
+<p><code>&amp;T</code> と <code>&amp;'a T</code> にはどんな違いがあるのか。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f1&lt;'a&gt;(x: &amp;'a usize) {
+  let x = 1;
+  let z: &amp;usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f2&lt;'a&gt;(x: &amp;'a usize) {
+  let x = 1;
+  let z: &amp;'a usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>下だけ確かにコンパイルはできなそうだ。</p>
+<h2 id="nested-な場合-1"><a class="header" href="#nested-な場合-1">nested な場合</a></h2>
+<p>二重にライフタイムが入っている場合として、 <code>&amp;'a &amp;'b usize</code> を考える。
+このとき、 <code>'b: 'a</code> であることが、（知らぬ間に）課されることになる。
+他にも構造体やら関数やらが入ってきても、その variance によって制約が課されたりすることがある。
+確かに道理としては自然だ。</p>
+<p>次はコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'a &amp;'b usize) {}
+<span class="boring">}</span></code></pre></pre>
+<p>これは呼び出す側が <code>&amp;&amp; T</code> を作った時点で検査がされるはずなので、 <code>f</code> 自身の検査では <code>'b: 'a</code> が課されなくてもいいから。</p>
+<p>次はコンパイルできない。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'b usize) {
+  let xr: &amp;'a &amp;'b usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>error: lifetime may not live long enough<br />
+error[E0597]: <code>x</code> does not live long enough</p>
+</blockquote>
+<p>実際に <code>&amp;'a &amp;'b T</code> を（ライフタイムを指定しつつ）作ろうとしているので、検査が行われる（1つ目のエラー）。
+その検査で、 <code>'a</code> と <code>'b</code> の関係が問われて、破綻する。
+ライフタイムを何も指定しない（ <code>&amp;&amp;usize</code> にする）なら大丈夫になる。
+あるいは、 <code>'b: 'a</code> を課すなら大丈夫になる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'b usize) where 'b: 'a {
+  let xr: &amp;'a &amp;'b usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>error[E0597]: <code>x</code> does not live long enough</p>
+</blockquote>
+<p>まあこれはコンパイルが通りませんが...
+理由は単純で、次が通らないのと同じ。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a&gt;(x: usize) {
+  let xr: &amp;'a usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>x</code> という引数への参照をとっているのがまずい、 <code>'a</code> ほど生きることはないから。
+ただ、エラーが出る個数は減った。</p>
+<p>一応エラーが出ないバージョンとして、 promoted された const を使おう。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;() {
+  let x: &amp;'a &amp;'b usize = &amp;&amp;1;
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;() where 'b: 'a {
+  let x: &amp;'a &amp;'b usize = &amp;&amp;1;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>こっちの方がわかりやすかったかも...</p>
+<h4 id="variance-の面白い例"><a class="header" href="#variance-の面白い例">variance の面白い例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x:&amp;'a mut usize) {}
+fn main() {
+  let mut x = 1;
+
+  f(&amp;mut x);
+  f(&amp;mut x);
+}</code></pre></pre>
+<p><code>&amp;mut x</code> は <code>f</code> 後にいらなくなることが、ライフタイム解析からわかる。
+なので、 <code>&amp;mut x</code> は&quot;同時に使うわけじゃない&quot;（関連するライフタイムの overwrap がない）から大丈夫。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a mut &amp;'a usize) {}
+fn main() {
+  let y = 1;
+  let mut x = &amp;y;
+
+  f(&amp;mut x);
+  f(&amp;mut x);
+}</code></pre></pre>
+<p>だめになる。
+これは、 <code>&amp;'a mut T</code> に対して <code>T</code> の位置に関連したライフタイムは、 variance が invariant になるから。
+<code>'a</code> を2回使うことで、ライフタイムの推論時に自由度が減ることになる。
+なるべくライフタイムは小分けにすればいい。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a, 'b&gt;(x: &amp;'a mut &amp;'b usize) {}
+fn main() {
+  let y = 1;
+  let mut x = &amp;y;
+
+  f(&amp;mut x);
+  f(&amp;mut x);
+}</code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><p><code>T: 'a</code> と <code>&amp;'a T</code> の差は意識したほうがいい。</p>
+<p>ライフタイムの変換の時には、 <code>'a: 'b</code> のような書き方をしたけど、
+型 <code>T</code> に対しても同様の書き方ができて、 <code>T</code> outlives <code>'a</code> という。
+このような制約をつけることを、ライフタイム境界（lifetime bound）という。</p>
+<h1 id="lifetime-bound-の書き方"><a class="header" href="#lifetime-bound-の書き方">lifetime bound の書き方</a></h1>
+<p>書き方はこんな感じ。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, T&gt;(x: T) where T: 'a {}
+fn g&lt;'a, T: 'a&gt;(x: T) {}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="どんな感じで使うのか"><a class="header" href="#どんな感じで使うのか">どんな感じで使うのか</a></h2>
+<p>ちなみに、 <code>T</code> は &quot;Owned&quot; な型が来るとは限らない。
+だから、こんな感じで使える。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a, T&gt;(x: T) where T: 'a {}
+
+fn main() {
+  f(1_usize); // `T` は usize
+  f(&amp;1_usize); // `T` は &amp;'temp usize
+}</code></pre></pre>
+<p>ちゃんと考えておくと、</p>
+<ul>
+<li>&quot;Owned&quot; な型 <code>T</code> の場合（例えば <code>usize</code> ）は、どんなライフタイム <code>'a</code> でも <code>T: 'a</code> である。</li>
+<li>&quot;Borrowd&quot; な型 <code>T</code> の場合（例えば、 <code>&amp;'b usize</code>）は、ライフタイムに対する共変と反変により <code>T: 'a</code> かどうかが決まる。</li>
+</ul>
+<p>呼び出す側は、そのライフタイムについて制約を証明できないといけない。
+次は証明できないのでコンパイルできない例。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, T&gt;(x: T) where T: 'a {}
+
+fn g&lt;'a, 'b&gt;() { // 'a と 'b には何の関係もない
+  let l: &amp;'b usize = &amp;1;
+  f::&lt;'a, &amp;'b usize&gt;(l);
+}
+<span class="boring">}</span></code></pre></pre>
+<p>ライフタイム注釈をつけるとコンパイルできる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, T&gt;(x: T) where T: 'a {}
+
+fn g&lt;'a, 'b&gt;() where 'b: 'a { // 'b: 'a に制限する
+  let l: &amp;'b usize = &amp;1;
+  f::&lt;'a, &amp;'b usize&gt;(l);
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="a-b-と-a-t-b-の比較"><a class="header" href="#a-b-と-a-t-b-の比較"><code>'a: 'b</code> と <code>&amp;'a T: 'b'</code> の比較</a></h4>
+<p>ライフタイムの方だと、 <code>'a: 'b</code> と書いたけど、これは多分 <code>&amp;'a usize: 'b</code> と書くのと同じような意味と思っていい。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;() where &amp;'a usize: 'b {}
+fn g&lt;'a, 'b&gt;() where 'a: 'b {}
+
+fn fg&lt;'a, 'b&gt;() where 'a: 'b {
+  f::&lt;'a, 'b&gt;() // f を g の制約から呼ぶ
+}
+
+fn gf&lt;'a, 'b&gt;() where &amp;'a usize: 'b {
+  g::&lt;'a, 'b&gt;() // g を f の制約から呼ぶ
+}
+<span class="boring">}</span></code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="制御フローを考える"><a class="header" href="#制御フローを考える">制御フローを考える。</a></h1>
+<p>プログラムは普通順番に実行されるが、順番を飛ばしたり戻ったりすることもある。
+（まあ全部ジャンプだけど。）</p>
+<ul>
+<li>関数の呼び出し</li>
+<li>if 文</li>
+<li>ループ（ <code>for</code>, <code>while</code>, <code>loop</code> ）</li>
+<li>ループから抜ける</li>
+<li>return する</li>
+</ul>
+<p>ここら辺の検査は、 rust というより MIR での（ borrow, drop, lifetime の）検査になる。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>関数の引数には場所や値が入れられる。</p>
+<h4 id="引数が関数呼び出しの例"><a class="header" href="#引数が関数呼び出しの例">引数が関数呼び出しの例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn f1() -&gt; usize { 1 }
+fn f2() -&gt; usize { 2 }
+fn g(a: usize, b: usize) -&gt; usize { 2 * a + b }
+fn main() {
+  g(f1(), f2());
+}</code></pre></pre>
+<p><code>g(f1(), f2())</code> を呼び出すには <code>f1()</code> の呼び出した返り値を保持しておく必要がある。
+これを保持しておく場所には名前が振られていない（名前の付いた変数でない）。</p>
+<h4 id="一時変数を陽に書く例"><a class="header" href="#一時変数を陽に書く例">一時変数を陽に書く例</a></h4>
+<p>上の例と&quot;同じ&quot;プログラムは
+上の例は次と同じ（ような気がする）。本当に同じなのかは闇の中...（どうやってチェックしよう）</p>
+<ul>
+<li>MIR とかコンパイル結果を見ればいい気もする</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn f1() -&gt; usize { 1 }
+</span><span class="boring">fn f2() -&gt; usize { 2 }
+</span><span class="boring">fn g(a: usize, b: usize) -&gt; usize { 2 * a + b }
+</span>fn main() {
+  let tmp1 = f1();
+  let tmp2 = f2();
+  g(tmp1, tmp2);
+}</code></pre></pre>
+<p>この場合、<code>tmp1</code>という変数から、<code>g</code>という関数の<code>a</code>という引数へ値の転送が起きる。
+やってることは、一時変数だったところに名前が付いただけ。</p>
+<h4 id="呼び出し順逆の例"><a class="header" href="#呼び出し順逆の例">呼び出し順逆の例</a></h4>
+<p>引数は左から順に呼ばれるので、次の例とは&quot;同じ&quot;ではない。
+（ <code>tmp1</code> と <code>tmp2</code> の順番が入れ替わっている。）</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn f1() -&gt; usize { 1 }
+</span><span class="boring">fn f2() -&gt; usize { 2 }
+</span><span class="boring">fn g(a: usize, b: usize) -&gt; usize { 2 * a + b }
+</span>fn main() {
+  let tmp2 = f2();
+  let tmp1 = f1();
+  g(tmp1, tmp2);
+}</code></pre></pre>
+<p>なぜ同じじゃないかというと、
+例えば<code>f1</code>と<code>f2</code>の中で<code>print!(&quot;I'm f1&quot;)</code> とか <code>print!(&quot;I'm f2&quot;)</code>とかが書かれている（いわゆる&quot;副作用&quot;がある）場合を考えると、
+どっちが先にprintされるかが <code>tmp1</code>と<code>tmp2</code>の計算順で変わるから。
+言語によっては、どちらに実行されるかが決まっていなかったりする。
+rust では、引数は左から順に解決されるので、 <code>tmp1</code>が先。</p>
+<h4 id="引数の破棄の順番例"><a class="header" href="#引数の破棄の順番例">引数の破棄の順番例</a></h4>
+<p>引数の場合は右から順に破棄される。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span><span class="boring">impl Drop for A {
+</span><span class="boring">  fn drop(&amp;mut self) {
+</span><span class="boring">    print!(&quot;{}!&quot;, self.0)
+</span><span class="boring">  }
+</span><span class="boring">}
+</span>fn a(x: A, y: A) {}
+fn main() {
+    a(A(1), A(2));
+}</code></pre></pre>
+<blockquote>
+<p>2!1!</p>
+</blockquote>
+<ul>
+<li><code>a(A(1), A(2))</code>と呼ばれると、</li>
+<li>（なんかどっかにあるらしい） <code>A(1)</code>という値と<code>A(2)</code>という値が<code>a</code>にmoveされる。</li>
+<li>多分一時変数になってる？</li>
+<li>関数 <code>a</code>が呼ばれる。</li>
+<li>関数<code>a</code>が終わる。</li>
+<li>引数である場所 <code>y</code> が値 <code>A(2)</code>を持っているので値の破棄が起きる。</li>
+<li><code>2!</code>が出力される。</li>
+<li>引数である場所 <code>x</code> が値 <code>A(1)</code>を持っているので値の破棄が起きる。</li>
+<li><code>1!</code>が出力される。
+これはスタックとスタックフレームを考えると確かにそうなる。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>所有権と参照周りでは、不思議なことがよくおこる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = String::new();
+  let y = &amp;x;
+  let z = x;
+}</code></pre></pre>
+<p>コンパイルが通る。
+これは次のような感じに見える。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = String::new();
+  let y;
+  {
+    y = &amp;x;
+  } // 場所 `y` が有効な期間
+  let z = x;
+}</code></pre></pre>
+<p>ただ、次のものとはちょっと違うと思う（ Drop の順序が変わるから。）</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = String::new();
+  {
+    let y = &amp;x;
+  } // 場所 `y` が存在する期間
+  let z = x;
+}</code></pre></pre>
+<h2 id="参照値が勝手に消える"><a class="header" href="#参照値が勝手に消える">参照値が勝手に消える</a></h2>
+<h4 id="参照値が消える例"><a class="header" href="#参照値が消える例">参照値が消える例</a></h4>
+<p>勝手に <code>y</code> が保持していた参照が使えなくなることがあるが、それはよしなにやってくれる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut y: &amp;usize;
+  {
+    let x = 1;        // x    有効
+    y = &amp;x;           // x,&amp;x 有効
+    print!(&quot;{}&quot;, *y); // x,&amp;x 有効
+  }                   // x 終了 =&gt; &amp;x 無効 =&gt; y 無効
+  // `y` には何も入ってない。
+  {
+    let z = 2;        // 同様
+    y = &amp;z;
+    print!(&quot;{}&quot;, *y);
+  }
+}</code></pre></pre>
+<blockquote>
+<p>12</p>
+</blockquote>
+<p><code>y</code> という場所はブロックの最初から最後まで存在しているが、
+<code>y</code> の持っている（参照）値は使えなくなったりする。</p>
+<p>これは次のコードとパラレルに思える。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut y: String;
+  {
+    y = String::from(&quot;hello&quot;);
+    print!(&quot;{}&quot;, y);
+    let z = y; // y が無効になる
+  }
+  // `y` には何も入ってない。
+  {
+    y = String::from(&quot;world&quot;);
+    print!(&quot;{}&quot;, y);
+    let z = y; // y が無効になる
+  }
+}</code></pre></pre>
+<h4 id="スコープを超えて参照を渡せない例"><a class="header" href="#スコープを超えて参照を渡せない例">スコープを超えて参照を渡せない例</a></h4>
+<p><code>{</code> から <code>}</code> までがスコープなので、これをまたぐ際には注意が必要。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let y = 'a: {
+    let x = 1;
+    &amp;x
+  };
+}</code></pre></pre>
+<blockquote>
+<p>error[E0597]: <code>x</code> does not live long enough</p>
+</blockquote>
+<p><code>x</code> が存在している期間（ラベル <code>'a</code> がついているブロック＝スコープ）をまたぐことになるのでだめ。</p>
+<p>ただし、temoporal value のように見えるものはどうにかなったりする。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let y = {
+      &amp;1
+    };
+}</code></pre></pre>
+<h4 id="関数にするとダメになる例"><a class="header" href="#関数にするとダメになる例">関数にするとダメになる例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut y: &amp;usize = &amp;1;
+  {
+    let x = 1;
+    y = &amp;x;
+  }
+}</code></pre></pre>
+<p>これはコンパイルが通って、 <code>y</code> が保持していた参照値が勝手になかったことになる。
+でもこれを関数にまとめるとダメ。</p>
+<pre><pre class="playground"><code class="language-rust">fn f(mut y: &amp;usize) {
+  let x = 1;
+  y = &amp;x;
+}
+
+fn main() {
+  let mut y: &amp;usize = &amp;1;
+  f(y)
+}</code></pre></pre>
+<blockquote>
+<p>error[E0597]: <code>x</code> does not live long enough</p>
+</blockquote>
+<p>単純に、関数定義をそのブロックの中身で置き換えることはできないことがわかる。
+まあ、本当に関数定義のやり方に近づけると以下のようになるはず。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut y: &amp;usize = &amp;1;
+  {
+    let mut y_arg: &amp;usize; // 関数の引数の用意
+    y_arg = y; // 引数への move
+    let x = 1;
+    y_arg = &amp;x;
+  }
+}</code></pre></pre>
+<p>でもこれもコンパイルは通る。
+ここらへんは、 NLL の関係で関数をまたぐと柔軟な解釈ができなくなるという話っぽい。
+（ NLL は MIR 経由で &quot;ブロック内の&quot; borrow checker として検査を行う際の話だが、
+関数の境界をまたぐ場合は、 type checker と trait solver による検査が入るため、
+liveness とライフタイムの検査の仕方が異なる。
+i.e. <strong>検査するのが borrow checker から type checker に変わる</strong>
+多分、こういうことだと思う。）</p>
+<h2 id="nll-についてもっと詳しく"><a class="header" href="#nll-についてもっと詳しく">NLL についてもっと詳しく</a></h2>
+<p>NLL における lifetime は &quot;set of points in the control-flow graph&quot; として定義されている。
+この control-flow というのが重要で、（分岐以外にもブロックが逐次出てくる場合も含めて）、
+rust のプログラムの <code>{</code> <code>}</code> で記述されている部分というのは、「各ラベル付き（MIR）ブロックが辺（terminator）でつながっている」コードと思える。
+control-flow graph の点はこの辺のことと思える。
+（文と文の間とかに点が設定されるが、ここでは文に設定されてると思ってしまう。）</p>
+<p>逐次と nested なブロックの場合だけやる。</p>
+<ul>
+<li>各ブロックとジャンプ先を書く。</li>
+<li>各 reference の型を持つ値と場所に、 lifetime <strong>変数</strong>をつける。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  // block a;
+  let mut y: &amp;usize; // &amp;'y usize
+  // goto b;
+
+  { // block b
+    let x = 1;
+    y = &amp;x; // &amp;'x usize
+    print!(&quot;{}&quot;, *y); // `y` used =&gt; `y` should lives =&gt; 'x outlives 'y at this line
+  } // goto c;
+
+  { // block c
+    let z = 2;
+    y = &amp;z; // &amp;'z usize
+    print!(&quot;{}&quot;, *y); // `y` used =&gt; `y` should lives =&gt; 'z outlives 'y at this line
+  } // return fn;
+}</code></pre></pre>
+<p>borrow checker は、この情報をもとに reference や lifetime がどこまで生きる<strong>べき</strong>かを計算し、制約が満たせるか判定する。
+ここでこの制約は、「point <code>p</code> で、lifetime <code>L1</code> が <code>L2</code> よりも長い」というように、単に lifetime を比較せずに、 at point <code>p</code> という形にするのが、
+NLL の重要な点である。</p>
+<p>例えば先のコードだと古典的に考えれば、<code>'x</code> は <code>'y</code> よりも真に短いのに、 <code>&amp;'y usize</code> に <code>'x usize</code> が代入できているのでおかしい。</p>
+<p>NLL の考え方だと、そもそも <code>'y</code> に関する制約が生まれるのは、2つの点だけになる。
+そして、 <code>'y</code> は<strong>自由な変数</strong>である。
+つまり、<code>'y</code> が結局どこまでかを（制約を満たす限り） NLL が決めてもいい。
+制約としては</p>
+<ul>
+<li><code>'x : 'y</code> at block b の <code>y = &amp;x</code></li>
+<li><code>'y: {at print!}</code> at block b の <code>println!(..)</code></li>
+<li><code>'x : 'z</code> at block b の <code>y = &amp;z</code></li>
+<li><code>'y: {at print!}</code> at block c の <code>println!(..)</code></li>
+</ul>
+<p>この制約を満たすように、minimal にとることができる：</p>
+<ul>
+<li><code>'x</code> は <code>&amp;x</code> が作られてからブロックの最後まで</li>
+<li><code>'z</code> は <code>&amp;z</code> が作られてからブロックの最後まで</li>
+<li><code>'y</code> は、ちょうど <code>y</code> が登場している行全部</li>
+</ul>
+<p>だから、このプログラムは borrow checker が妥当と判断している。</p>
+<h4 id="もうちょっと複雑な例"><a class="header" href="#もうちょっと複雑な例">もうちょっと複雑な例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut y: &amp;String;
+  let mut x: String = String::from(&quot;hello&quot;);
+  y = &amp;x;
+  println!(&quot;{x}&quot;);
+  y = &amp;x;
+  println!(&quot;{x}&quot;);
+}</code></pre></pre>
+<p>ちゃんと書かないけど、この例の場合は</p>
+<ul>
+<li>変数 <code>y</code> の型には <code>&amp;'y usize</code> としてライフタイム <code>'y</code> を割り振る </li>
+<li>各 <code>&amp;x</code> の登場ごとに <code>'x1</code> と <code>x2</code> という<strong>参照値のライフタイム</strong>を割り振る
+<ul>
+<li><code>x</code> という場所のスコープとは別に、ここで作られた参照値がどこまで使えるかを表す。</li>
+</ul>
+</li>
+</ul>
+<p>としてライフタイム変数 <code>'y</code> と <code>'x1</code> と <code>'x2</code> の制約問題を解く。
+<code>y = &amp;x</code> から 2 つの制約がそれぞれの行で発生する。
+あと、 <code>print!(&quot;{x}&quot;)</code> は <code>x</code> が使われているので、 <strong><code>&amp;x</code> を殺す</strong>必要がある。
+（RFCの中で、 constrait についての議論では、どこまで生きるべきかは議論してたけど、
+いつまでに死ぬべきかは全然書かれてなかった。なんで？）
+その制約を守れば well-formed なライフタイムができあがる。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="スコープとライフタイムについて制御フローを見つつ"><a class="header" href="#スコープとライフタイムについて制御フローを見つつ">スコープとライフタイムについて、制御フローを見つつ</a></h2>
+<p>所有権と同じように、 if 文での分岐をもとにちょっと議論する。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn rand() -&gt; bool {
+  // もしかしたら system::rand とかが来ているかもしれない想定。
+  true
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring"> // もしかしたら system::rand とかが来ているかもしれない想定。
+</span><span class="boring"> true
+</span><span class="boring">}
+</span>fn main() {
+  if rand() {
+    let x = 1;
+  } else {
+    let x = 1;
+  }
+  print!(&quot;{x}&quot;);
+}</code></pre></pre>
+<p>いずれの分岐にしても <code>x</code> は宣言されているけれど、 <code>x</code> はその分岐の中で終了している。
+これはある意味で、 if 文は <code>{</code> <code>}</code> で区切られているからとも思える。</p>
+<p>ちょっと面白かった例とか。</p>
+<h1 id="どんな代入ができるの"><a class="header" href="#どんな代入ができるの">どんな代入ができるの？</a></h1>
+<p>いわゆる制御の分岐が起こる場合の、場所と値を見てみる。
+次の関数を使う。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn rand() -&gt; bool {
+  // もしかしたら system::rand とかが来ているかもしれない想定。
+  true
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="if-文で変数への代入が分岐する場合"><a class="header" href="#if-文で変数への代入が分岐する場合">if 文で変数への代入が分岐する場合</a></h2>
+<h4 id="条件分岐で同じ変数に代入する"><a class="header" href="#条件分岐で同じ変数に代入する">条件分岐で同じ変数に代入する。</a></h4>
+<p>if 文が混じってくると、変数が初期化されているかの検査は多少複雑になりそうだけど、 rust はそこをやってくれる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x: A;
+
+  if rand() {
+    x = A(1);
+  } else {
+    x = A(2);
+  }
+
+  println!(&quot;{}&quot;, x.0);
+}</code></pre></pre>
+<h4 id="条件分岐で変数の代入先を変える"><a class="header" href="#条件分岐で変数の代入先を変える">条件分岐で変数の代入先を変える</a></h4>
+<p>if 文で初期化先が変わっても大丈夫なのか？</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x: A;
+  let y: A;
+
+  if rand() {
+    x = A(1);
+  } else {
+    y = A(2);
+  }
+}</code></pre></pre>
+<blockquote>
+<p><em>No output</em></p>
+</blockquote>
+<p>エラーは出なかった。 <code>x</code> も <code>y</code> も、 if 文の後に使われないから構わないのかもしれない。
+逆に言えば、使う場合にはエラーが出そうな気がする。</p>
+<h4 id="代入した結果を使ってみる"><a class="header" href="#代入した結果を使ってみる">代入した結果を使ってみる</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x: A;
+  let y: A;
+
+  if rand() {
+    x = A(1);
+  } else {
+    y = A(2);
+  }
+
+  let z = x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0381]: used binding <code>x</code> is possibly-uninitialized</p>
+</blockquote>
+<p>たしかに、<em>もしかしたら</em> 初期化されていないかもしれない。
+ので、エラーになるのは妥当だ。</p>
+<h4 id="頑張ったら制御フロー解析でどうにかなる"><a class="header" href="#頑張ったら制御フロー解析でどうにかなる">頑張ったら制御フロー解析でどうにかなる？</a></h4>
+<p>結果を <code>b</code> に入れておいて、後から使うならどうだろう。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x: A;
+  let y: A;
+  let z: A;
+
+  let b = rand();
+
+  if b {
+    x = A(1);
+  } else {
+    y = A(2);
+  }
+
+  if b {
+    z = x;
+  }
+}</code></pre></pre>
+<blockquote>
+<p>error[E0381]: used binding <code>x</code> is possibly-uninitialized</p>
+</blockquote>
+<p>まあこれも解析は難しいし、こういうことができるプログラムはバグを生みやすいから、
+別に改善してほしいとは思わないかな。</p>
+<p>直観的には、制御フロー図を書くと、</p>
+<ul>
+<li>1 つめの if 文で、それぞれの分岐で uninitialized なケースがある。</li>
+<li>1 つめの if 文が終わった後で制御は合流し、その段階で <code>x</code> と <code>y</code> の有効性の検査も合流してしまう。</li>
+<li>つまり、 <code>x</code> も <code>y</code> も possibly-uninitialized としてマークされる。</li>
+<li>2 つめの if 文はその条件については 「 1 つめの if 文と同じだ！」みたいな解析をしないので、内部に入るときに、 <code>x</code> は possibly-uninitialized としてマークされる。</li>
+</ul>
+<p>ただ、 <code>b</code> は rust プログラムが完全に所有している（所有権とは別の意味で、他のプログラムが触ることを想定していない）ので、
+最適化の際にはまとめてしまったりしても問題ないはず。
+（ unsafe を使うときに Tree borrows に似たような例があって、コンパイルは通らないけれど正しいプログラムの例だった気がする。）</p>
+<h4 id="似たようなケースの場合"><a class="header" href="#似たようなケースの場合">似たようなケースの場合</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x = A(1);
+  let y = A(2);
+  let z = if rand() {x} else {y};
+  print!(&quot;{}&quot;, x.0);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: borrow of moved value: <code>x</code></p>
+</blockquote>
+<p>possibly じゃないんだ。 <code>y.0</code> でも同じ結果だった。
+これは多分、右辺は値式なので、 <strong>意味的には</strong> <code>x</code> と <code>y</code> それぞれから値を取り出して式にしているからと解釈できそう。
+ただ、短絡評価との両立は難しそう。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x = A(1);
+  let y = A(2);
+  let z = if rand() {
+    let k = x;
+    k
+  } else {
+    let k = y;
+    k
+  };
+  print!(&quot;{}&quot;, x.0);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: borrow of moved value: <code>x</code></p>
+</blockquote>
+<p>これも possibly じゃなかった。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn rand() -&gt; bool {
+</span><span class="boring">  true
+</span><span class="boring">}
+</span>struct A(usize);
+fn main() {
+  let x = A(1);
+  let y = A(2);
+
+  let z;
+  if rand() {
+    z = x;
+  } else {
+    z = y;
+  };
+  print!(&quot;{}&quot;, x.0);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: borrow of moved value: <code>x</code></p>
+</blockquote>
+<p>これも possibly じゃない。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>while や loop にラベルをつけてジャンプしたり return したりする、のを調べたい。</p>
+<ul>
+<li>TODO 調べる</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>NLL で出てきたような match の途中で return する話を理解したい。
+（Drop についても調べつつ。）</p>
+<ul>
+<li>TODO 調べる</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>今はとくに何も思いついてないのでここには何もない。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>その他ね。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>rust にはバグがあって、その中には safe rust の範囲内でメモリ安全でない動作を行うものがある。</p>
+<p>そのうちの、 nested reference と variance に起因するバグをここに書く。
+issue は <a href="https://github.com/rust-lang/rust/issues/25860">25860</a> で、このバグは 2015 年から存在しているらしい。
+<a href="https://github.com/Speykious/cve-rs">CVE-rs</a>はそれを利用したジョーククレートである。
+<a href="https://www.youtube.com/watch?v=vfMpIsJwpjU">youtubeでの解説</a>などもある。</p>
+<h1 id="核となる部分"><a class="header" href="#核となる部分">核となる部分</a></h1>
+<p>CVE-rs より。
+次を利用して、ある参照のライフタイムを伸ばすことができる。</p>
+<ul>
+<li><code>&amp;'a &amp;'b T</code> と書いたら <code>'b: 'a</code> がわかる。(nested reference)</li>
+<li><code>&amp;'b T</code> は <code>'b: 'a</code> なら <code>&amp;'a T</code> とみなしてよい。(variance)</li>
+</ul>
+<h4 id="cve-rs-の例"><a class="header" href="#cve-rs-の例">CVE-rs の例</a></h4>
+<p>以下のような <code>expand</code> 関数が書けて、任意にライフタイムが伸ばせる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const STATIC_UNIT: &amp;'static &amp;'static () = &amp;&amp;();
+
+// この関数の generic な引数 'a,'b には何の仮定もないように思えるが、
+// _val_a が存在することで、 `'b: 'a` である場合にしか普通は呼べない。
+// この関数は確かによい、ように思える。
+const fn lifetime_translator&lt;'a, 'b, T: ?Sized&gt;(_val_a: &amp;'a &amp;'b (), val_b: &amp;'b T) -&gt; &amp;'a T {
+	val_b // val_b の持つ参照のライフタイム `'b` を `'a` に変換
+}
+
+// この関数の generic な引数 'a,'b には何の仮定もないので、任意のライフタイム 'a, 'b, で呼べる。
+fn expand&lt;'a, 'b, T&gt;(x: &amp;'a T) -&gt; &amp;'b T {
+  // この行はごまかすためのもの？
+	let f: for&lt;'x&gt; fn(_, &amp;'x T) -&gt; &amp;'b T = lifetime_translator;
+  // variance を用いて、 STATIC_UNIT が実は 'b: 'a である証明とする。
+	f(STATIC_UNIT, x)
+}
+<span class="boring">}</span></code></pre></pre>
+<p>例えば、局所変数への参照を返せる。
+unsafe が一つも出てきてないことに注意。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">const STATIC_UNIT: &amp;'static &amp;'static () = &amp;&amp;();
+</span><span class="boring">const fn lifetime_translator&lt;'a, 'b, T: ?Sized&gt;(_val_a: &amp;'a &amp;'b (), val_b: &amp;'b T) -&gt; &amp;'a T {
+</span><span class="boring">	val_b
+</span><span class="boring">}
+</span><span class="boring">fn expand&lt;'a, 'b, T&gt;(x: &amp;'a T) -&gt; &amp;'b T {
+</span><span class="boring">  let lifetime_translator: for&lt;'x&gt; fn(_, &amp;'x T) -&gt; &amp;'b T = lifetime_translator;
+</span><span class="boring">	lifetime_translator(STATIC_UNIT, x)
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn ret() -&gt; &amp;'static usize {
+    let x = 1;
+    expand(&amp;x) // 局所変数への参照！
+}
+
+fn main() {
+    let xref: &amp;'static usize = ret();
+    println!(&quot;hello {}&quot;, *xref); // ret() 内で定義された局所変数の参照 ... 意味わかんないことになってる。
+}</code></pre></pre>
+<p>念のため、 <code>expand</code> を使わない場合はコンパイルが通らないことを見る。</p>
+<pre><pre class="playground"><code class="language-rust">fn ret() -&gt; &amp;'static usize {
+    let x = 1;
+    &amp;x // 局所変数への参照！
+}
+
+fn main() {
+    let xref: &amp;'static usize = ret();
+    println!(&quot;hello {}&quot;, *xref); 
+}</code></pre></pre>
+<h4 id="shadowing-すると通らなくなる例"><a class="header" href="#shadowing-すると通らなくなる例">shadowing すると通らなくなる例</a></h4>
+<p>次は通らない。</p>
+<pre><pre class="playground"><code class="language-rust">const STATIC_UNIT: &amp;'static &amp;'static () = &amp;&amp;();
+
+const fn lifetime_translator&lt;'a, 'b, T: ?Sized&gt;(_val_a: &amp;'a &amp;'b (), val_b: &amp;'b T) -&gt; &amp;'a T {
+  val_b
+}
+
+fn expand&lt;'a, 'b, T&gt;(x: &amp;'a T) -&gt; &amp;'b T {
+  lifetime_translator(STATIC_UNIT, x)
+}
+
+fn ret() -&gt; &amp;'static usize {
+    let x = 1;
+    expand(&amp;x)
+}
+
+fn main() {
+    let xref: &amp;'static usize = ret();
+    println!(&quot;hello {}&quot;, *xref);
+}</code></pre></pre>
+<blockquote>
+<p>error: lifetime may not live long enough
+help: consider adding the following bound: <code>'a: 'b</code></p>
+</blockquote>
+<p>いわれたとおりにする。</p>
+<pre><pre class="playground"><code class="language-rust">const STATIC_UNIT: &amp;'static &amp;'static () = &amp;&amp;();
+
+const fn lifetime_translator&lt;'a, 'b, T: ?Sized&gt;(_val_a: &amp;'a &amp;'b (), val_b: &amp;'b T) -&gt; &amp;'a T {
+  val_b
+}
+
+fn expand&lt;'a, 'b, T&gt;(x: &amp;'a T) -&gt; &amp;'b T where 'a: 'b {
+  lifetime_translator(STATIC_UNIT, x)
+}
+
+fn ret() -&gt; &amp;'static usize {
+    let x = 1;
+    expand(&amp;x)
+}
+
+fn main() {
+    let xref: &amp;'static usize = ret();
+    println!(&quot;hello {}&quot;, *xref);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0515]: cannot return value referencing local variable <code>x</code></p>
+</blockquote>
+<p>だめだ。
+<code>let lifetime_translator: for&lt;'x&gt; fn(_, &amp;'x T) -&gt; &amp;'b T = lifetime_translator;</code>
+という文がかなり重要らしい。
+issue 内で出ているやり方（<code>let lifetime_translator: fn(_, &amp;'a T) -&gt; &amp;'static T = lifetime_translator;</code>）も試してみる。</p>
+<pre><pre class="playground"><code class="language-rust">const STATIC_UNIT: &amp;'static &amp;'static () = &amp;&amp;();
+const fn lifetime_translator&lt;'a, 'b, T: ?Sized&gt;(_val_a: &amp;'a &amp;'b (), val_b: &amp;'b T) -&gt; &amp;'a T {
+	val_b
+}
+fn expand&lt;'a, 'b, T&gt;(x: &amp;'a T) -&gt; &amp;'b T {
+  let lifetime_translator: fn(_, &amp;'a T) -&gt; &amp;'static T = lifetime_translator;
+	lifetime_translator(STATIC_UNIT, x)
+}
+ 
+fn ret() -&gt; &amp;'static usize {
+    let x = 1;
+    expand(&amp;x)
+}
+
+fn main() {
+    let xref: &amp;'static usize = ret();
+    println!(&quot;hello {}&quot;, *xref);
+}</code></pre></pre>
+<blockquote>
+<p>error: lifetime may not live long enough
+type annotation requires that <code>'a</code> must outlive <code>'static</code></p>
+</blockquote>
+<p>のように対策がされている。
+なので、 Higher-Rank Trait Bounds による型の coersion（ <code>for &lt;'x&gt; fn (_, &amp;'x T) -&gt; &amp;'a T</code>）が肝になっている。</p>
+<h1 id="いい話"><a class="header" href="#いい話">いい話</a></h1>
+<p>next generation trait solver により解決される見込みらしい !
+<a href="examples/04other/../../references.html#next-generation-solver-%E3%81%AB%E3%82%88%E3%82%8B%E3%81%A8-cve-rs-%E3%81%8C%E6%B2%BB%E3%82%8A%E3%81%9D%E3%81%86">ref</a></p>
+<div style="break-before: page; page-break-before: always;"></div><p>chatGPT の deep research に投げて、面白そうに思えた話をここ以下に（そのまま）貼る。
+参考文献の引用部分は、大体引用のミスがあるのと、コピーで情報が落ちてしまうので、手動で貼れる分だけにした。</p>
+<ul>
+<li>struct の field と <code>Box</code> のようなスマートポインターが似ているみたいな話は時々あるみたい。（ちゃんと調べてないけれど。）</li>
+<li>ただ、「場所と値」みたいなテーマの中で所有権を考えて、場所の間の関係としてとらえているみたいなのはあるのかなと思って、調べてもらった。</li>
+<li>なさそう。（これ以上を自分で調べるのもだるい。）</li>
+<li>結論としては、 owning pointer と ownership という話が一番近いけれど、「ヒープと malloc のためのポインタの管理」みたいなことが主流（というかそれしか問題にはならない）みたい。</li>
+<li>なので、 struct の field や、 stack frame にある array まで含めた、&quot;抽象的な場所&quot;の話はあまりなかった。</li>
+</ul>
+<hr />
+<h1 id="メモリ領域間の意味論的依存関係を記述する理論と概念"><a class="header" href="#メモリ領域間の意味論的依存関係を記述する理論と概念">メモリ領域間の意味論的依存関係を記述する理論と概念</a></h1>
+<h2 id="背景-メモリ領域間の責任関係とは"><a class="header" href="#背景-メモリ領域間の責任関係とは">背景: メモリ領域間の「責任」関係とは</a></h2>
+<p>プログラミングにおいて、あるメモリ領域（例えばオブジェクトやデータ構造）が別のメモリ領域に対して<strong>意味論的な責任や依存関係</strong>を持つ場合、それは一方が他方の寿命や管理に対して責任を負っている関係を指します。簡潔に言えば、「あるリソース（メモリ）の<strong>所有者</strong>が誰か」という問題です。この「所有者」は、そのリソースを適切に解放する責務を持つ主体を意味します。例えばC++における <code>std::unique_ptr&lt;int&gt;</code> は動的確保した<code>int</code>の唯一の所有者であり、自身が破棄されるときにその<code>int</code>を解放するよう設計されています。一方で生のポインタ（<code>int*</code>など）はそうした責任を負わないため、メモリリークや二重解放が起こり得ます。このように、特定のメモリ領域Aが別のメモリ領域Bの寿命管理を担う関係は、ガベージコレクションの有無やヒープ/スタックといった物理的配置に関わらず、プログラムの意味論上重要な概念となっています。</p>
+<h2 id="所有権モデルと所有権型システム"><a class="header" href="#所有権モデルと所有権型システム">所有権モデルと所有権型システム</a></h2>
+<p>この種の依存関係を抽象的に記述する中心的な概念が<strong>所有権</strong>(ownership)です。所有権とは、一言で言えば「あるリソースに対する操作（例えばメモリの読み書きや解放）を行うための権利を、どの主体が持っているか」という取り決めです。学術的にも近年、所有権はプログラミング言語設計における統一的な概念として注目されており、型システムや論理を用いてこの関係を表現・保証しようとする数多くの提案がなされています。</p>
+<p>所有権型システム(ownership type system)は、オブジェクト指向言語におけるエイリアス制御のために提案された枠組みです。Clarkeらの<strong>所有者-被所有者の階層</strong>（<em>Owners-as-dominators</em>）モデルでは、ヒープ上のオブジェクトに階層的な所有関係を課し、あるオブジェクトの内部への外部からの直接アクセスを禁止することで不変条件を保護します。例えばオブジェクト<code>a</code>が<code>b</code>を所有している場合、<code>b</code>への参照は常に<code>a</code>を通じてのみ行われ、<code>b</code>は<code>a</code>の管理下にあります。この厳格な所有権規律はカプセル化を強固にし、データ不変条件の維持などに有用です（ただし外部イテレータが使えない等の制約が生じるため、後続研究では緩和策も検討されています）。</p>
+<p>所有権に関する研究は多数あり、<strong>所有権の階層やドメイン</strong>を柔軟に扱うモデル（所有権ドメイン、owners-as-modifiers等）、所有権の推論、自動管理など様々な発展があります。いずれも根底には「あるオブジェクト（メモリ領域）のライフサイクルは特定の別の主体に紐付けて管理する」という思想があります。</p>
+<h2 id="線形型アフィン型によるリソース管理"><a class="header" href="#線形型アフィン型によるリソース管理">線形型・アフィン型によるリソース管理</a></h2>
+<p>型理論の分野では、<strong>線形型</strong>や<strong>アフィン型</strong>といった<em>サブストラクチャ型システム</em>がリソース管理に活用されています。線形型では「値はちょうど一度だけ使用される」ことを強制し、アフィン型では「高々一度使用される（未使用も許容）」制約を与えます。これによりプログラム中でリソースの別名（エイリアス）を制限し、同じリソースへの複数の参照による競合を防ぎます。Rust言語は線形型を明示的には導入していませんが、<strong>所有権と借用</strong>という仕組みによって「各値は同時に唯一の所有者しか持たず、スコープ終了時に自動解放される」という線形型的な制約を実現しています。このおかげでRustでは、コンパイル時検査によりuse-after-freeや二重解放、データ競合を防止できます。また、CleanやMercuryといった関数型言語では<strong>ユニークネスタイプ</strong>（一意性型）という形で、あるデータ構造への唯一参照のみを許すタイプシステムが導入されており、破壊的更新やI/O操作の安全な実現に応用されています（Cleanの一意性型ではデフォルトでデータは非一意だが、特定の値に対し一意性を指定することで破壊的操作を許容します）。</p>
+<p>このような線形/一意型の考え方では、「リソースへのアクセス権」は線形論理における資源とみなされ、プログラム中でその資源を複製したり捨てたりしないことが保証されます。結果として、あるポインタがそのメモリの唯一の所有権を持つ（他に別名が存在しない）状況を型レベルで表現でき、所有者がスコープを外れれば自動的にメモリを解放する、といった振る舞いを安全に行えるのです。</p>
+<h2 id="リージョンベース管理とライフタイム"><a class="header" href="#リージョンベース管理とライフタイム">リージョンベース管理とライフタイム</a></h2>
+<p>メモリ領域間の依存関係を記述する別のアプローチに、<strong>リージョンベースのメモリ管理</strong>があります。これはプログラム中のメモリ割当を<strong>リージョン（領域）<strong>と呼ばれる論理的な区分に紐付ける手法で、各領域にはライフタイム（生存期間）が設定されています。リージョン内に割り当てられたオブジェクトはそのリージョンごと一括して解放されるため、あるオブジェクトの寿命は対応するリージョンの所有者（あるいはスコープ）に依存します。この考え方はRustのライフタイム(<code>'a</code>など)や所有権と密接に関連しており、<strong>Cyclone</strong>や</strong>Vault</strong>といった安全な低レベル言語の研究でもリージョン/ライフタイム・型状態(typestate)システムとして実装されました。</p>
+<p>例えばCyclone言語では、ポインタ型にリージョン注釈を付与し、「このポインタが指すヒープオブジェクトは特定のスタックフレーム（リージョン）に属する」と宣言します。リージョン終了時にその中のオブジェクト群をまとめて解放することで、メモリリークを防ぎつつ手動メモリ管理の負担を軽減しました。Rustの借用検査も、コンパイル時に各参照がどのスコープまで有効か（=どのオブジェクトより長生きしてはいけないか）を検証する点で、リージョンベース管理の一種と言えます。このモデルでは、<strong>あるリソースはあるスコープ（又は所有者オブジェクト）に属する</strong>という依存関係が明示され、そのスコープを出ると無効になるため、所有関係を静的に追跡・保証できます。</p>
+<h2 id="スマートポインタとraiiにおける所有関係"><a class="header" href="#スマートポインタとraiiにおける所有関係">スマートポインタとRAIIにおける所有関係</a></h2>
+<p>C++やRustなど実用言語では、所有権の概念は<strong>スマートポインタ</strong>やRAIIイディオムとして現れています。C++11以降の<code>std::unique_ptr</code>や<code>std::shared_ptr</code>、およびRustの<code>Box&lt;T&gt;</code>や参照カウント型（<code>Rc</code>/<code>Arc</code>）は、言語の型システムやコンパイル時チェックによってメモリ所有関係の誤用を防ぐ試みです。特に<code>unique_ptr</code>や<code>Box</code>は「唯一の所有者」を表す典型例で、コピーが禁止されることで常に一つのポインタだけが対象オブジェクトの解放責任を持ちます。これに対し<code>shared_ptr</code>やRustの<code>Rc</code>は参照カウント方式で<strong>共有所有</strong>(shared ownership)を実現しますが、共有の場合は不変な読み取りのみ許可されるなど（可変な共有を行う場合は別途排他制御や<code>RefCell</code>等が必要）、安全性を保つための制限があります。実際、Boylandの**fractional permissions（分数パーミッション）**の研究では「リソースへの書き込み権限は分割不可能な1つの完全所有権として扱い、読み取り権限はそれを分割した複数の部分権限（例えば1/2ずつなど）として共有可能にする」といったモデルが提案されています。これにより「共有は読み取り専用に限る」という制約を論理的に表現できます。</p>
+<p>C++のRAII（Resource Acquisition Is Initialization）も所有権の一形態です。オブジェクトのコンストラクタで資源を取得し、デストラクタで解放することで、「オブジェクトの寿命＝資源の寿命」となり、資源管理の責任をオブジェクトに持たせます。RAIIではスコープから外れたとき自動でデストラクタが呼ばれるため、所有者であるオブジェクトが確実にリソースを開放します。この考え方はスマートポインタの実装にも通じており、所有権関係を活用したメモリ安全のテクニックと言えます。</p>
+<h2 id="分離論理における所有権と依存関係"><a class="header" href="#分離論理における所有権と依存関係">分離論理における所有権と依存関係</a></h2>
+<p>プログラムの正当性検証の分野では、<strong>分離論理 (Separation Logic)</strong> が可変な共有メモリの扱いに対して「所有権にもとづく論証」を可能にしました。分離論理ではアサーション中に「あるポインタが指すヒープ領域を<strong>所有</strong>している」という述語を組み込むことで、異なる並行スレッド/モジュールが同一のメモリ領域を同時に操作しないことを保証します。言い換えれば、アサーションがメモリの一部を占有(own)していれば、その部分は他と<strong>分離</strong>して扱えるため、干渉のない局所的推論が可能になるのです。</p>
+<p>さらに、Boylandによる**Fractional Permission（分割権限）**の手法では、所有権を0～1の実数値で表し、1を持つ者だけが書き込み可能（完全所有権）、権限を分割して0.5などの値を持つ複数者は読み取り専用、といった共有の意味論を与えました。このように論理的にも「一つのメモリ領域に対するアクセス権は誰がどの程度持っているか」をモデル化することで、並行プログラムの正当性を証明しやすくしています。</p>
+<p>また、Spec#などのプログラム検証用言語では、オブジェクト不変条件を維持するために<strong>オブジェクト不変量と所有関係</strong>を明示的に記述する仕組みが導入されました。あるオブジェクトが他のオブジェクトを所有する場合、所有者がその被所有オブジェクトの不変条件も管理・保証する、といった考え方です。Romain Bardouらの研究では、オブジェクト間の所有関係を「入れ子の箱」の階層（ある箱の中に別の箱が入っていれば所有関係があるとみなす）として定義し、Spec#スタイルの所有権と不変条件チェックをCやJavaプログラムの検証に取り入れています。このような手法も、メモリ領域間の意味論的依存関係を形式的に扱う一例と言えるでしょう。</p>
+<h2 id="関連する主な研究例と用語のまとめ"><a class="header" href="#関連する主な研究例と用語のまとめ">関連する主な研究例と用語のまとめ</a></h2>
+<p>以上のように、「一つのメモリ場所が他の場所に対して責任や依存関係を持つ」状況を表現・分析するため、さまざまな理論や用語が提案されています。その主なものを分野横断的にまとめると次の通りです。</p>
+<ul>
+<li><strong>所有権 (Ownership)</strong> – 資源（オブジェクトやメモリ）の唯一または明示された所有者が存在し、所有者がその資源のライフサイクル管理責任を負うという概念。所有権はRustやC++の設計原則に組み込まれているほか、学術的にも所有権型システムとして formalized されてきました。</li>
+<li><strong>所有権規律 (Ownership Discipline)</strong> – 所有権概念を用いたプログラミング上の規則体系のことです。例として「オーナーは必ず被所有物より長生きする」や「被所有オブジェクトへのアクセスはそのオーナーを経由してのみ可能」といった規則があり、所有権の階層構造（Owners-as-dominatorsなど）で表現されます。</li>
+<li><strong>線形型／アフィン型 (Linear/Affine Types)</strong> – 資源を表す値の重複利用を禁止または制限する型システム。これによりあるリソースへのエイリアスを静的に一本化でき、結果として唯一の所有者しか存在しないことを保証します。Rustの所有権システムは線形/アフィン型の思想を応用したものです。</li>
+<li><strong>リージョンとライフタイム (Regions &amp; Lifetimes)</strong> – メモリ割当を論理的な領域に紐付け、その領域の終了とともにまとめて解放する手法。CycloneやRustのライフタイム検査に見られるように、あるデータの生存期間を別のスコープやオブジェクトに従属させるモデルです。</li>
+<li><strong>スマートポインタとRAII</strong> – 言語機能やライブラリを用いて所有権関係を実装したもの。unique_ptrや<code>Box&lt;T&gt;</code>は唯一所有、shared_ptrや<code>Rc</code>は共有所有を表し、デストラクタや参照カウントで自動的に資源解放を行います。これらは所有権の実践的応用例です。</li>
+<li><strong>分離論理とパーミッション (Separation Logic &amp; Permissions)</strong> – 論理的手法で所有権を扱う概念。ヒープ上の各セルの所有権を論理述語で管理し、並行スレッド間の競合を防ぐ。Fractional permissionのように権限を数値で細分化することで、読み取り専用の共有や一時的な借用を表現することもできます。</li>
+<li><strong>研究プロジェクト例</strong> – Rustの安全性保証を形式証明した<strong>RustBelt</strong>、C言語に所有権概念を持ち込んだ<strong>Cyclone</strong>や資源の使用状態を追跡する<strong>Vault</strong>、エイリアス制御を強化した型システムを持つ<strong>Mezzo</strong>や<strong>Alms</strong>、オブジェクト所有関係による不変条件検証を行う<strong>Spec#</strong>、そしてコンパイラ拡張によってポインタごとに責任属性を与える**Pointer Ownership Model (POM)**など、多数の研究が本テーマに取り組んでいます。これらはそれぞれ異なるアプローチ（型システム、静的解析、プログラム論理など）で「メモリ領域間の意味的依存関係」をモデル化し、メモリ安全性やリソース管理の正当性を保証しようとする試みです。</li>
+</ul>
+<p>以上のように、ヒープかスタックかといった物理的配置や特定言語の機能に依存せず抽象的にメモリ依存を論じる際には、「所有権」や「エイリアス制御」といった概念が核となります。これらの理論やモデルを活用することで、プログラム中のメモリ資源の寿命と責任の関係を厳密に記述・分析することが可能となっています。</p>
+<p><strong>参考文献:</strong> 本回答ではOwnership Typesに関するサーベイやRustBelt論文、ならびにC++/Rustの公式情報など、関連分野の文献を幅広く参照しました。これらはメモリ所有関係のモデル化と検証に関する理解を深める助けとなるでしょう。</p>
+<hr />
+<p>1 2 18 19
+c++ - What is ownership of resources or pointers? - Stack Overflow
+https://stackoverflow.com/questions/49024982/what-is-ownership-of-resources-or-pointers
+3 4 14 15 16 17 24 26 27
+RustBelt: securing the foundations of the rust programming language
+https://people.mpi-sws.org/~dreyer/papers/rustbelt/paper.pdf
+5 6 7 8 9
+LNCS 7850 - Ownership Types: A Survey
+https://lirias.kuleuven.be/retrieve/232428
+10 11 12 13
+Rust and Linear types: a short guide | by Martín Triay ⚡ | Medium
+https://medium.com/@martriay/rust-and-linear-types-a-short-guide-4845e9f1bb8f
+20
+Separation Logic - Communications of the ACM
+https://cacm.acm.org/research/separation-logic/
+21 25
+pl.programming languages - Ownership types and Separation Logic
+https://cstheory.stackexchange.com/questions/12426/ownership-types-and-separation-logic
+22 23
+romain.bardou.fr
+https://romain.bardou.fr/papers/jcownlong.pdf
+28
+Pointer Ownership Model
+https://resources.sei.cmu.edu/asset_files/whitepaper/2013_019_001_55008.pdf</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="参考文献について注意"><a class="header" href="#参考文献について注意">参考文献について注意</a></h1>
+<p>「ちゃんと参考文献としての体裁を保つ」ことは目指さない。
+リンクだけ張る。
+リンク切れたら終わりで。</p>
+<p>rust の&quot;仕様&quot;部分はまだ決まっていないことに注意：</p>
+<ul>
+<li><a href="https://rust-lang.github.io/rfcs/3355-rust-spec.html">このRFC</a>で仕様を書こうという提案が出て、</li>
+<li><a href="https://blog.rust-lang.org/inside-rust/2023/11/15/spec-vision.html">今頑張っている最中</a>らしい。</li>
+<li><a href="https://rustfoundation.org/media/ferrous-systems-donates-ferrocene-language-specification-to-rust-project/">ferroceneというところが仕様を提供したという話</a></li>
+</ul>
+<h1 id="公式っぽいところの出している参考文献"><a class="header" href="#公式っぽいところの出している参考文献">公式っぽいところの出している参考文献</a></h1>
+<h2 id="とりあえず書くために"><a class="header" href="#とりあえず書くために">とりあえず書くために</a></h2>
+<ul>
+<li><a href="https://play.rust-lang.org/">playground</a></li>
+<li><a href="https://doc.rust-lang.org/book/">The Book, The Rust Programming Language</a>
+<ul>
+<li>rust の公式の入門本</li>
+</ul>
+</li>
+<li><a href="https://doc.rust-jp.rs/rust-by-example-ja/">Rust by Example</a>
+<ul>
+<li>具体例をもとに rust の書き方を学ぶ</li>
+</ul>
+</li>
+<li><a href="https://rust-lang.github.io/api-guidelines/about.html">api guideline</a>
+<ul>
+<li>rust の idiomatic な書き方のガイドライン</li>
+</ul>
+</li>
+<li><a href="https://blog.rust-lang.org">rust blog</a>
+<ul>
+<li>rust の公式ブログ</li>
+</ul>
+</li>
+</ul>
+<h2 id="もう少し詳しく"><a class="header" href="#もう少し詳しく">もう少し詳しく</a></h2>
+<ul>
+<li><a href="https://doc.rust-lang.org/std/">std library</a>
+<ul>
+<li>std library のドキュメント</li>
+</ul>
+</li>
+<li><a href="https://doc.rust-lang.org/stable/reference/">Reference</a>
+<ul>
+<li>reference だが、&quot;正式&quot;な規格について述べているわけではない</li>
+</ul>
+</li>
+<li><a href="https://rust-lang.github.io/rfcs/">The RFC Book</a>
+<ul>
+<li>これはRFCなので rust に取り込まれているものと取り込まれていないものがある。</li>
+</ul>
+</li>
+<li><a href="https://doc.rust-lang.org/nomicon/">rustonomicon</a>
+<ul>
+<li>unsafe な rust を書くときにきをつけること ... だいたい内部での取り扱いなど</li>
+</ul>
+</li>
+<li><a href="https://rustc-dev-guide.rust-lang.org/index.html">Rust Compiler Development</a>
+<ul>
+<li>rustc の内部の話など</li>
+</ul>
+</li>
+<li><a href="https://rfcbot.rs/">rfc bot</a>
+<ul>
+<li>rfc の状況を見れる？</li>
+</ul>
+</li>
+</ul>
+<h2 id="その他-1"><a class="header" href="#その他-1">その他</a></h2>
+<ul>
+<li><a href="https://doc.rust-lang.org/error_codes/error-index.html">rust error code</a>
+<ul>
+<li>error code の一覧</li>
+</ul>
+</li>
+<li><a href="https://github.com/rust-lang">github of rust</a>
+<ul>
+<li>rust の github</li>
+</ul>
+</li>
+<li><a href="https://github.com/rust-lang/chalk">Chalk</a>
+<ul>
+<li>rust の trait solver の形式化</li>
+<li><a href="https://rust-lang.github.io/chalk/book/">Chalk book</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/rust-lang/a-mir-formality">a MIR formality</a>
+<ul>
+<li>MIR の形式化</li>
+</ul>
+</li>
+<li><a href="https://github.com/rust-lang/polonius">polonius</a>
+<ul>
+<li>次世代の borrow checker</li>
+</ul>
+</li>
+<li>Stacked borrows, Tree borrows
+<ul>
+<li>Tree borrows は MIRI に導入されている</li>
+<li>この<a href="https://perso.crans.org/vanille/treebor/">リンク</a>は個人のものっぽいけど、中身はちゃんとしてそう。</li>
+</ul>
+</li>
+<li><a href="https://plv.mpi-sws.org/rustbelt/popl18/">rustbelt</a>
+<ul>
+<li>とても有名な rust の形式化</li>
+</ul>
+</li>
+</ul>
+<h1 id="他個人サイト"><a class="header" href="#他個人サイト">他個人サイト</a></h1>
+<p>信頼できると個人的に思っているところ</p>
+<ul>
+<li><a href="https://without.boats">Without boats, dreams dry up</a></li>
+<li><a href="https://www.ralfj.de/">ralfj.de</a></li>
+<li><a href="https://smallcultfollowing.com/babysteps/">babystep</a></li>
+</ul>
+<h1 id="公式の個別の話"><a class="header" href="#公式の個別の話">公式の個別の話</a></h1>
+<h2 id="所有権について"><a class="header" href="#所有権について">所有権について</a></h2>
+<p><a href="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#ownership-rules">The Book, chapter4-01での説明</a></p>
+<blockquote>
+<ul>
+<li>Each value in Rust has an owner.</li>
+<li>There can only be one owner at a time.</li>
+<li>When the owner goes out of scope, the value will be dropped.</li>
+</ul>
+</blockquote>
+<h2 id="評価順序について"><a class="header" href="#評価順序について">評価順序について</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/expressions.html#evaluation-order-of-operands">Reference</a></p>
+<blockquote>
+<p>The operands of these expressions are evaluated prior to applying the effects of the expression. Expressions taking multiple operands are evaluated left to right as written in the source code.</p>
+</blockquote>
+<h2 id="value-expression-と-place-expression"><a class="header" href="#value-expression-と-place-expression">value expression と place expression</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/expressions.html#place-expressions-and-value-expressions">Reference</a></p>
+<blockquote>
+<p>Expressions are divided into two main categories: place expressions and value expressions; there is also a third, minor category of expressions called assignee expressions. Within each expression, operands may likewise occur in either place context or value context. The evaluation of an expression depends both on its own category and the context it occurs within.</p>
+<p>A place expression is an expression that represents a memory location. These expressions are paths which refer to local variables, static variables, dereferences (*expr), array indexing expressions (expr[expr]), field references (expr.f) and parenthesized place expressions. All other expressions are value expressions.</p>
+<p>A value expression is an expression that represents an actual value.</p>
+</blockquote>
+<ul>
+<li>actual value が何かはわからなかった。</li>
+</ul>
+<h2 id="代入が-bitwise-copy-であることについて"><a class="header" href="#代入が-bitwise-copy-であることについて">代入が bitwise copy であることについて</a></h2>
+<p><a href="https://doc.rust-lang.org/std/marker/trait.Copy.html#whats-the-difference-between-copy-and-clone">std library</a></p>
+<blockquote>
+<p>Copies happen implicitly, for example as part of an assignment y = x. The behavior of Copy is not overloadable; it is always a simple bit-wise copy.</p>
+</blockquote>
+<ul>
+<li>Copy trait の場合はここで述べられている</li>
+</ul>
+<p><a href="https://doc.rust-lang.org/reference/expressions/operator-expr.html#assignment-expressions">reference</a></p>
+<ul>
+<li>この中には、 bitwise でのコピーという話はなかった。</li>
+</ul>
+<h2 id="一時変数について"><a class="header" href="#一時変数について">一時変数について</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/expressions.html?highlight=temporary#temporaries">Reference, temporary の説明</a></p>
+<blockquote>
+<p>When using a value expression in most place expression contexts, a temporary unnamed memory location is created and initialized to that value. The expression evaluates to that location instead, except if promoted to a static. The drop scope of the temporary is usually the end of the enclosing statement.</p>
+</blockquote>
+<h2 id="drop関数の実装"><a class="header" href="#drop関数の実装">drop関数の実装</a></h2>
+<p><a href="https://doc.rust-lang.org/std/mem/fn.drop.html">Rustでのdrop関数の実装</a></p>
+<blockquote>
+<p>Disposes of a value.</p>
+<p>This does so by calling the argument’s implementation of Drop.</p>
+<p>This effectively does nothing for types which implement Copy, e.g. integers. Such values are copied and then moved into the function, so the value persists after this function call.</p>
+<p>This function is not magic; it is literally defined as</p>
+<p><code>pub fn drop&lt;T&gt;(_x: T) {}</code>
+Because _x is moved into the function, it is automatically dropped before the function returns.</p>
+</blockquote>
+<h2 id="variable-の定義"><a class="header" href="#variable-の定義">variable の定義</a></h2>
+<p><a href="https://doc.rust-lang.org/stable/reference/variables.html?highlight=anonymous#r-variable.intro">reference</a></p>
+<blockquote>
+<p>A variable is a component of a stack frame, either a named function parameter, an anonymous temporary, or a named local variable.</p>
+</blockquote>
+<ul>
+<li>variable は stack 用の言葉なので、 heap も含めての &quot;place&quot; とは異なると思える。</li>
+</ul>
+<h2 id="不変参照は-copy"><a class="header" href="#不変参照は-copy">不変参照は Copy</a></h2>
+<p><a href="https://doc.rust-lang.org/std/marker/trait.Copy.html#impl-Copy-for-%26T">std lib</a></p>
+<blockquote>
+<p>impl<T> Copy for &amp;T
+where
+T: ?Sized,
+Shared references can be copied, but mutable references cannot!</p>
+</blockquote>
+<h2 id="binding-のスコープについて"><a class="header" href="#binding-のスコープについて">binding のスコープについて</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/names/scopes.html?highlight=label#pattern-binding-scopes">Reference</a></p>
+<blockquote>
+<p>The scope of a local variable pattern binding depends on where it is used:</p>
+<p>let statement bindings range from just after the let statement until the end of the block where it is declared.
+Function parameter bindings are within the body of the function.
+Closure parameter bindings are within the closure body.
+for and while let bindings are within the loop body.
+if let bindings are within the consequent block.
+match arms bindings are within the match guard and the match arm expression.
+Local variable scopes do not extend into item declarations.</p>
+</blockquote>
+<h2 id="lifetime-についてrustonomicon"><a class="header" href="#lifetime-についてrustonomicon">lifetime について（rustonomicon）</a></h2>
+<p><a href="https://doc.rust-lang.org/nomicon/lifetimes.html">rustonomicon</a></p>
+<blockquote>
+<p>Rust enforces these rules through lifetimes. Lifetimes are named regions of code that a reference must be valid for. Those regions may be fairly complex, as they correspond to paths of execution in the program. There may even be holes in these paths of execution, as it's possible to invalidate a reference as long as it's reinitialized before it's used again. Types which contain references (or pretend to) may also be tagged with lifetimes so that Rust can prevent them from being invalidated as well.</p>
+<p>In most of our examples, the lifetimes will coincide with scopes. This is because our examples are simple. The more complex cases where they don't coincide are described below.</p>
+</blockquote>
+<h2 id="lifetime-bound-についてreference"><a class="header" href="#lifetime-bound-についてreference">lifetime bound について(reference)</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/trait-bounds.html#lifetime-bounds">Reference</a></p>
+<blockquote>
+<p>Lifetime bounds can be applied to types or to other lifetimes. The bound 'a: 'b is usually read as 'a outlives 'b. 'a: 'b means that 'a lasts at least as long as 'b, so a reference &amp;'a () is valid whenever &amp;'b () is valid.</p>
+<pre><code>fn f&lt;'a, 'b&gt;(x: &amp;'a i32, mut y: &amp;'b i32) where 'a: 'b {
+   y = x;                      // &amp;'a i32 is a subtype of &amp;'b i32 because 'a: 'b
+   let r: &amp;'b &amp;'a i32 = &amp;&amp;0;   // &amp;'b &amp;'a i32 is well formed because 'a: 'b
+}
+</code></pre>
+<p>T: 'a means that all lifetime parameters of T outlive 'a. For example, if 'a is an unconstrained lifetime parameter, then i32: 'static and &amp;'static str: 'a are satisfied, but Vec&lt;&amp;'a ()&gt;: 'static is not.</p>
+</blockquote>
+<h2 id="storagelivemir-について"><a class="header" href="#storagelivemir-について">StorageLive(MIR) について</a></h2>
+<p>コンパイラの internal な話
+<a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_middle/mir/enum.StatementKind.html#variant.StorageLive">rustc</a></p>
+<blockquote>
+<p><code>StorageLive</code> and <code>StorageDead</code> statements mark the live range of a local.
+局所変数のみのことだけど、 <code>live</code> という語がつかわれてていい。</p>
+</blockquote>
+<h2 id="non-lexical-lifetime"><a class="header" href="#non-lexical-lifetime">non lexical lifetime</a></h2>
+<p><a href="https://rust-lang.github.io/rfcs/2094-nll.html">RFC</a></p>
+<ul>
+<li>non lexical lifetime という lifetime の推論に関する RFC だが、これは rust 本体に取り込まれている。</li>
+</ul>
+<p><a href="https://rust-lang.github.io/rfcs/2094-nll.html#what-is-a-lifetime-and-how-does-it-interact-with-the-borrow-checker">RFCの中のlifetimeの定義</a></p>
+<blockquote>
+<p>To start with, we will consider lifetimes as a set of points in the control-flow graph; later in the RFC we will extend the domain of these sets to include “skolemized” lifetimes, which correspond to named lifetime parameters declared on a function. If a lifetime contains the point P, that implies that references with that lifetime are valid on entry to P. Lifetimes appear in various places in the MIR representation:</p>
+<ul>
+<li>The types of variables (and temporaries, etc) may contain lifetimes.</li>
+<li>Every borrow expression has a designated lifetime.
+We can extend our example 4 to include explicit lifetime names. There are three lifetimes that result. We will call them 'p, 'foo, and 'bar:</li>
+</ul>
+</blockquote>
+<p>てか読んでて思ったけど、polonius 以前から loan ていう言葉が NLL の RFC で出てたんだ。</p>
+<blockquote>
+<p>the set of in-scope <strong>loans</strong>.</p>
+</blockquote>
+<h2 id="const-promotion"><a class="header" href="#const-promotion">const promotion</a></h2>
+<p>rvalue static promotion と const promotion は同じもののように思える？？
+<a href="https://github.com/rust-lang/const-eval/blob/master/promotion.md">RFC</a></p>
+<p><a href="https://github.com/rust-lang/const-eval/blob/master/promotion.md">github, const promotion</a></p>
+<blockquote>
+<p>&quot;Promotion&quot; is the act of splicing a part of a MIR computation out into a separate self-contained MIR body which is evaluated at compile-time like a constant. This mechanism has been introduced by RFC 1414 with the goal of equipping some references-to-temporaries with a 'static lifetime, which is sometimes called &quot;lifetime extension&quot;.</p>
+</blockquote>
+<p><a href="https://doc.rust-lang.org/reference/destructors.html#constant-promotion">reference</a></p>
+<blockquote>
+<p>Promotion of a value expression to a 'static slot occurs when the expression could be written in a constant and borrowed, and that borrow could be dereferenced where the expression was originally written, without changing the runtime behavior. That is, the promoted expression can be evaluated at compile-time and the resulting value does not contain interior mutability or destructors (these properties are determined based on the value where possible, e.g. &amp;None always has the type &amp;'static Option&lt;_&gt;, as it contains nothing disallowed).</p>
+</blockquote>
+<h2 id="新しい-trait-solver-の話"><a class="header" href="#新しい-trait-solver-の話">新しい trait solver の話</a></h2>
+<p><a href="https://rustc-dev-guide.rust-lang.org/solve/trait-solving.html">Trait solving (new)</a></p>
+<ul>
+<li>これまでの trait solver から、こっちに変更されるらしい。</li>
+</ul>
+<h2 id="next-generation-solver-によると-cve-rs-が治りそう"><a class="header" href="#next-generation-solver-によると-cve-rs-が治りそう">next generation solver によると cve-rs が治りそう</a></h2>
+<p><a href="https://blog.rust-lang.org/inside-rust/2023/07/17/trait-system-refactor-initiative.html">rust blog</a></p>
+<blockquote>
+<p>For example, it will allow us to remove many of the current restrictions on GATs and to fix many long-standing unsound issues, like #25860.</p>
+</blockquote>
+<h2 id="late-bound-と-early-bound-について"><a class="header" href="#late-bound-と-early-bound-について">late bound と early bound について</a></h2>
+<p><a href="https://rustc-dev-guide.rust-lang.org/early-late-bound-params/early-late-bound-implementation-nuances.html#early-and-late-bound-parameter-implementation-nuances">compiler</a></p>
+<h2 id="lifetime-elided-とは"><a class="header" href="#lifetime-elided-とは">lifetime elided とは</a></h2>
+<p><a href="https://doc.rust-lang.org/nomicon/lifetime-elision.html#lifetime-elision">rustonomicon</a></p>
+<blockquote>
+<p>In order to make common patterns more ergonomic, Rust allows lifetimes to be elided in function signatures.</p>
+</blockquote>
+<p>ふつうにブロックの中で参照にライフタイムを付けないことは、 elided とは言わない。</p>
+<h2 id="global-allocator-の説明"><a class="header" href="#global-allocator-の説明">global allocator の説明</a></h2>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/std/alloc/trait.GlobalAlloc.html#safety">doc.rs</a></li>
+</ul>
+<blockquote>
+<p>You must not rely on allocations actually happening, even if there are explicit heap allocations in the source.
+The optimizer may detect unused allocations that it can either eliminate entirely or move to the stack and thus never invoke the allocator.
+The optimizer may further assume that allocation is infallible,
+so code that used to fail due to allocator failures may now suddenly work because the optimizer worked around the need for an allocation.
+More concretely, the following code example is unsound,
+irrespective of whether your custom allocator allows counting how many allocations have happened.</p>
+<pre><code>drop(Box::new(42));
+let number_of_heap_allocs = /* call private allocator API */;
+unsafe { std::hint::assert_unchecked(number_of_heap_allocs &gt; 0); }
+</code></pre>
+</blockquote>
+<h1 id="ブログなど個別に引用"><a class="header" href="#ブログなど個別に引用">ブログなど個別に引用</a></h1>
+<h2 id="pinned-place"><a class="header" href="#pinned-place">Pinned place</a></h2>
+<p><a href="https://without.boats/blog/pinned-places/">without boats</a></p>
+<ul>
+<li>これは pin についての記事だが、ここにも place と value という単語が出てくるので、結構よさそう。</li>
+</ul>
+<h2 id="place-expression-について"><a class="header" href="#place-expression-について">place expression について</a></h2>
+<p><a href="https://www.ralfj.de/blog/2024/08/14/places.html">What is a place expression?</a></p>
+<h2 id="場所と値について"><a class="header" href="#場所と値について">場所と値について</a></h2>
+<p><a href="https://speakerdeck.com/qnighy/sofalseshi-zhi-desuka-chang-suo-desuka">その式、値ですか？場所ですか？</a></p>
+<ul>
+<li>qnighy さんによるスライドだが、ここでも場所と値という概念を用いている。</li>
+</ul>
+<h2 id="return-value-optimization"><a class="header" href="#return-value-optimization">return value optimization</a></h2>
+<p><a href="https://www.bit-hive.com/articles/20220830">RustにおけるNRVO</a></p>
+<ul>
+<li>return value がスタック上に作られたあとに copy で移動していく無駄について。</li>
+</ul>
+<h2 id="borrow-checker-without-lifetimes"><a class="header" href="#borrow-checker-without-lifetimes">borrow checker without lifetimes</a></h2>
+<p><a href="https://smallcultfollowing.com/babysteps/blog/2024/03/04/borrow-checking-without-lifetimes/">Borrow checking without lifetimes</a></p>
+<ul>
+<li>rust の 新しい borrow checker である polonius のもとになったやつ</li>
+</ul>
+<h2 id="a-lightweight-formalism-for-reference-lifetimes-and-borrowing-in-rust"><a class="header" href="#a-lightweight-formalism-for-reference-lifetimes-and-borrowing-in-rust">A Lightweight Formalism for Reference Lifetimes and Borrowing in Rust</a></h2>
+<p>(https://whileydave.com/publications/Pea21_TOPLAS_preprint.pdf)</p>
+<h2 id="static-taint-analysis-in-rust"><a class="header" href="#static-taint-analysis-in-rust">Static Taint Analysis in Rust</a></h2>
+<p>(https://projekter.aau.dk/projekter/files/421583418/Static_Taint_Analysis_in_Rust.pdf)</p>
+<h2 id="a-brief-introduction-to-regions"><a class="header" href="#a-brief-introduction-to-regions">A Brief Introduction to Regions</a></h2>
+<p>(https://elsman.com/mlkit/pdf/ismm98.pdf)</p>
+<h2 id="memory-safety-challenge-considered-solved-an-in-depth-study-with-all-rust-cves"><a class="header" href="#memory-safety-challenge-considered-solved-an-in-depth-study-with-all-rust-cves">Memory-Safety Challenge Considered Solved? An In-Depth Study with All Rust CVEs</a></h2>
+<p>(https://arxiv.org/pdf/2003.03296)</p>
+<h2 id="obscure-rust-early--and-late-bound-generics-in-functions"><a class="header" href="#obscure-rust-early--and-late-bound-generics-in-functions">Obscure Rust: early- and late-bound generics in functions</a></h2>
+<p>(https://haibane-tenshi.github.io/rust-early-and-late-bound-generics/)</p>
+<h2 id="minirust"><a class="header" href="#minirust">minirust</a></h2>
+<p><a href="https://github.com/minirust/minirust">github</a></p>
+<ul>
+<li>rust の操作的意味論を考えるために作られた？</li>
+</ul>
+<h2 id="borrow-checking-without-lifetime"><a class="header" href="#borrow-checking-without-lifetime">borrow checking without lifetime</a></h2>
+<p>(https://smallcultfollowing.com/babysteps/blog/2024/03/04/borrow-checking-without-lifetimes/)</p>
+<h2 id="rustでやると知らないうちに詰む設計を避けるためのtipsを集めてみる"><a class="header" href="#rustでやると知らないうちに詰む設計を避けるためのtipsを集めてみる">「Rustでやると知らないうちに詰む設計」を避けるためのTipsを集めてみる</a></h2>
+<p><a href="https://zenn.dev/qnighy/scraps/93071f7c813cb9">Zenn(qnighy)</a></p>
+<h2 id="common-rust-lifetime-misconceptions"><a class="header" href="#common-rust-lifetime-misconceptions">common rust lifetime misconceptions</a></h2>
+<p><a href="https://github.com/pretzelhammer/rust-blog/blob/master/posts/common-rust-lifetime-misconceptions.md">github</a>
+よく言及されているのでここにも</p>
+<h2 id="nll-の参考実装"><a class="header" href="#nll-の参考実装">NLL の参考実装</a></h2>
+<p><a href="https://github.com/nikomatsakis/borrowck">github</a></p>
+<h2 id="exploring-mir-semantics-through-miri"><a class="header" href="#exploring-mir-semantics-through-miri">Exploring MIR Semantics through miri</a></h2>
+<p><a href="https://www.ralfj.de/blog/2017/06/06/MIR-semantics.html">blog</a></p>
+<h2 id="box-の特別性"><a class="header" href="#box-の特別性"><code>Box</code> の特別性</a></h2>
+<ul>
+<li><a href="https://users.rust-lang.org/t/why-box-is-special/33461/2">Box is special</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/3712">No (opsem) magic for box</a></li>
+<li><a href="https://users.rust-lang.org/t/dereferencing-a-boxed-value/86768/2">deref Box</a></li>
+<li><a href="https://rust-lang.github.io/rfcs/3336-maybe-dangling.html">maybe_dangling</a></li>
+</ul>
+<h2 id="derefmove-について"><a class="header" href="#derefmove-について">derefmove について</a></h2>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/issues/997">Extending deref/index with ownership transfer</a></li>
+</ul>
+<p>これだけじゃなくて、 <code>derefmove</code> とか <code>&amp;own T</code> は歴史上何度も提起されてきたらしい。</p>
+<h2 id="ownership-pointer-arithmetic-and-memory-separation"><a class="header" href="#ownership-pointer-arithmetic-and-memory-separation">Ownership, Pointer Arithmetic and Memory Separation</a></h2>
+<ul>
+<li><a href="https://romain.bardou.fr/papers/jcownlong.pdf">Ownership, Pointer Arithmetic and Memory Separation</a></li>
+</ul>
+<h1 id="qiita"><a class="header" href="#qiita">qiita</a></h1>
+<h4 id="variance-について"><a class="header" href="#variance-について">variance について</a></h4>
+<ul>
+<li>https://qiita.com/maueki/items/b5df36e92561450938dd</li>
+</ul>
+<h1 id="stack-overflow"><a class="header" href="#stack-overflow">stack overflow</a></h1>
+<p>面白そうな例がたくさんある。
+これをもとに考えるのもいい。</p>
+<ul>
+<li>https://stackoverflow.com/questions/74700018/how-does-rust-calculate-lifetime-of-a-moved-value</li>
+<li>https://stackoverflow.com/questions/76620282/lifetime-specification-for-closure-return-type</li>
+<li>https://stackoverflow.com/questions/78884581/could-rust-lifetime-be-completely-desribed-by-the-type-variance-system</li>
+<li>https://stackoverflow.com/questions/75908427/rust-function-pointer-seems-to-be-treated-as-stateful-by-borrow-checker/75908723#75908723</li>
+<li>https://stackoverflow.com/questions/66450478/how-to-reason-formally-about-programs-using-non-lexical-lifetimes</li>
+<li>https://users.rust-lang.org/t/math-behind-borrow-checker/37079</li>
+</ul>
+<h4 id="disjoint"><a class="header" href="#disjoint">disjoint</a></h4>
+<ul>
+<li>https://stackoverflow.com/questions/67632034/why-can-a-generic-lifetime-parameter-in-rust-be-specialized-to-two-disjoint-life</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>参照という値 - rust by push triangle</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="../../memo.html"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/02場所から場所へ値を移す.html"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/03破棄について.html"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/02reference/01参照という値.html" class="active"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/05ライフタイムの変換.html"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/03if文分岐.html"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="../../examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="../../references.html"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>場所があるとき、そこを指し示す値を参照という。
+参照には不変参照と可変参照の2種類がある。
+参照値を dereference することでもとの場所を扱うことができる。</p>
+<h1 id="基本的な使い方"><a class="header" href="#基本的な使い方">基本的な使い方</a></h1>
+<h2 id="参照を経由して値を見る書き換える"><a class="header" href="#参照を経由して値を見る書き換える">参照を経由して値を見る・書き換える。</a></h2>
+<p>場所 <code>x</code> などに対して <code>&amp;x</code> や <code>&amp;mut x</code> とすることで、その場所を指し示す値を作ることができる。
+これが参照である。
+（本当は shared reference と exclusive reference といった方が、 rust での扱いが正しい？）
+参照値 <code>p</code> に対しては <code>*p</code> でその指し示された場所を得ることができる。</p>
+<h4 id="不変参照の基本例"><a class="header" href="#不変参照の基本例">不変参照の基本例</a></h4>
+<p>次のようにして不変参照が使える。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let y: &amp;usize = &amp;x;
+  print!(&quot;{}&quot;, *y);
+}</code></pre></pre>
+<blockquote>
+<p>1</p>
+</blockquote>
+<p><code>&amp;x</code>で<code>x</code>という<strong>場所を指し示す値</strong>（＝参照値）が作れる。
+<code>e</code> が参照なら、<code>*e</code>で指し示された場所に入っている値（＝<code>x</code>の持っている値）を見ることができる。</p>
+<h4 id="可変参照の基本例"><a class="header" href="#可変参照の基本例">可変参照の基本例</a></h4>
+<p><code>mut</code>をつけることで書き換えることができる参照を作れる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let y: &amp;mut usize = &amp;mut x;
+  *y = 2; // `y` に入っている参照値経由で`x`の持っている値を書き換える。
+  print!(&quot;{}&quot;, *y);
+}</code></pre></pre>
+<p>上の例は次のようにも書ける。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  *(&amp;mut x) = 3;
+}</code></pre></pre>
+<p>ある意味では、下の使い方の方が想定されていると思ってもいい。
+<code>*</code> の後につくのは（参照）値のはずだから。
+<code>*</code> の後に場所が来た場合には、その場所に入っている参照値を dereference するものと考える。
+（<code>let z = 1</code> と <code>let x = 1; let z = x</code> の違いのとらえ方と同じ。）</p>
+<h4 id="複雑な式の例"><a class="header" href="#複雑な式の例">複雑な式の例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x: usize = 1;
+  let mut y: usize = 1;
+  *(if true {&amp;mut x} else {&amp;mut y}) = 2;
+}</code></pre></pre>
+<p>こういうのも書けるんだ。</p>
+<h4 id="参照が付いたら場所の例"><a class="header" href="#参照が付いたら場所の例">参照が付いたら場所の例</a></h4>
+<p>qnighy さんのスライド <a href="../../references.html#%E5%A0%B4%E6%89%80%E3%81%A8%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">ref</a>を見て、面白い例があったのでここに追記する。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  *(&amp;mut 1)  = 2;
+}</code></pre></pre>
+<p>これのコンパイルが通る理由は、
+<code>&amp;</code> や <code>&amp;mut</code> がついた時点で、それは場所を表していると解釈されるため、
+<code>1</code>という値を持つ場所（一時変数）への参照を表すと解釈されるので、
+上はその一時変数の書き換えの式になる。</p>
+<h1 id="mut-まわりでよくある間違い"><a class="header" href="#mut-まわりでよくある間違い">mut まわりでよくある間違い</a></h1>
+<h4 id="可変参照を作るにはもとの変数はmutでないといけない例"><a class="header" href="#可変参照を作るにはもとの変数はmutでないといけない例">可変参照を作るにはもとの変数はmutでないといけない例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = 1;
+  &amp;mut x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0596]: cannot borrow <code>x</code> as mutable, as it is not declared as mutable</p>
+</blockquote>
+<p><code>x</code>が <code>mut</code> でないと、<code>&amp;mut</code>はつくれない。
+<code>mut</code>にしたらコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x = 1;
+  &amp;mut x;
+}</code></pre></pre>
+<h4 id="可変参照から不変参照への変換例"><a class="header" href="#可変参照から不変参照への変換例">可変参照から不変参照への変換例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let mut x = 1;
+  let y: &amp;usize = &amp;mut x;
+}</code></pre></pre>
+<p><code>y</code>は<code>&amp;mut x</code> をうけとってるのにその型は <code>&amp;</code>になっている。
+（型のcoersionの一種）
+この状態では<code>y</code>経由で書き換えができない。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut x = 1;
+    let y: &amp;usize = &amp;mut x;
+    *y = 2;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0594]: cannot assign to <code>*y</code>, which is behind a <code>&amp;</code> reference</p>
+</blockquote>
+<h4 id="可変な不変参照の例"><a class="header" href="#可変な不変参照の例">可変な不変参照の例</a></h4>
+<p><code>mut</code> をつける位置を間違えないこと。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let x: usize = 1;
+    let z: usize = 2;
+    let mut y: &amp;usize = &amp;x;
+    y = &amp;z; // y が `z`を指すように変更
+    // *y = 1 // mut のつけ方が違うからエラー！！
+}</code></pre></pre>
+<p><code>y</code> という場所に入っている値を変更するときに <code>y</code> の前に <code>mut</code> をつける。</p>
+<h1 id="参照外しについて"><a class="header" href="#参照外しについて">参照外しについて</a></h1>
+<p><code>*p</code> は場所としての扱いになるから、所有権との兼ね合いが重要である。</p>
+<h4 id="参照外しした場所から値を-move-することはできない例"><a class="header" href="#参照外しした場所から値を-move-することはできない例">参照外しした場所から値を move することはできない例</a></h4>
+<p>move するなどで値を失う（<code>x</code> に値を失わせる）ことはできない。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize); // copy でない型 `A` になった。
+fn main() {
+  let x: A = A(1);
+  let y: &amp;A = &amp;x;
+  let z = *y; // *y という値で x という場所を表すので、これは場所から場所への代入式 =&gt; x から z への move がおきることになってしまう。
+}</code></pre></pre>
+<blockquote>
+<p>error[E0507]: cannot move out of <code>*y</code> which is behind a shared reference</p>
+</blockquote>
+<p>このエラーの内容だと、 mutable なら大丈夫に思えてしまうが、そうではない。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+fn main() {
+  let mut x: A = A(1);
+  let y: &amp;mut A = &amp;mut x;
+  let z = *y;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0507]: cannot move out of <code>*y</code> which is behind a mutable reference</p>
+</blockquote>
+<p>ref を経由して move を起こすことはできない、ということ。
+move out という語が重要で、 <code>*</code> 経由で値を失うような操作はできない。
+copy なら当然大丈夫。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize = 1;
+  let y: &amp;usize = &amp;x;
+  let z = *y; // *y = x という場所から z への copy がおきる
+  // x には値が入っている！
+}</code></pre></pre>
+<h4 id="参照外し自体は大丈夫な例"><a class="header" href="#参照外し自体は大丈夫な例">参照外し自体は大丈夫な例</a></h4>
+<p><code>*y</code> と書くこと自体は大丈夫で、値は失われないことを見る。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+fn f(x: &amp;A) {}
+
+fn main() {
+  let x: A = A(1);
+  let y: &amp;A = &amp;x;
+  f(&amp;*y); // *y があってもコンパイルエラーにならない。
+}</code></pre></pre>
+<p>他にも、 <code>*x</code> を使って値を書き換えたりできる。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+
+fn main() {
+  let mut x: A = A(1);
+  let y: &amp;mut A = &amp;mut x;
+  (*y).0 = 2;
+}</code></pre></pre>
+<p>これらは move が起きるような使い方をしていないから大丈夫。</p>
+<h1 id="参照先は有効な場所でなければいけない"><a class="header" href="#参照先は有効な場所でなければいけない">参照先は有効な場所でなければいけない。</a></h1>
+<p>参照を作ることは場所を使う判定になるので、有効でない場所へは参照が作れない。</p>
+<h4 id="初期化されていないと参照が作れない例"><a class="header" href="#初期化されていないと参照が作れない例">初期化されていないと参照が作れない例</a></h4>
+<p>初期化されていなかったりで値を持っていない場所へ参照をとることはできない。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x: usize;
+  let y: &amp;usize = &amp;x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0381]: used binding <code>x</code> isn't initialized</p>
+</blockquote>
+<p>あとから参照値を入れることはできる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let y: &amp;usize;
+    let x: usize = 1;
+    y = &amp;x;
+}</code></pre></pre>
+<p><code>y</code>という変数が有効な期間（スコープ）と<code>y</code> に入っている参照値のライフタイムは異なる、という例でもある。</p>
+<h4 id="参照されている間は場所が有効でないといけない例"><a class="header" href="#参照されている間は場所が有効でないといけない例">参照されている間は場所が有効でないといけない例</a></h4>
+<p>参照が存在するうちは、指されている場所は値を持っていないといけないだろう。
+なので、 move が起こってはいけない。
+copy が起こらないように構造体を別で作る。</p>
+<pre><pre class="playground"><code class="language-rust">struct A(usize);
+fn main() {
+    let x: A = A(1);
+    let y: &amp;A = &amp;x;
+    let z: A = x; // `y` という `x` への参照（が保持されている場所）があるのに `x` から `z` へ move がおきる =&gt; `y` が有効でなくなる。
+    *y;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0505]: cannot move out of <code>x</code> because it is borrowed</p>
+</blockquote>
+<p>なお、最後の行をなくすと、rust が気をきかせてコンパイルが通るようにコードを解釈してくれる。</p>
+<h1 id="スコープについての例外"><a class="header" href="#スコープについての例外">スコープについての例外</a></h1>
+<p>代入時には有効な場所への参照が必要だが、
+有効な場所がスコープを離れると、勝手に参照値を失ったような扱いにしてくれる。</p>
+<h4 id="rust-がよしなにしてくれる例"><a class="header" href="#rust-がよしなにしてくれる例">rust がよしなにしてくれる例</a></h4>
+<p>次のコードはコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span>fn main() {
+    let x: A = A(1);
+    let y: &amp;A = &amp;x;
+    let z: A = x; // `y` という `x` への参照があるのに `x` から `z` へ move がおきる =&gt; `y` が有効でなくなる。
+    // *y; この行のコメントを外すとコンパイルが通らなくなる。
+}</code></pre></pre>
+<p>これは <code>y</code> （という場所に入っている値）が思ったより早く消える、と解釈される。
+つまり、「<code>y</code> という場所が有効 = <code>y</code> に入っている参照が有効」な期間は<strong>勝手に</strong>3行目だけと解釈される。
+<code>*y</code> のコメントを外すと、</p>
+<ul>
+<li><code>y</code> という場所の有効期間がそれを使用している <code>*y</code> まで延長される。</li>
+<li><code>y</code> に入っている <code>&amp;x</code> が有効であるべき期間が <code>*y</code> まで延長される。</li>
+<li><code>&amp;x</code> が有効であるべき期間と <code>x</code> が有効である期間に整合性がない</li>
+<li>コンパイルエラー！</li>
+</ul>
+<h4 id="rust-がよしなにしてくれる例2"><a class="header" href="#rust-がよしなにしてくれる例2">rust がよしなにしてくれる例2</a></h4>
+<p><code>x</code>が思ったよりも早く有効でなくなったらどうか？</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span>fn main() {
+    let y: &amp;A;
+    {
+      let x: A = A(1);
+      y = &amp;x;
+    } // 場所 `x` が終了する
+    // &amp;*y; この行のコメントを外すとコンパイルが通らなくなる。
+}</code></pre></pre>
+<p>これも同じ。
+<code>y</code>という場所は値を失った扱いになる。
+当然使うことはできない。</p>
+<p><code>y</code> が mut なら再代入はできる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A(usize);
+</span>fn main() {
+    let mut y: &amp;A;
+    {
+      let x: A = A(1);
+      y = &amp;x;
+    }
+    y = &amp;A(2); // `y` という場所はまだ存在してるので代入する
+}</code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../examples/02reference.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../examples/02reference/02参照とポインタ.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../examples/02reference.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../examples/02reference/02参照とポインタ.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

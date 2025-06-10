@@ -1,0 +1,367 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>場所から場所へ値を移す - rust by push triangle</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="../../memo.html"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/02場所から場所へ値を移す.html" class="active"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/03破棄について.html"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/02reference/01参照という値.html"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/05ライフタイムの変換.html"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/03if文分岐.html"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="../../examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="../../references.html"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>ここでは、</p>
+<pre><code>let x = ...;
+let y = ...;
+let x = y;
+</code></pre>
+<p>のようなコードについて述べる。
+3行目は、場所から場所へ値が転送される、という操作になる。
+このときの値は<strong>メモリの完全な複製</strong>である。</p>
+<h1 id="move-の場合"><a class="header" href="#move-の場合">move の場合</a></h1>
+<p>move な型に属する値は、場所から場所へ移るとき、もとの場所にある値が有効でなくなる。</p>
+<h4 id="moveと代入例"><a class="header" href="#moveと代入例">moveと代入例</a></h4>
+<p>例えば、 <code>String</code>はmoveな型の1つ。
+次の、コンパイルの通らないコードを見て考えてみる。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = String::from(&quot;hello&quot;);
+  let y = x;
+  let z = x;
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: use of moved value: <code>x</code></p>
+</blockquote>
+<ul>
+<li>2行目は、 <code>String::from(&quot;hello&quot;)</code>という関数の生成した値を、<code>x</code>という場所に代入する文である。</li>
+<li>3行目は、<code>y</code> という場所に <code>x</code> という場所を代入しようとしているが、<code>x</code> は値ではない。</li>
+<li>なぜ右辺に場所が来ているのにこれを書いていいかというと、この場合、「<code>x</code>という場所から値を取り出して<code>y</code>に移している」と解釈するから</li>
+<li>そのため、 <code>x</code> という場所は<strong>値を取り出されたので</strong>もう値を持っていない、つまり有効でない。</li>
+<li>なのに <code>let z = x</code>という文で <code>x</code> という<strong>場所を使用</strong>しているので、エラーとなる。
+<ul>
+<li>場所を使用するにはその場所が有効、つまり値がなければいけない。</li>
+</ul>
+</li>
+</ul>
+<p><code>let z = x</code>をコメントアウトするとコンパイルが通るようになる。</p>
+<h4 id="moveと関数に渡す例"><a class="header" href="#moveと関数に渡す例">moveと関数に渡す例</a></h4>
+<p>関数の引数に場所を指定すると、それも値を移すことになる。
+以下もエラーになる。</p>
+<pre><pre class="playground"><code class="language-rust">fn f(s: String) {}
+fn main(){
+  let x = String::from(&quot;hello&quot;);
+  f(x);
+  let z = x; // =&gt; Error!
+}</code></pre></pre>
+<blockquote>
+<p>error[E0382]: use of moved value: <code>x</code></p>
+</blockquote>
+<h1 id="copy-の場合"><a class="header" href="#copy-の場合">copy の場合</a></h1>
+<p>copy な型に属する値は、場所から場所へ移るときもとの場所にはそのまま値が残されている。</p>
+<h4 id="copyと代入例"><a class="header" href="#copyと代入例">copyと代入例</a></h4>
+<p>以下はエラーが出ない。
+なぜなら、 <code>usize</code>は copy な型だから。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+  let x = 1_usize;
+  let y = x;
+  let z = x;
+}</code></pre></pre>
+<h1 id="値の転送は完全な複製"><a class="header" href="#値の転送は完全な複製">値の転送は完全な複製</a></h1>
+<p><code>x = y</code>のような式では値の転送が起きる。
+値がmoveだろうとcopyだろうと、値の転送は<strong>メモリの完全な複製</strong>によって行われるので、プログラマは制御できない。</p>
+<h4 id="clone-が使われない例"><a class="header" href="#clone-が使われない例">Clone が使われない例</a></h4>
+<p>例として、Cloneを自分で実装して、Cloneが呼ばれたときは値がちょっと変わるようにしてみる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct A {
+  a: usize,
+}
+impl Clone for A {
+    fn clone(&amp;self) -&gt; Self {
+        // +1 されて clone が行われる。
+        A { a: self.a + 1}
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>A</code> の値 <code>a</code> について Cloneをすると field a の値は1増えて Clone をされる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  a: usize,
+</span><span class="boring">}
+</span><span class="boring">impl Clone for A {
+</span><span class="boring">    fn clone(&amp;self) -&gt; Self {
+</span><span class="boring">        A { a: self.a + 1}
+</span><span class="boring">    }
+</span><span class="boring">}
+</span>fn main() {
+    // 0 が入っている
+    let x = A{ a: 0 };
+    let y = x.clone();
+    print!(&quot;{}&quot;, y.a);
+}</code></pre></pre>
+<blockquote>
+<p>1</p>
+</blockquote>
+<p>なので 4 行目の print で 1 が返ってくる。</p>
+<p>この構造体を move してみる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  a: usize,
+</span><span class="boring">}
+</span><span class="boring">impl Clone for A {
+</span><span class="boring">    fn clone(&amp;self) -&gt; Self {
+</span><span class="boring">        A { a: self.a + 1}
+</span><span class="boring">    }
+</span><span class="boring">}
+</span>fn main() {
+    let x = A{ a: 0 };
+    let y = x;
+    print!(&quot;{}&quot;, y.a);
+}</code></pre></pre>
+<blockquote>
+<p>0</p>
+</blockquote>
+<p>値が <code>1</code> になっていないので、
+<strong>clone の実装が使われていない</strong> ことがわかる。</p>
+<h4 id="copy-宣言する"><a class="header" href="#copy-宣言する">Copy 宣言する</a></h4>
+<p>この構造体 <code>A</code> について、 Copy であることを宣言してみる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct A {
+</span><span class="boring">  a: usize,
+</span><span class="boring">}
+</span><span class="boring">impl Clone for A {
+</span><span class="boring">    fn clone(&amp;self) -&gt; Self {
+</span><span class="boring">        A { a: self.a + 1}
+</span><span class="boring">    }
+</span><span class="boring">}
+</span>impl Copy for A {}
+fn main() {
+    let x = A{ a: 0 };
+    let y = x;
+    print!(&quot;{}&quot;, y.a);
+    print!(&quot;{}&quot;, x.a);
+}</code></pre></pre>
+<blockquote>
+<p>00</p>
+</blockquote>
+<p>同じく、 Cloneは使われていない。
+Copy トレイトを宣言したので、<code>x</code>自体も使える。</p>
+<p>Copy のトレイトにプログラマがなぜ何も実装しなくてよいか？</p>
+<ul>
+<li>Copyはコンパイラに特定のふるまいを許すことを宣言する行為だから。</li>
+<li><code>let x = y</code>のような文が実行されるときに、特殊な操作をプログラマが指定することはできない。</li>
+<li>つまり、 <code>impl Copy for A { ... }</code> の中に関数を書いて、値が移った時に値を変更することができない。</li>
+<li><strong><code>x = y</code> の意味論を変えることはできない</strong></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../examples/01ownership/01変数の宣言と場所.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../examples/01ownership/03破棄について.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../examples/01ownership/01変数の宣言と場所.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../examples/01ownership/03破棄について.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

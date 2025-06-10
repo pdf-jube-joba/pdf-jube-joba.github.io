@@ -1,0 +1,398 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>イメージ - rust by push triangle</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="memo.html" class="active"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="examples/01ownership/02場所から場所へ値を移す.html"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="examples/01ownership/03破棄について.html"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/02reference/01参照という値.html"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="examples/02reference/05ライフタイムの変換.html"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/03if文分岐.html"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="今のイメージ"><a class="header" href="#今のイメージ">今のイメージ</a></h1>
+<p>なるべく公式に合わせた根拠のある言葉を使うけど、それ以外の言葉も出てくる。
+基本的に、 safe rust の範囲内での考察。
+あと、いろいろな例外もあるので、例外を見れるような具体例へのリンクも貼りたい。</p>
+<ul>
+<li>プログラムについて
+<ul>
+<li>プログラムが変なことにならないように、<strong>有効</strong>みたいな概念を使う。</li>
+<li>プログラマが<strong>宣言</strong>を行うことで、コンパイラに何かを伝えたり許したりすることがある。</li>
+<li>コンパイラは、その宣言をもとに、<em>意味が変わらない</em> 範囲でプログラムを変形することが許されている</li>
+</ul>
+</li>
+<li><strong>場所</strong>と<strong>値</strong>の2つの用語を使う。
+<ul>
+<li><strong>場所</strong>が<strong>値</strong>を所有する、のが所有権の概念。
+<ul>
+<li>値はすべて、どこかの場所に所有される。</li>
+<li>値はただ1つの場所にのみ所有される。</li>
+<li>場所は値を所有しているとは限らない。</li>
+</ul>
+</li>
+<li>場所が値を持っているとき、場所が<strong>有効</strong>という。
+<ul>
+<li>なんらかの意味で場所を使用する場合、その場所は有効でなければいけない。</li>
+</ul>
+</li>
+<li>場所に値を入れることを<strong>代入</strong>（ assignment ）という</li>
+<li>初めて場所に値を代入するときを<strong>初期化</strong>という。
+<ul>
+<li>ある値が初期化済みかどうかは間違えないようにチェックされる。</li>
+</ul>
+</li>
+<li>ある<strong>場所が mutable</strong> であるなら、初期化以降も代入を行うことができる。
+<ul>
+<li>mutability は値ではなく場所に対する概念である。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ある場所から他の場所へ値を<strong>転送する</strong>（対応する語がないので、<strong>！適当に作った言葉</strong>）ことができる（条件付き）
+<ul>
+<li>転送するときは常に、メモリ的な意味で完全な複製を行う。</li>
+<li>値を移した後も、もとの場所が有効（＝<strong>値を所有している</strong>）なら <strong>copy</strong> といい、そうでないなら <strong>move</strong> という。</li>
+<li>ある型が move であるか copy であるかは、その値の型に Copy トレイトが宣言されているかどうか（のみ）による。</li>
+<li>もし転送する先の場所が値を持っていた場合、その値は<strong>破棄</strong>される。</li>
+<li>Copy と Drop は共存できない。
+<ul>
+<li>Copy トレイトを書くことは、ある種の値について、値を転送するときは<strong>どんな時でも copy を用いる</strong>ことを<strong>宣言</strong>すること。</li>
+<li>Drop は<strong>値を破棄する手順</strong>を定義することである。</li>
+<li>Drop は何も書かない限り、その値を単に忘れることで行う。</li>
+<li>Copy の宣言と Drop の手順の指定は共存しない：特殊なDropを行う必要があるなら、Copy を宣言することはできない。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>全ての場所（変数に限らない）はコード上でどこからどこまで存在しているかを指定される...<strong>スコープ</strong>
+<ul>
+<li>全ての変数は <code>{</code> の始まりに確保され、 <code>}</code> のときに終了する。その間は存在し続ける。</li>
+<li>従って、変数が存在する期間には <em>穴がない</em></li>
+<li>もし終了する場所が値を持っていたら、その値は<strong>破棄</strong>される。</li>
+</ul>
+</li>
+<li><strong>参照</strong>は、<em>場所を指し示す値</em> である。
+<ul>
+<li>参照（という値）が有効なら、指し示している場所も有効でなければいけない。</li>
+<li>参照には不変参照（ shared reference ）と可変参照（ mutable reference ）がある
+<ul>
+<li>不変参照はその場所の読み込み権を単に得ることができる</li>
+<li>可変参照はその場所へのアクセス権を<strong>排他的に</strong>得ることができる。</li>
+<li>不変参照が存在しているとき（実行時じゃなくてコード上の&quot;とき&quot;）には、値を書き換えるような利用ができない。</li>
+<li>可変参照を貸し出しているときには、貸出主（場所）でさえ（！）持っている値を利用することはできない。</li>
+</ul>
+</li>
+<li>参照は読み込み及び書き込みの代行権であり、場所の有効性を損なう操作はできない。
+<ul>
+<li>参照を経由して場所に入っている値の move を起こすことはできない（基本的には）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ライフタイムはある場所がコード上でどの領域で有効であるかを表す。
+<ul>
+<li>ある場所に値が入っているとき、その場所は有効であり、場所が有効である期間を<strong>その場所のライフタイム</strong>という
+<ul>
+<li>ライフタイムは実行時の概念ではなく、コード上の領域を静的に解析するための概念である。</li>
+<li>ライフタイムには、コード領域や制御フローの中で穴が存在しうる（場所が一時的に無効になることがありうる）。</li>
+<li>場所が存在する期間とは異なることに注意。</li>
+</ul>
+</li>
+<li>場所に対する参照値が有効である期間は、その場所が有効である期間よりも短くなければいけない
+<ul>
+<li><strong><em>場所への参照値</em> のライフタイム</strong> とは、その参照値が有効であるべき期間を指す</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="場所について補足"><a class="header" href="#場所について補足">場所について補足</a></h1>
+<p>以下で書いている部分はうまく物事を説明できていないので、保留してこっちに移した。</p>
+<ul>
+<li>場所の間には、従属関係がある。
+<ul>
+<li>ある場所の存在と有効性が、別の場所の存在と有効性によって保証されていることを従属という。</li>
+<li>ある場所 <code>A</code> が別の場所 <code>B</code> に従属しているなら、 <code>A</code> への排他的な参照が存在する間は <code>B</code> への参照はとれない。</li>
+</ul>
+</li>
+</ul>
+<p>例えば、 struct の field や array の index やスマートポインタの参照先など。
+ちゃんと説明できていないので上には載せてない。
+（関連する部分も読めていないし、rustの考え方とは違う気がしたのでこっちにおいておく。）</p>
+<h2 id="場所とか所有権でわからないところ"><a class="header" href="#場所とか所有権でわからないところ">場所とか所有権でわからないところ</a></h2>
+<ul>
+<li><code>Box</code> は参照経由で move が起こせる（！）。
+<ul>
+<li>他に参照経由で move が起こせる型があるかはまだ調べてないけど、こういうコンパイラが特別扱いする型も結構あるみたい。</li>
+</ul>
+</li>
+<li>ある場所へ従属している他の場所が全て有効なら、もとの場所は有効か？
+<ul>
+<li>struct のフィールドや array の場合はそう思ってよさそう。</li>
+<li>smart pointer のようなものはわからない。 <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> で循環参照が作れるけど、これはお互いに従属しあっている例に思える。</li>
+</ul>
+</li>
+<li>単に別の場所への参照値を抱えているということ以上の意味をもった構造体がありえて、 <code>Box</code> などはまさにそれ。
+<ul>
+<li>C だと owning pointer というらしい：そのポインタを抱えている場所が free されるときには、そのポインタもまた free をする必要のある場所を、 ownership を持つ場所という。
+<ul>
+<li>これが ownership の始まり？ </li>
+</ul>
+</li>
+<li><code>Rc</code> は owner が&quot;複数いる&quot;？ような動作をしている。
+<ul>
+<li>一応、ドキュメントでは、<code>A single-threaded reference-counting pointer.</code> ということになっているから、 <code>T</code> を共有しているのではなく <code>T</code> への参照を共有している。</li>
+<li>でも、 &quot;owning pointer&quot; から外れているから、どうして最後の一人がポインタの先を <code>Drop</code> できるのかを説明できない？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="ライフタイム周りで整理しきれていないところ"><a class="header" href="#ライフタイム周りで整理しきれていないところ">ライフタイム周りで整理しきれていないところ</a></h1>
+<ul>
+<li>場所が存在する期間（スコープ）と、場所が有効な期間は異なる。</li>
+<li>「場所が有効」と「その場所への参照値が使える」ことは同じなので、次をちゃんと理解できているなら、「<code>&amp;x</code> という参照値が使えるコード領域 = 場所 <code>x</code> が有効な期間 = <code>x</code> という場所が使えるコード領域」が成り立っている。
+<ul>
+<li><a href="https://doc.rust-lang.org/nomicon/lifetimes.html#lifetimes">nomicon</a></li>
+</ul>
+<blockquote>
+<p>Lifetimes are named regions of code that a reference must be valid for.</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="その他"><a class="header" href="#その他">その他</a></h1>
+<ul>
+<li>実行時の意味論（＝操作的意味論）の中で参照の有効性を議論するのが Tree borrows で、コンパイル時の検査に使うのが NLL と type checker ?
+<ul>
+<li>unsafe 意味論の検証には Tree borrows や MIRI</li>
+<li>NLL は MIR になったあとの検査</li>
+<li>type checker （と trait solver ）が抽象的なライフタイム境界の検査</li>
+</ul>
+</li>
+<li>言語の意味論が二重にあるのかと思った
+<ul>
+<li>&quot;axiomatic&quot; な意味論 ... safe rust の範囲を保証する、&quot;言語が規定する&quot;意味論</li>
+<li>&quot;operational&quot; な意味論 ... unsafe rust も含めた、（言語が規定する意味論を満たす）言語処理系が定義する意味論</li>
+<li>NLL とか polonius とか Tree borrows の話は、言語処理系による&quot;その言語処理系での&quot; valid の定義なのかと思ってたけど、そうではなさそう？</li>
+<li>現在は、主流なコンパイラが1つしかないから全部が統合されているけど、今後どうなっていくのかわからない（楽しみ）</li>
+<li>undefined behavior は safe rust の範囲では起こらない（ように言語が規定されている）ので、 unsafe を使う→処理系ごとに定義する undefined behavior による？</li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="READ.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="examples/01ownership.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="READ.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="examples/01ownership.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

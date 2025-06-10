@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ライフタイムの変換 - rust by push triangle</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="../../memo.html"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/02場所から場所へ値を移す.html"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/03破棄について.html"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="../../examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/02reference/01参照という値.html"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/05ライフタイムの変換.html" class="active"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="../../examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/03if文分岐.html"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="../../examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="../../examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="../../examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="../../references.html"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>コード領域 <code>'a</code>と <code>'b</code> があって <code>'a</code> は少なくとも <code>'b</code> 以上に大きい（同じ大きさを含む）場合、 <code>'a</code> outlives <code>'b</code> といい、 <code>'a: 'b</code> と書く。
+つまり、 ⊃ の方向の包含である。
+<code>'a: 'b</code> なら
+<code>&amp;'a T</code> は <code>&amp;'b T</code> に変換できるし、必要に応じて変換される。
+構造体や関数だと、共変反変とかはあるけれど、参照の場合と同じように考えればいい。</p>
+<h1 id="参照の-variance"><a class="header" href="#参照の-variance">参照の variance</a></h1>
+<h4 id="参照の変換"><a class="header" href="#参照の変換">参照の変換</a></h4>
+<p>なにも仮定がない場合には、下のようなコードはコンパイルが通らない。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'a usize) {
+  let y: &amp;'b usize = x;
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>error: lifetime may not live long enough</p>
+</blockquote>
+<p>この仮定を <code>f</code> に取り付けてあげる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'a usize) where 'a: 'b {
+  let y: &amp;'b usize = x;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>変換できるので、代入ができる。
+しっかり考えておくと、</p>
+<ul>
+<li>場所 <code>x</code> の型が <code>&amp;'a usize</code> で、場所 <code>y</code> の型が <code>&amp;'b usize</code> かつ <code>'a: 'b</code></li>
+<li>よって <code>x</code> から値を取り出して <code>y</code> に代入してもよい。
+<ul>
+<li>つまり、 <code>&amp;'a usize</code> の型の付いた値を <code>&amp;'b usize</code> に代入してよい。</li>
+</ul>
+</li>
+</ul>
+<h4 id="ライフタイムが変換される"><a class="header" href="#ライフタイムが変換される">ライフタイムが変換される</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a&gt;(x: &amp;'a usize, y: &amp;'a usize) {}
+fn g&lt;'b, 'c&gt;(x: &amp;'b usize, y: &amp;'c usize) {
+  f(x, y)
+}
+<span class="boring">}</span></code></pre></pre>
+<p>すごいまずそうに思えるのにコンパイルが通る。
+これは、 <code>'b: 'x</code> と <code>'c: 'x</code> となるようなライフタイムがあれば、
+それで <code>&amp;'b</code> も <code>'c</code> も <code>'x</code> に変換できるから、 <code>f</code> をそのライフタイムで呼び出せばいいから。
+まあ、呼び出すだけなら確かにそうだ。</p>
+<p>引数だけが見えているので、返り値にいろいろやるとコンパイルが通らなくなったりする。
+このエラーは一見する価値があった。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a&gt;(x: &amp;'a usize, y: &amp;'a usize) -&gt; &amp;'a usize { x }
+fn g&lt;'b, 'c&gt;(x: &amp;'b usize, y: &amp;'c usize) -&gt; &amp;'b usize {
+  f(x, y)
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<pre><code>error: lifetime may not live long enough
+--&gt; src/main.rs:5:3
+  |
+4 | fn g&lt;'b, 'c&gt;(x: &amp;'b usize, y: &amp;'c usize) -&gt; &amp;'b usize {
+  |      --  -- lifetime `'c` defined here
+  |      |
+  |      lifetime `'b` defined here
+5 |   f(x, y)
+  |   ^^^^^^^ function was supposed to return data with lifetime `'b` but it is returning data with lifetime `'c`
+  |
+  = help: consider adding the following bound: `'c: 'b`
+</code></pre>
+</blockquote>
+<p><code>f</code> の return の lifetime が <code>'c</code> ということは、<code>'c</code> に <code>'a</code> を代入するような動きをしていることが分かった。
+（これはバージョン依存かも。）</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a&gt;(x: &amp;'a usize, y: &amp;'a usize) -&gt; &amp;'a usize { x }
+fn g&lt;'b, 'c, 'd&gt;(x: &amp;'b usize, y: &amp;'c usize) -&gt; &amp;'d usize {
+  f(x, y)
+}
+<span class="boring">}</span></code></pre></pre>
+<p>でもこっちを見ると、 <code>'d</code> を <code>a</code> に代入しているような動きに見える。</p>
+<h4 id="呼び出す側のライフタイム"><a class="header" href="#呼び出す側のライフタイム">呼び出す側のライフタイム</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a String, y: &amp;'a String) -&gt; &amp;'a String { x }
+fn main() {
+  let x1;
+  let x2;
+
+  x1 = String::from(&quot;hello&quot;);
+  x2 = String::from(&quot;world&quot;);
+  let z = f(&amp;x1, &amp;x2);
+  let _ = x1;
+}</code></pre></pre>
+<p>場所 <code>x1</code> が有効な範囲と <code>x2</code> が有効な範囲は、重なってはいるけれどどちらかの方が大きいというわけではない。</p>
+<ul>
+<li><code>x1</code> 存在 -&gt; <code>x2</code> 存在 -&gt; <code>x1</code> live -&gt; <code>x2</code> live -&gt; <code>let z = ..</code> -&gt; <code>x1</code> dead -&gt; <code>x2</code> 終了 -&gt; <code>x1</code> 終了
+だから、<code>f</code> を使うときの <code>'a</code> には両方の交差の部分が使われていそうに思える。</li>
+</ul>
+<h4 id="互いに同じであることを課したら"><a class="header" href="#互いに同じであることを課したら">互いに同じであることを課したら？</a></h4>
+<p><code>'a</code> も <code>'b</code> も互いに outlives の関係にあるなら、直観的には、両方同じ範囲でなければいけない。
+ただ、呼び出すときにそのまま <code>'a</code> や <code>'b</code> が使われるわけじゃないので注意。
+例えば次はコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a, 'b&gt;(x: &amp;'a usize, y: &amp;'b usize) where 'a: 'b, 'b: 'a {}
+
+fn main() {
+  let x: usize = 1;
+  let xr = &amp;x;
+  {
+    let y: usize = 1;
+    let yr = &amp;y;
+    f(xr, yr);
+  }
+}</code></pre></pre>
+<p><code>xr</code> と <code>yr</code> を与えて呼び出すときのライフタイムは十分に小さくとって、 <code>xr</code> と <code>yr</code> の共通部分を与えればいい。</p>
+<h4 id="関数とライフタイムについて"><a class="header" href="#関数とライフタイムについて">関数とライフタイムについて</a></h4>
+<p><code>f</code> の中で一時的に参照値を借りる場合と、 <code>f</code> によってライフタイムが結び付けられる場合を比較する。
+つまり、返り値のライフタイムを見るということ。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a usize) -&gt; usize {
+  *x
+}
+
+fn main() {
+  let mut x: usize = 1;
+  let y: usize = f(&amp;x);
+  x = 2;
+  print!(&quot;{}&quot;, y);
+}</code></pre></pre>
+<blockquote>
+<p>1</p>
+</blockquote>
+<p>これは問題ない。<code>&amp;x</code> が使われる期間は別に <code>y</code> の期間とは結びついてないから。
+（返り値にはライフタイムがないので、 <code>&amp;x</code> が使われてすぐにいらなくなることがわかる。）
+<code>f</code> を <code>&amp;x</code> を返すようにするとだめになる。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a usize) -&gt; &amp;'a usize {
+  x
+}
+
+fn main() {
+  let mut x: usize = 1;
+  let y: &amp;usize = f(&amp;x);
+  x = 2;
+  print!(&quot;{}&quot;, y);
+}</code></pre></pre>
+<blockquote>
+<p>error[E0506]: cannot assign to <code>x</code> because it is borrowed</p>
+</blockquote>
+<p>これがはじかれる理由をちゃんと考える。</p>
+<ul>
+<li><code>let y = ..</code> のときに <code>&amp;x</code> が作られる ... &quot;この <code>&amp;x</code> &quot;が使われる期間を <code>'t</code> とする。
+<ul>
+<li>これは <code>x</code> が有効である期間 <code>'b</code> よりも小さい必要があるが、完全に一致する必要はない。</li>
+<li><code>'t</code> の範囲に <code>x</code> の読み書きが行われてはいけない制約が付く。</li>
+</ul>
+</li>
+<li><code>y</code> のライフタイムの観察を行うと、 <code>'t</code> は <code>let y =</code> から <code>print!</code> までを含む必要があるとわかる。
+<ul>
+<li><code>y</code> の drop check により、 <code>let y=</code> から <code>x=2</code> を含む <code>print!</code> までの期間が 1 つの参照値が代入されている必要がある。
+<ul>
+<li><code>y</code> は <code>print!(&quot;..&quot;)</code> のところで使われているので、逆に考えると、<code>y</code> が有効であるべき期間は <code>let</code> と <code>print!</code> は少なくとも含む</li>
+<li>その間に <code>y</code> への再代入は行われないので、 <code>y</code> が <code>print!</code> で使われるためには、 <code>x = 2</code> でも有効である必要がある。</li>
+</ul>
+</li>
+<li><code>y</code> のその期間には、 <code>f::&lt;'t&gt;</code> のようなものが使われているので、 <code>y</code> の有効期間 <code>'c</code> よりも小さい。</li>
+</ul>
+</li>
+<li><code>x = 2</code> が書かれている期間は、 <code>'t</code> と被っている ... コンパイルできない。</li>
+</ul>
+<p>この考え方はよくみると、直接的に <code>x</code> と <code>y</code> を比べているのではなく、 <code>&amp;x</code> が入っていったところの lifetime だけ比べていることがわかる。
+なので、 <code>x</code> を実際には使っていなくても、コンパイルは通らない。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  &amp;1 // 引数とは全然関係ない。
+}
+
+fn main() {
+  let mut x: usize = 1;
+  let y: &amp;usize = f(&amp;x);
+  x = 2;
+  print!(&quot;{}&quot;, y);
+}</code></pre></pre>
+<p>次はコンパイルできる。
+勝手に <code>y</code> に入っていた参照を無効化したものと解釈してもらえるから。
+（勝手に～～してもらえる？という言葉はプログラムあるある。）</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(_: &amp;'a usize) -&gt; &amp;'a usize {
+  &amp;1
+}
+
+fn main() {
+  let y: &amp;usize;
+  let mut x: usize = 1;
+  y = f(&amp;x);
+  print!(&quot;{}&quot;, y);
+  x = 2;
+}</code></pre></pre>
+<p><code>y</code> は <code>x</code> よりも長い期間存在しているが、有効な期間は勝手に短くなっていて、ほぼ2行。
+<code>print!</code> 後はいらないだろということで <code>y</code> に入っていた <code>&amp;x</code> は無効ということにしてもらえる。
+（扱いとしては drop されたようなもの。）</p>
+<h4 id="lifetime-の-specification-と-unspecification"><a class="header" href="#lifetime-の-specification-と-unspecification">lifetime の specification と unspecification</a></h4>
+<p><code>&amp;T</code> と <code>&amp;'a T</code> にはどんな違いがあるのか。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f1&lt;'a&gt;(x: &amp;'a usize) {
+  let x = 1;
+  let z: &amp;usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f2&lt;'a&gt;(x: &amp;'a usize) {
+  let x = 1;
+  let z: &amp;'a usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>下だけ確かにコンパイルはできなそうだ。</p>
+<h2 id="nested-な場合"><a class="header" href="#nested-な場合">nested な場合</a></h2>
+<p>二重にライフタイムが入っている場合として、 <code>&amp;'a &amp;'b usize</code> を考える。
+このとき、 <code>'b: 'a</code> であることが、（知らぬ間に）課されることになる。
+他にも構造体やら関数やらが入ってきても、その variance によって制約が課されたりすることがある。
+確かに道理としては自然だ。</p>
+<p>次はコンパイルが通る。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'a &amp;'b usize) {}
+<span class="boring">}</span></code></pre></pre>
+<p>これは呼び出す側が <code>&amp;&amp; T</code> を作った時点で検査がされるはずなので、 <code>f</code> 自身の検査では <code>'b: 'a</code> が課されなくてもいいから。</p>
+<p>次はコンパイルできない。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'b usize) {
+  let xr: &amp;'a &amp;'b usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>error: lifetime may not live long enough<br />
+error[E0597]: <code>x</code> does not live long enough</p>
+</blockquote>
+<p>実際に <code>&amp;'a &amp;'b T</code> を（ライフタイムを指定しつつ）作ろうとしているので、検査が行われる（1つ目のエラー）。
+その検査で、 <code>'a</code> と <code>'b</code> の関係が問われて、破綻する。
+ライフタイムを何も指定しない（ <code>&amp;&amp;usize</code> にする）なら大丈夫になる。
+あるいは、 <code>'b: 'a</code> を課すなら大丈夫になる。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;(x: &amp;'b usize) where 'b: 'a {
+  let xr: &amp;'a &amp;'b usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>error[E0597]: <code>x</code> does not live long enough</p>
+</blockquote>
+<p>まあこれはコンパイルが通りませんが...
+理由は単純で、次が通らないのと同じ。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a&gt;(x: usize) {
+  let xr: &amp;'a usize = &amp;x;
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>x</code> という引数への参照をとっているのがまずい、 <code>'a</code> ほど生きることはないから。
+ただ、エラーが出る個数は減った。</p>
+<p>一応エラーが出ないバージョンとして、 promoted された const を使おう。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;() {
+  let x: &amp;'a &amp;'b usize = &amp;&amp;1;
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn f&lt;'a, 'b&gt;() where 'b: 'a {
+  let x: &amp;'a &amp;'b usize = &amp;&amp;1;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>こっちの方がわかりやすかったかも...</p>
+<h4 id="variance-の面白い例"><a class="header" href="#variance-の面白い例">variance の面白い例</a></h4>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x:&amp;'a mut usize) {}
+fn main() {
+  let mut x = 1;
+
+  f(&amp;mut x);
+  f(&amp;mut x);
+}</code></pre></pre>
+<p><code>&amp;mut x</code> は <code>f</code> 後にいらなくなることが、ライフタイム解析からわかる。
+なので、 <code>&amp;mut x</code> は&quot;同時に使うわけじゃない&quot;（関連するライフタイムの overwrap がない）から大丈夫。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a&gt;(x: &amp;'a mut &amp;'a usize) {}
+fn main() {
+  let y = 1;
+  let mut x = &amp;y;
+
+  f(&amp;mut x);
+  f(&amp;mut x);
+}</code></pre></pre>
+<p>だめになる。
+これは、 <code>&amp;'a mut T</code> に対して <code>T</code> の位置に関連したライフタイムは、 variance が invariant になるから。
+<code>'a</code> を2回使うことで、ライフタイムの推論時に自由度が減ることになる。
+なるべくライフタイムは小分けにすればいい。</p>
+<pre><pre class="playground"><code class="language-rust">fn f&lt;'a, 'b&gt;(x: &amp;'a mut &amp;'b usize) {}
+fn main() {
+  let y = 1;
+  let mut x = &amp;y;
+
+  f(&amp;mut x);
+  f(&amp;mut x);
+}</code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../examples/02reference/04ライフタイム注釈.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../examples/02reference/06ライフタイム境界.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../examples/02reference/04ライフタイム注釈.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../examples/02reference/06ライフタイム境界.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

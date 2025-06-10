@@ -1,0 +1,589 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>参考 - rust by push triangle</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="READ.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li class="chapter-item expanded "><a href="memo.html"><strong aria-hidden="true">2.</strong> イメージ</a></li><li class="chapter-item expanded "><a href="examples/01ownership.html"><strong aria-hidden="true">3.</strong> 所有権とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/01ownership/01変数の宣言と場所.html"><strong aria-hidden="true">3.1.</strong> 変数の宣言と値の代入</a></li><li class="chapter-item expanded "><a href="examples/01ownership/02場所から場所へ値を移す.html"><strong aria-hidden="true">3.2.</strong> 場所から場所へ値を移す</a></li><li class="chapter-item expanded "><a href="examples/01ownership/03破棄について.html"><strong aria-hidden="true">3.3.</strong> 破棄について</a></li><li class="chapter-item expanded "><a href="examples/01ownership/04場所の有効性.html"><strong aria-hidden="true">3.4.</strong> 場所の有効性</a></li><li class="chapter-item expanded "><a href="examples/01ownership/05変数以外の場所.html"><strong aria-hidden="true">3.5.</strong> 変数以外の場所</a></li><li class="chapter-item expanded "><a href="examples/01ownership/06staticとconst.html"><strong aria-hidden="true">3.6.</strong> staticとconst</a></li></ol></li><li class="chapter-item expanded "><a href="examples/02reference.html"><strong aria-hidden="true">4.</strong> 参照とか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/02reference/01参照という値.html"><strong aria-hidden="true">4.1.</strong> 参照という値</a></li><li class="chapter-item expanded "><a href="examples/02reference/02参照とポインタ.html"><strong aria-hidden="true">4.2.</strong> 参照とポインタ</a></li><li class="chapter-item expanded "><a href="examples/02reference/03shared_XOR_mutable.html"><strong aria-hidden="true">4.3.</strong> Shared_XOR_mutable</a></li><li class="chapter-item expanded "><a href="examples/02reference/04ライフタイム注釈.html"><strong aria-hidden="true">4.4.</strong> ライフタイム注釈</a></li><li class="chapter-item expanded "><a href="examples/02reference/05ライフタイムの変換.html"><strong aria-hidden="true">4.5.</strong> ライフタイムの変換</a></li><li class="chapter-item expanded "><a href="examples/02reference/06ライフタイム境界.html"><strong aria-hidden="true">4.6.</strong> ライフタイム境界</a></li></ol></li><li class="chapter-item expanded "><a href="examples/03control_flow.html"><strong aria-hidden="true">5.</strong> 制御フローとか</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/03control_flow/01引数と評価順序.html"><strong aria-hidden="true">5.1.</strong> 引数と評価順序</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/02NLLとブロック.html"><strong aria-hidden="true">5.2.</strong> NLLについて</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/03if文分岐.html"><strong aria-hidden="true">5.3.</strong> if分岐</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/04ラベルと制御構造.html"><strong aria-hidden="true">5.4.</strong> ラベルと制御構造</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/05match文の分岐.html"><strong aria-hidden="true">5.5.</strong> match文の分岐</a></li><li class="chapter-item expanded "><a href="examples/03control_flow/06その他変な例.html"><strong aria-hidden="true">5.6.</strong> その他</a></li></ol></li><li class="chapter-item expanded "><a href="examples/04other.html"><strong aria-hidden="true">6.</strong> other</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/04other/01cve_rs.html"><strong aria-hidden="true">6.1.</strong> CVE-rsについて</a></li><li class="chapter-item expanded "><a href="examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html"><strong aria-hidden="true">6.2.</strong> 場所間の意味論的依存関係を表す抽象的概念の調査</a></li></ol></li><li class="chapter-item expanded "><a href="references.html" class="active"><strong aria-hidden="true">7.</strong> 参考</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust by push triangle</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="参考文献について注意"><a class="header" href="#参考文献について注意">参考文献について注意</a></h1>
+<p>「ちゃんと参考文献としての体裁を保つ」ことは目指さない。
+リンクだけ張る。
+リンク切れたら終わりで。</p>
+<p>rust の&quot;仕様&quot;部分はまだ決まっていないことに注意：</p>
+<ul>
+<li><a href="https://rust-lang.github.io/rfcs/3355-rust-spec.html">このRFC</a>で仕様を書こうという提案が出て、</li>
+<li><a href="https://blog.rust-lang.org/inside-rust/2023/11/15/spec-vision.html">今頑張っている最中</a>らしい。</li>
+<li><a href="https://rustfoundation.org/media/ferrous-systems-donates-ferrocene-language-specification-to-rust-project/">ferroceneというところが仕様を提供したという話</a></li>
+</ul>
+<h1 id="公式っぽいところの出している参考文献"><a class="header" href="#公式っぽいところの出している参考文献">公式っぽいところの出している参考文献</a></h1>
+<h2 id="とりあえず書くために"><a class="header" href="#とりあえず書くために">とりあえず書くために</a></h2>
+<ul>
+<li><a href="https://play.rust-lang.org/">playground</a></li>
+<li><a href="https://doc.rust-lang.org/book/">The Book, The Rust Programming Language</a>
+<ul>
+<li>rust の公式の入門本</li>
+</ul>
+</li>
+<li><a href="https://doc.rust-jp.rs/rust-by-example-ja/">Rust by Example</a>
+<ul>
+<li>具体例をもとに rust の書き方を学ぶ</li>
+</ul>
+</li>
+<li><a href="https://rust-lang.github.io/api-guidelines/about.html">api guideline</a>
+<ul>
+<li>rust の idiomatic な書き方のガイドライン</li>
+</ul>
+</li>
+<li><a href="https://blog.rust-lang.org">rust blog</a>
+<ul>
+<li>rust の公式ブログ</li>
+</ul>
+</li>
+</ul>
+<h2 id="もう少し詳しく"><a class="header" href="#もう少し詳しく">もう少し詳しく</a></h2>
+<ul>
+<li><a href="https://doc.rust-lang.org/std/">std library</a>
+<ul>
+<li>std library のドキュメント</li>
+</ul>
+</li>
+<li><a href="https://doc.rust-lang.org/stable/reference/">Reference</a>
+<ul>
+<li>reference だが、&quot;正式&quot;な規格について述べているわけではない</li>
+</ul>
+</li>
+<li><a href="https://rust-lang.github.io/rfcs/">The RFC Book</a>
+<ul>
+<li>これはRFCなので rust に取り込まれているものと取り込まれていないものがある。</li>
+</ul>
+</li>
+<li><a href="https://doc.rust-lang.org/nomicon/">rustonomicon</a>
+<ul>
+<li>unsafe な rust を書くときにきをつけること ... だいたい内部での取り扱いなど</li>
+</ul>
+</li>
+<li><a href="https://rustc-dev-guide.rust-lang.org/index.html">Rust Compiler Development</a>
+<ul>
+<li>rustc の内部の話など</li>
+</ul>
+</li>
+<li><a href="https://rfcbot.rs/">rfc bot</a>
+<ul>
+<li>rfc の状況を見れる？</li>
+</ul>
+</li>
+</ul>
+<h2 id="その他"><a class="header" href="#その他">その他</a></h2>
+<ul>
+<li><a href="https://doc.rust-lang.org/error_codes/error-index.html">rust error code</a>
+<ul>
+<li>error code の一覧</li>
+</ul>
+</li>
+<li><a href="https://github.com/rust-lang">github of rust</a>
+<ul>
+<li>rust の github</li>
+</ul>
+</li>
+<li><a href="https://github.com/rust-lang/chalk">Chalk</a>
+<ul>
+<li>rust の trait solver の形式化</li>
+<li><a href="https://rust-lang.github.io/chalk/book/">Chalk book</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/rust-lang/a-mir-formality">a MIR formality</a>
+<ul>
+<li>MIR の形式化</li>
+</ul>
+</li>
+<li><a href="https://github.com/rust-lang/polonius">polonius</a>
+<ul>
+<li>次世代の borrow checker</li>
+</ul>
+</li>
+<li>Stacked borrows, Tree borrows
+<ul>
+<li>Tree borrows は MIRI に導入されている</li>
+<li>この<a href="https://perso.crans.org/vanille/treebor/">リンク</a>は個人のものっぽいけど、中身はちゃんとしてそう。</li>
+</ul>
+</li>
+<li><a href="https://plv.mpi-sws.org/rustbelt/popl18/">rustbelt</a>
+<ul>
+<li>とても有名な rust の形式化</li>
+</ul>
+</li>
+</ul>
+<h1 id="他個人サイト"><a class="header" href="#他個人サイト">他個人サイト</a></h1>
+<p>信頼できると個人的に思っているところ</p>
+<ul>
+<li><a href="https://without.boats">Without boats, dreams dry up</a></li>
+<li><a href="https://www.ralfj.de/">ralfj.de</a></li>
+<li><a href="https://smallcultfollowing.com/babysteps/">babystep</a></li>
+</ul>
+<h1 id="公式の個別の話"><a class="header" href="#公式の個別の話">公式の個別の話</a></h1>
+<h2 id="所有権について"><a class="header" href="#所有権について">所有権について</a></h2>
+<p><a href="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#ownership-rules">The Book, chapter4-01での説明</a></p>
+<blockquote>
+<ul>
+<li>Each value in Rust has an owner.</li>
+<li>There can only be one owner at a time.</li>
+<li>When the owner goes out of scope, the value will be dropped.</li>
+</ul>
+</blockquote>
+<h2 id="評価順序について"><a class="header" href="#評価順序について">評価順序について</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/expressions.html#evaluation-order-of-operands">Reference</a></p>
+<blockquote>
+<p>The operands of these expressions are evaluated prior to applying the effects of the expression. Expressions taking multiple operands are evaluated left to right as written in the source code.</p>
+</blockquote>
+<h2 id="value-expression-と-place-expression"><a class="header" href="#value-expression-と-place-expression">value expression と place expression</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/expressions.html#place-expressions-and-value-expressions">Reference</a></p>
+<blockquote>
+<p>Expressions are divided into two main categories: place expressions and value expressions; there is also a third, minor category of expressions called assignee expressions. Within each expression, operands may likewise occur in either place context or value context. The evaluation of an expression depends both on its own category and the context it occurs within.</p>
+<p>A place expression is an expression that represents a memory location. These expressions are paths which refer to local variables, static variables, dereferences (*expr), array indexing expressions (expr[expr]), field references (expr.f) and parenthesized place expressions. All other expressions are value expressions.</p>
+<p>A value expression is an expression that represents an actual value.</p>
+</blockquote>
+<ul>
+<li>actual value が何かはわからなかった。</li>
+</ul>
+<h2 id="代入が-bitwise-copy-であることについて"><a class="header" href="#代入が-bitwise-copy-であることについて">代入が bitwise copy であることについて</a></h2>
+<p><a href="https://doc.rust-lang.org/std/marker/trait.Copy.html#whats-the-difference-between-copy-and-clone">std library</a></p>
+<blockquote>
+<p>Copies happen implicitly, for example as part of an assignment y = x. The behavior of Copy is not overloadable; it is always a simple bit-wise copy.</p>
+</blockquote>
+<ul>
+<li>Copy trait の場合はここで述べられている</li>
+</ul>
+<p><a href="https://doc.rust-lang.org/reference/expressions/operator-expr.html#assignment-expressions">reference</a></p>
+<ul>
+<li>この中には、 bitwise でのコピーという話はなかった。</li>
+</ul>
+<h2 id="一時変数について"><a class="header" href="#一時変数について">一時変数について</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/expressions.html?highlight=temporary#temporaries">Reference, temporary の説明</a></p>
+<blockquote>
+<p>When using a value expression in most place expression contexts, a temporary unnamed memory location is created and initialized to that value. The expression evaluates to that location instead, except if promoted to a static. The drop scope of the temporary is usually the end of the enclosing statement.</p>
+</blockquote>
+<h2 id="drop関数の実装"><a class="header" href="#drop関数の実装">drop関数の実装</a></h2>
+<p><a href="https://doc.rust-lang.org/std/mem/fn.drop.html">Rustでのdrop関数の実装</a></p>
+<blockquote>
+<p>Disposes of a value.</p>
+<p>This does so by calling the argument’s implementation of Drop.</p>
+<p>This effectively does nothing for types which implement Copy, e.g. integers. Such values are copied and then moved into the function, so the value persists after this function call.</p>
+<p>This function is not magic; it is literally defined as</p>
+<p><code>pub fn drop&lt;T&gt;(_x: T) {}</code>
+Because _x is moved into the function, it is automatically dropped before the function returns.</p>
+</blockquote>
+<h2 id="variable-の定義"><a class="header" href="#variable-の定義">variable の定義</a></h2>
+<p><a href="https://doc.rust-lang.org/stable/reference/variables.html?highlight=anonymous#r-variable.intro">reference</a></p>
+<blockquote>
+<p>A variable is a component of a stack frame, either a named function parameter, an anonymous temporary, or a named local variable.</p>
+</blockquote>
+<ul>
+<li>variable は stack 用の言葉なので、 heap も含めての &quot;place&quot; とは異なると思える。</li>
+</ul>
+<h2 id="不変参照は-copy"><a class="header" href="#不変参照は-copy">不変参照は Copy</a></h2>
+<p><a href="https://doc.rust-lang.org/std/marker/trait.Copy.html#impl-Copy-for-%26T">std lib</a></p>
+<blockquote>
+<p>impl<T> Copy for &amp;T
+where
+T: ?Sized,
+Shared references can be copied, but mutable references cannot!</p>
+</blockquote>
+<h2 id="binding-のスコープについて"><a class="header" href="#binding-のスコープについて">binding のスコープについて</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/names/scopes.html?highlight=label#pattern-binding-scopes">Reference</a></p>
+<blockquote>
+<p>The scope of a local variable pattern binding depends on where it is used:</p>
+<p>let statement bindings range from just after the let statement until the end of the block where it is declared.
+Function parameter bindings are within the body of the function.
+Closure parameter bindings are within the closure body.
+for and while let bindings are within the loop body.
+if let bindings are within the consequent block.
+match arms bindings are within the match guard and the match arm expression.
+Local variable scopes do not extend into item declarations.</p>
+</blockquote>
+<h2 id="lifetime-についてrustonomicon"><a class="header" href="#lifetime-についてrustonomicon">lifetime について（rustonomicon）</a></h2>
+<p><a href="https://doc.rust-lang.org/nomicon/lifetimes.html">rustonomicon</a></p>
+<blockquote>
+<p>Rust enforces these rules through lifetimes. Lifetimes are named regions of code that a reference must be valid for. Those regions may be fairly complex, as they correspond to paths of execution in the program. There may even be holes in these paths of execution, as it's possible to invalidate a reference as long as it's reinitialized before it's used again. Types which contain references (or pretend to) may also be tagged with lifetimes so that Rust can prevent them from being invalidated as well.</p>
+<p>In most of our examples, the lifetimes will coincide with scopes. This is because our examples are simple. The more complex cases where they don't coincide are described below.</p>
+</blockquote>
+<h2 id="lifetime-bound-についてreference"><a class="header" href="#lifetime-bound-についてreference">lifetime bound について(reference)</a></h2>
+<p><a href="https://doc.rust-lang.org/reference/trait-bounds.html#lifetime-bounds">Reference</a></p>
+<blockquote>
+<p>Lifetime bounds can be applied to types or to other lifetimes. The bound 'a: 'b is usually read as 'a outlives 'b. 'a: 'b means that 'a lasts at least as long as 'b, so a reference &amp;'a () is valid whenever &amp;'b () is valid.</p>
+<pre><code>fn f&lt;'a, 'b&gt;(x: &amp;'a i32, mut y: &amp;'b i32) where 'a: 'b {
+   y = x;                      // &amp;'a i32 is a subtype of &amp;'b i32 because 'a: 'b
+   let r: &amp;'b &amp;'a i32 = &amp;&amp;0;   // &amp;'b &amp;'a i32 is well formed because 'a: 'b
+}
+</code></pre>
+<p>T: 'a means that all lifetime parameters of T outlive 'a. For example, if 'a is an unconstrained lifetime parameter, then i32: 'static and &amp;'static str: 'a are satisfied, but Vec&lt;&amp;'a ()&gt;: 'static is not.</p>
+</blockquote>
+<h2 id="storagelivemir-について"><a class="header" href="#storagelivemir-について">StorageLive(MIR) について</a></h2>
+<p>コンパイラの internal な話
+<a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_middle/mir/enum.StatementKind.html#variant.StorageLive">rustc</a></p>
+<blockquote>
+<p><code>StorageLive</code> and <code>StorageDead</code> statements mark the live range of a local.
+局所変数のみのことだけど、 <code>live</code> という語がつかわれてていい。</p>
+</blockquote>
+<h2 id="non-lexical-lifetime"><a class="header" href="#non-lexical-lifetime">non lexical lifetime</a></h2>
+<p><a href="https://rust-lang.github.io/rfcs/2094-nll.html">RFC</a></p>
+<ul>
+<li>non lexical lifetime という lifetime の推論に関する RFC だが、これは rust 本体に取り込まれている。</li>
+</ul>
+<p><a href="https://rust-lang.github.io/rfcs/2094-nll.html#what-is-a-lifetime-and-how-does-it-interact-with-the-borrow-checker">RFCの中のlifetimeの定義</a></p>
+<blockquote>
+<p>To start with, we will consider lifetimes as a set of points in the control-flow graph; later in the RFC we will extend the domain of these sets to include “skolemized” lifetimes, which correspond to named lifetime parameters declared on a function. If a lifetime contains the point P, that implies that references with that lifetime are valid on entry to P. Lifetimes appear in various places in the MIR representation:</p>
+<ul>
+<li>The types of variables (and temporaries, etc) may contain lifetimes.</li>
+<li>Every borrow expression has a designated lifetime.
+We can extend our example 4 to include explicit lifetime names. There are three lifetimes that result. We will call them 'p, 'foo, and 'bar:</li>
+</ul>
+</blockquote>
+<p>てか読んでて思ったけど、polonius 以前から loan ていう言葉が NLL の RFC で出てたんだ。</p>
+<blockquote>
+<p>the set of in-scope <strong>loans</strong>.</p>
+</blockquote>
+<h2 id="const-promotion"><a class="header" href="#const-promotion">const promotion</a></h2>
+<p>rvalue static promotion と const promotion は同じもののように思える？？
+<a href="https://github.com/rust-lang/const-eval/blob/master/promotion.md">RFC</a></p>
+<p><a href="https://github.com/rust-lang/const-eval/blob/master/promotion.md">github, const promotion</a></p>
+<blockquote>
+<p>&quot;Promotion&quot; is the act of splicing a part of a MIR computation out into a separate self-contained MIR body which is evaluated at compile-time like a constant. This mechanism has been introduced by RFC 1414 with the goal of equipping some references-to-temporaries with a 'static lifetime, which is sometimes called &quot;lifetime extension&quot;.</p>
+</blockquote>
+<p><a href="https://doc.rust-lang.org/reference/destructors.html#constant-promotion">reference</a></p>
+<blockquote>
+<p>Promotion of a value expression to a 'static slot occurs when the expression could be written in a constant and borrowed, and that borrow could be dereferenced where the expression was originally written, without changing the runtime behavior. That is, the promoted expression can be evaluated at compile-time and the resulting value does not contain interior mutability or destructors (these properties are determined based on the value where possible, e.g. &amp;None always has the type &amp;'static Option&lt;_&gt;, as it contains nothing disallowed).</p>
+</blockquote>
+<h2 id="新しい-trait-solver-の話"><a class="header" href="#新しい-trait-solver-の話">新しい trait solver の話</a></h2>
+<p><a href="https://rustc-dev-guide.rust-lang.org/solve/trait-solving.html">Trait solving (new)</a></p>
+<ul>
+<li>これまでの trait solver から、こっちに変更されるらしい。</li>
+</ul>
+<h2 id="next-generation-solver-によると-cve-rs-が治りそう"><a class="header" href="#next-generation-solver-によると-cve-rs-が治りそう">next generation solver によると cve-rs が治りそう</a></h2>
+<p><a href="https://blog.rust-lang.org/inside-rust/2023/07/17/trait-system-refactor-initiative.html">rust blog</a></p>
+<blockquote>
+<p>For example, it will allow us to remove many of the current restrictions on GATs and to fix many long-standing unsound issues, like #25860.</p>
+</blockquote>
+<h2 id="late-bound-と-early-bound-について"><a class="header" href="#late-bound-と-early-bound-について">late bound と early bound について</a></h2>
+<p><a href="https://rustc-dev-guide.rust-lang.org/early-late-bound-params/early-late-bound-implementation-nuances.html#early-and-late-bound-parameter-implementation-nuances">compiler</a></p>
+<h2 id="lifetime-elided-とは"><a class="header" href="#lifetime-elided-とは">lifetime elided とは</a></h2>
+<p><a href="https://doc.rust-lang.org/nomicon/lifetime-elision.html#lifetime-elision">rustonomicon</a></p>
+<blockquote>
+<p>In order to make common patterns more ergonomic, Rust allows lifetimes to be elided in function signatures.</p>
+</blockquote>
+<p>ふつうにブロックの中で参照にライフタイムを付けないことは、 elided とは言わない。</p>
+<h2 id="global-allocator-の説明"><a class="header" href="#global-allocator-の説明">global allocator の説明</a></h2>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/std/alloc/trait.GlobalAlloc.html#safety">doc.rs</a></li>
+</ul>
+<blockquote>
+<p>You must not rely on allocations actually happening, even if there are explicit heap allocations in the source.
+The optimizer may detect unused allocations that it can either eliminate entirely or move to the stack and thus never invoke the allocator.
+The optimizer may further assume that allocation is infallible,
+so code that used to fail due to allocator failures may now suddenly work because the optimizer worked around the need for an allocation.
+More concretely, the following code example is unsound,
+irrespective of whether your custom allocator allows counting how many allocations have happened.</p>
+<pre><code>drop(Box::new(42));
+let number_of_heap_allocs = /* call private allocator API */;
+unsafe { std::hint::assert_unchecked(number_of_heap_allocs &gt; 0); }
+</code></pre>
+</blockquote>
+<h1 id="ブログなど個別に引用"><a class="header" href="#ブログなど個別に引用">ブログなど個別に引用</a></h1>
+<h2 id="pinned-place"><a class="header" href="#pinned-place">Pinned place</a></h2>
+<p><a href="https://without.boats/blog/pinned-places/">without boats</a></p>
+<ul>
+<li>これは pin についての記事だが、ここにも place と value という単語が出てくるので、結構よさそう。</li>
+</ul>
+<h2 id="place-expression-について"><a class="header" href="#place-expression-について">place expression について</a></h2>
+<p><a href="https://www.ralfj.de/blog/2024/08/14/places.html">What is a place expression?</a></p>
+<h2 id="場所と値について"><a class="header" href="#場所と値について">場所と値について</a></h2>
+<p><a href="https://speakerdeck.com/qnighy/sofalseshi-zhi-desuka-chang-suo-desuka">その式、値ですか？場所ですか？</a></p>
+<ul>
+<li>qnighy さんによるスライドだが、ここでも場所と値という概念を用いている。</li>
+</ul>
+<h2 id="return-value-optimization"><a class="header" href="#return-value-optimization">return value optimization</a></h2>
+<p><a href="https://www.bit-hive.com/articles/20220830">RustにおけるNRVO</a></p>
+<ul>
+<li>return value がスタック上に作られたあとに copy で移動していく無駄について。</li>
+</ul>
+<h2 id="borrow-checker-without-lifetimes"><a class="header" href="#borrow-checker-without-lifetimes">borrow checker without lifetimes</a></h2>
+<p><a href="https://smallcultfollowing.com/babysteps/blog/2024/03/04/borrow-checking-without-lifetimes/">Borrow checking without lifetimes</a></p>
+<ul>
+<li>rust の 新しい borrow checker である polonius のもとになったやつ</li>
+</ul>
+<h2 id="a-lightweight-formalism-for-reference-lifetimes-and-borrowing-in-rust"><a class="header" href="#a-lightweight-formalism-for-reference-lifetimes-and-borrowing-in-rust">A Lightweight Formalism for Reference Lifetimes and Borrowing in Rust</a></h2>
+<p>(https://whileydave.com/publications/Pea21_TOPLAS_preprint.pdf)</p>
+<h2 id="static-taint-analysis-in-rust"><a class="header" href="#static-taint-analysis-in-rust">Static Taint Analysis in Rust</a></h2>
+<p>(https://projekter.aau.dk/projekter/files/421583418/Static_Taint_Analysis_in_Rust.pdf)</p>
+<h2 id="a-brief-introduction-to-regions"><a class="header" href="#a-brief-introduction-to-regions">A Brief Introduction to Regions</a></h2>
+<p>(https://elsman.com/mlkit/pdf/ismm98.pdf)</p>
+<h2 id="memory-safety-challenge-considered-solved-an-in-depth-study-with-all-rust-cves"><a class="header" href="#memory-safety-challenge-considered-solved-an-in-depth-study-with-all-rust-cves">Memory-Safety Challenge Considered Solved? An In-Depth Study with All Rust CVEs</a></h2>
+<p>(https://arxiv.org/pdf/2003.03296)</p>
+<h2 id="obscure-rust-early--and-late-bound-generics-in-functions"><a class="header" href="#obscure-rust-early--and-late-bound-generics-in-functions">Obscure Rust: early- and late-bound generics in functions</a></h2>
+<p>(https://haibane-tenshi.github.io/rust-early-and-late-bound-generics/)</p>
+<h2 id="minirust"><a class="header" href="#minirust">minirust</a></h2>
+<p><a href="https://github.com/minirust/minirust">github</a></p>
+<ul>
+<li>rust の操作的意味論を考えるために作られた？</li>
+</ul>
+<h2 id="borrow-checking-without-lifetime"><a class="header" href="#borrow-checking-without-lifetime">borrow checking without lifetime</a></h2>
+<p>(https://smallcultfollowing.com/babysteps/blog/2024/03/04/borrow-checking-without-lifetimes/)</p>
+<h2 id="rustでやると知らないうちに詰む設計を避けるためのtipsを集めてみる"><a class="header" href="#rustでやると知らないうちに詰む設計を避けるためのtipsを集めてみる">「Rustでやると知らないうちに詰む設計」を避けるためのTipsを集めてみる</a></h2>
+<p><a href="https://zenn.dev/qnighy/scraps/93071f7c813cb9">Zenn(qnighy)</a></p>
+<h2 id="common-rust-lifetime-misconceptions"><a class="header" href="#common-rust-lifetime-misconceptions">common rust lifetime misconceptions</a></h2>
+<p><a href="https://github.com/pretzelhammer/rust-blog/blob/master/posts/common-rust-lifetime-misconceptions.md">github</a>
+よく言及されているのでここにも</p>
+<h2 id="nll-の参考実装"><a class="header" href="#nll-の参考実装">NLL の参考実装</a></h2>
+<p><a href="https://github.com/nikomatsakis/borrowck">github</a></p>
+<h2 id="exploring-mir-semantics-through-miri"><a class="header" href="#exploring-mir-semantics-through-miri">Exploring MIR Semantics through miri</a></h2>
+<p><a href="https://www.ralfj.de/blog/2017/06/06/MIR-semantics.html">blog</a></p>
+<h2 id="box-の特別性"><a class="header" href="#box-の特別性"><code>Box</code> の特別性</a></h2>
+<ul>
+<li><a href="https://users.rust-lang.org/t/why-box-is-special/33461/2">Box is special</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/3712">No (opsem) magic for box</a></li>
+<li><a href="https://users.rust-lang.org/t/dereferencing-a-boxed-value/86768/2">deref Box</a></li>
+<li><a href="https://rust-lang.github.io/rfcs/3336-maybe-dangling.html">maybe_dangling</a></li>
+</ul>
+<h2 id="derefmove-について"><a class="header" href="#derefmove-について">derefmove について</a></h2>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/issues/997">Extending deref/index with ownership transfer</a></li>
+</ul>
+<p>これだけじゃなくて、 <code>derefmove</code> とか <code>&amp;own T</code> は歴史上何度も提起されてきたらしい。</p>
+<h2 id="ownership-pointer-arithmetic-and-memory-separation"><a class="header" href="#ownership-pointer-arithmetic-and-memory-separation">Ownership, Pointer Arithmetic and Memory Separation</a></h2>
+<ul>
+<li><a href="https://romain.bardou.fr/papers/jcownlong.pdf">Ownership, Pointer Arithmetic and Memory Separation</a></li>
+</ul>
+<h1 id="qiita"><a class="header" href="#qiita">qiita</a></h1>
+<h4 id="variance-について"><a class="header" href="#variance-について">variance について</a></h4>
+<ul>
+<li>https://qiita.com/maueki/items/b5df36e92561450938dd</li>
+</ul>
+<h1 id="stack-overflow"><a class="header" href="#stack-overflow">stack overflow</a></h1>
+<p>面白そうな例がたくさんある。
+これをもとに考えるのもいい。</p>
+<ul>
+<li>https://stackoverflow.com/questions/74700018/how-does-rust-calculate-lifetime-of-a-moved-value</li>
+<li>https://stackoverflow.com/questions/76620282/lifetime-specification-for-closure-return-type</li>
+<li>https://stackoverflow.com/questions/78884581/could-rust-lifetime-be-completely-desribed-by-the-type-variance-system</li>
+<li>https://stackoverflow.com/questions/75908427/rust-function-pointer-seems-to-be-treated-as-stateful-by-borrow-checker/75908723#75908723</li>
+<li>https://stackoverflow.com/questions/66450478/how-to-reason-formally-about-programs-using-non-lexical-lifetimes</li>
+<li>https://users.rust-lang.org/t/math-behind-borrow-checker/37079</li>
+</ul>
+<h4 id="disjoint"><a class="header" href="#disjoint">disjoint</a></h4>
+<ul>
+<li>https://stackoverflow.com/questions/67632034/why-can-a-generic-lifetime-parameter-in-rust-be-specialized-to-two-disjoint-life</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="examples/04other/02場所間の意味論的依存関係を表す抽象的概念の調査.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
